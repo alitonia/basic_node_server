@@ -17,7 +17,7 @@ const meme_api = 'https://meme-api.herokuapp.com/gimme';
 app.get('/meme', (req, res) => {
   axios.get(meme_api)
        .then(respond => {
-         res.send(`<img src="${respond.data.url}"/>`);
+         res.send(`<img src="${respond.data.url} alt='Meme Image'"/>`);
        })
        .catch(error => {
          console.warn(`Error: ${error.toString()}`);
@@ -43,7 +43,7 @@ app.get('/teapot', function(req, res) {
 
 app.post('/', (req, res) => {
   console.log(req.body);
-  if (res.body?.email) {
+  if (res.body.email) {
     res.send(`Email: ${req.body.email} subscribed 😊`);
   }
   else {
@@ -65,5 +65,5 @@ app.post('/bikes', (req, res) => {
 
 
 app.listen(PORT, (port) => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Listening on port ${port}`);
 });
