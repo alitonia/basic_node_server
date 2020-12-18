@@ -1,9 +1,9 @@
-const express = require('express')
-const  route = express.Router()
+const express = require('express');
+const path = require('path');
+const route = express.Router();
 
-route.get('/copyright', function(req, res) {
-  // res.send('<h1>Made with love by alitonia</h1>');
+route.get('/author', function(req, res) {
   res.sendFile(path.join(__dirname, 'little_responses', 'make_with_love.html'));
 });
 
-module.exports = route
+module.exports = route;
