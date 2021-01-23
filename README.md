@@ -1,19 +1,10 @@
-### WHAT IS THIS
+### What is this?
 
-..._TO BE DONE_
+It is node server, which serves api(s) for usage in ITSS project.
 
+### How to start
 
-
-### HOW TO RUN
-
-##### On UNIX/LINUX/MAC
-* Directly on your computer: 
-    * `chmod u+x scripts/run_live.sh`
-    * `./scripts/run_live.sh`
-      
- * With `docker`:
-     * `chmod u+x scripts/start_docker.sh`
-     * `./scripts/start_docker.sh`
-     
-* On Heroku:
-    * Initialize an app, commit this folder to remote.
+* Clone this repo.
+* Install `docker-compose`
+* Run `docker-compose up` in the command-line.
+* Visit __localhost:8080__.

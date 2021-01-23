@@ -1,10 +1,10 @@
 import React, {} from 'react';
 import {Router} from '@reach/router';
-import {FooterComponent} from './component/Footer';
-import {HeaderComponent} from './component/Header';
+import {FooterComponent} from './api_manual/component/Footer';
+import {HeaderComponent} from './api_manual/component/Header';
 
-import {HomePage} from './component/Home';
-import {SidebarComponent} from './component/Sidebar';
+import {HomePage} from './api_manual/component/Home';
+import {SidebarComponent} from './api_manual/component/Sidebar';
 
 function App() {
   return (

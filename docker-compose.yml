@@ -6,7 +6,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_CONNECTION_STRING: postgres://user:pass@postgres:5432/db
+      DATABASE_CONNECTION_STRING: postgresql://user:pass@postgres:5432/db
       NODE_ENV: development
       PORT: 8080
     ports:
@@ -21,7 +21,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./db-data:/var/lib/postgresql
+      - ./docker/db-docker:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass

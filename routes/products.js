@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const route = express.Router();
 
-const {findAll} = require('../database/productControler.js');
+const {findAll} = require('../pg_database/test.js');
 
 route.get('/iphone', findAll);
 
