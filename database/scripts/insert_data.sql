@@ -1,8 +1,6 @@
 START TRANSACTION;
 
 -- Set sequence
-SELECT setval('products_id_seq', 10000);
-
 DELETE FROM products;
 
 INSERT INTO products
