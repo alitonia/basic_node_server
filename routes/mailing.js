@@ -2,7 +2,7 @@ const express = require('express');
 const route = express.Router();
 const path = require('path');
 
-route.use(express.static(path.join(__dirname, '../page/build')));
+route.use(express.static(path.join(__dirname, '../pages/build')));
 
 route.post('/', (req, res) => {
   const {body} = req;
