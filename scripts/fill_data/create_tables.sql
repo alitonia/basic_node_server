@@ -1,6 +1,5 @@
 Drop TABLE if EXISTS categories;
 Drop TABLE if EXISTS products;
-Drop TABLE if EXISTS accounts;
 
 
 CREATE TABLE categories
