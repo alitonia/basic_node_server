@@ -1,7 +1,7 @@
 {
-  "name": "mailling_server",
+  "name": "quick_and_dirty_server",
   "version": "1.0.0",
-  "description": "server for E-bike ITSS project",
+  "description": "general purpose server for quick api(s)",
   "main": "index.js",
   "author": "alitonia",
   "license": "MIT",

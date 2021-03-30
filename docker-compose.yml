@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    build: .
+    build: ./
     container_name: express
     depends_on:
       - postgres
@@ -11,9 +11,10 @@ services:
       PORT: 8080
     ports:
       - "8080:8080"
-    command: yarn start
     volumes:
       - .:/app/
+    command:
+      sh -c 'yarn && yarn start:dev'
 
   postgres:
     image: postgres:10.4
@@ -21,7 +22,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./docker/db-docker:/var/lib/postgresql/data
+      - ./docker_data/db-docker:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
