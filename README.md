@@ -21,3 +21,9 @@ _Note: currently not finished_
 
 * `chmod u+x command.sh`
 * `./command.sh`
+
+### Extending server
+
+* More services by adding to `docker-compose.yml`.
+* More routes by editing `index.js`.
+* Change database structure and data by changing `command.sh` and `scripts/fill_data`.
