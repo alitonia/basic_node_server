@@ -1,13 +1,8 @@
 START TRANSACTION;
 
 -- Set sequence
-DELETE FROM products;
+DELETE FROM categories;
 
-INSERT INTO products
-(id, name)
-VALUES
-(1, 'Iphone X 64G'),
-(2, 'Iphone 8 plus 64G'),
-(3, 'Samsung Galaxy Note 9 128GB');
-
+INSERT INTO categories
+VALUES (1, 'Clothes', 'Good clothes for the winter', NULL, NULL);
 COMMIT;
