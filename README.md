@@ -19,6 +19,8 @@ It is node server, which serves api(s) for usage in ITSS project.
 
 _Note: currently not finished_
 
+On Ubuntu / Mac:
+
 * `chmod u+x command.sh`
 * `./command.sh`
 

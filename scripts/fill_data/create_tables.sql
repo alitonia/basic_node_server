@@ -29,7 +29,7 @@ create table shipping_methods
     id          serial PRIMARY key,
     name        varchar(128) not null,
     description text,
-    price_rules TEXT[] DEFAULT Array('*')
+    price_rules TEXT[] DEFAULT Array['*']
 );
 
 create table payment_methods

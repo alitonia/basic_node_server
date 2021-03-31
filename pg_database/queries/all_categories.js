@@ -1,4 +1,4 @@
-const pool = require('./connect_database.js');
+const pool = require('../connect_database.js');
 
 const sql_select_all = 'SELECT * FROM categories LIMIT 20;';
 
