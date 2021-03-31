@@ -8,9 +8,11 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-// app.use(require('./routes/products.js'));
-// app.use(require('./routes/author.js'));
-// app.use(require('./routes/teapot.js'));
+app.use(require('./routes/apis/categories.js'));
+app.use(require('./routes/etc/author.js'));
+app.use(require('./routes/etc/teapot.js'));
+app.use(require('./routes/etc/meme.js'));
+
 
 app.get('/', (req, res) => {
     res.send("OK");
@@ -18,7 +20,6 @@ app.get('/', (req, res) => {
 
 
 app.use(express.static(path.join(__dirname, 'client/public')));
-
 
 
 // app.get('/*', ((req, res) => {

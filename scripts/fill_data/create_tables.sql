@@ -1,9 +1,13 @@
+-- New tables
+
 Drop TABLE if EXISTS categories;
 Drop TABLE if EXISTS products;
 Drop Table if EXISTS customers;
 Drop TABLE if EXISTS receipts;
 Drop TABLE if EXISTS orders;
 Drop TABLE if EXISTS reviews;
+Drop TABLE if EXISTS payment_methods;
+Drop TABLE if EXISTS shipping_methods;
 
 
 create TABLE customers
@@ -14,6 +18,7 @@ create TABLE customers
     email      varchar(128) NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'
 ) ,
     password   varchar(256) NOt NULL,
+    salt varchar(256) NOt null,
     gender     varchar(32) CHECK (gender in ('male', 'female', 'other')),
     status     varchar(32) CHECK (status in ('active', 'inactive', 'pending')),
     created_date TIMESTAMP WITH time zone default current_timestamp
