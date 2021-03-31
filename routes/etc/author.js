@@ -3,8 +3,7 @@ const path = require('path');
 const route = express.Router();
 
 route.get('/author', function(req, res) {
-  res.status(404);
-  res.send('Something went bombed');
+  res.send('Server made with love by me');
 });
 
 module.exports = route;
