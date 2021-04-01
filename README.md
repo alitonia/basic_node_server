@@ -21,8 +21,8 @@ _Note: currently not finished_
 
 On Ubuntu / Mac:
 
-* `chmod u+x command.sh`
-* `./command.sh`
+* `chmod u+x post_run_command.sh`
+* `./post_run_command.sh`
 
 ### Extending server
 
