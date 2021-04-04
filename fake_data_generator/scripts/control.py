@@ -9,7 +9,7 @@ SEED = 1337
 CATEGORY_LIMIT = 20
 PRODUCT_LIMIT = 1000
 
-insert_file_path = 'scripts/fill_data/insert_data.sql'
+insert_file_path = 'fake_data_generator/results/new_data.sql'
 MAX_SUB_CATEGORIES = 3
 SUB_CATEGORY_CHOSEN_RATE = 1  # >0
 category_images_storage_path = 'client/public/images/category'
