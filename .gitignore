@@ -193,3 +193,4 @@ fabric.properties
 .idea/
 docker_data
 venv
+log

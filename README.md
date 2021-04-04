@@ -6,8 +6,14 @@ It is node server, which serves api(s) for usage in ITSS project.
 
 * Clone this repo.
 * Install `docker-compose`
+* For getting images:
+    * On Ubuntu / Mac:
+        * `chmod u+x pre_run_command.sh`
+        * `./pre_run_command.sh`
+    * On Window:
+        * run `pre_run_command.sh`
 * Run `docker-compose up` in the command-line.
-* Visit __localhost:8080__.
+* Visit __localhost__.
 
 ### How to write pages?
 
@@ -23,6 +29,10 @@ On Ubuntu / Mac:
 
 * `chmod u+x post_run_command.sh`
 * `./post_run_command.sh`
+
+On Window:
+
+* run `pre_run_command.sh`
 
 ### Extending server
 

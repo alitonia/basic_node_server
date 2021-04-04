@@ -1,13 +1,15 @@
 -- New tables
 
-Drop TABLE if EXISTS categories;
-Drop TABLE if EXISTS products;
-Drop Table if EXISTS customers;
-Drop TABLE if EXISTS receipts;
-Drop TABLE if EXISTS orders;
 Drop TABLE if EXISTS reviews;
 Drop TABLE if EXISTS payment_methods;
 Drop TABLE if EXISTS shipping_methods;
+Drop TABLE if EXISTS orders;
+Drop TABLE if EXISTS receipts;
+Drop Table if EXISTS customers;
+
+Drop TABLE if EXISTS products;
+Drop TABLE if EXISTS categories;
+
 
 
 create TABLE customers
@@ -57,10 +59,11 @@ CREATE TABLE products
     id                  serial       NOT NULL PRIMARY KEY,
     name                varchar(128) NOT NULL,
     description         TEXT,
+    full_description    TEXT,
     price               float        NOT NULL CHECK (price >= 0),
     current_stock       int          NOT NULL CHECK (current_stock >= 0),
     bought              int          NOT NULL CHECK (bought >= 0) DEFAULT 0,
-    has_discount        boolean      NOT NULL DEFAULT FALSE,
+    has_discount        boolean      NOT NULL                     DEFAULT FALSE,
     discount_price      float CHECK (has_discount = TRUE OR discount_price = NULL
         ),
     discount_start_date TIMESTAMP,
@@ -69,12 +72,11 @@ CREATE TABLE products
     big_image_link      TEXT,
     image_links         TEXT[],
     category_id         integer      NOT NULL,
-    available_size      TEXT[],
-    available_color     TEXT[],
     created_date        TIMESTAMP WITH TIME ZONE                  DEFAULT CURRENT_TIMESTAMP,
     available           boolean      NOT NULL                     DEFAULT TRUE,
     rating              NUMERIC                                   DEFAULT 0 CHECK (rating >= 0 and rating <= 5),
     total_rated         integer      NOT NULL                     default 0,
+    address             varchar(256),
     CONSTRAINT valid_category_id foreign key (category_id) REFERENCES categories (id) ON DELETE CASCADE
 );
 
