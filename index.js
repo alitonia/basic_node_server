@@ -4,10 +4,12 @@ const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 8080;
 const public_asset_path = 'client/public'
-
 const app = express();
 
+
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(require('./redis/redis_get_middleware'))
 
 // api
 app.use(require('./routes/apis/categories.js'));
@@ -29,7 +31,6 @@ app.get('/doc', (req, res) => {
 
 
 app.use(express.static(path.join(__dirname, public_asset_path)));
-
 
 
 app.listen(PORT, () => {

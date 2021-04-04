@@ -5,10 +5,16 @@ services:
     container_name: express
     depends_on:
       - postgres
+      - redis
+    links:
+      - redis
     environment:
       DATABASE_CONNECTION_STRING: postgresql://user:pass@postgres:5432/db
       NODE_ENV: development
       PORT: 8080
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: admin123456
     ports:
       - "80:8080"
     volumes:
@@ -27,3 +33,10 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: db
+
+  redis:
+    image: library/redis:6.2.1-alpine
+    container_name: cache
+    command: redis-server --requirepass admin123456
+    ports:
+      - "6379:6379"
