@@ -1,37 +1,38 @@
+Drop TABLE if EXISTS reviews CASCADE;
+Drop TABLE if EXISTS payment_methods CASCADE;
+Drop TABLE if EXISTS shipping_methods CASCADE;
+Drop TABLE if EXISTS orders CASCADE;
+Drop TABLE if EXISTS receipts CASCADE;
+Drop Table if EXISTS customers CASCADE;
+Drop TABLE if EXISTS products CASCADE;
+Drop TABLE if EXISTS categories CASCADE;
+
 -- New tables
-
-Drop TABLE if EXISTS reviews;
-Drop TABLE if EXISTS payment_methods;
-Drop TABLE if EXISTS shipping_methods;
-Drop TABLE if EXISTS orders;
-Drop TABLE if EXISTS receipts;
-Drop Table if EXISTS customers;
-
-Drop TABLE if EXISTS products;
-Drop TABLE if EXISTS categories;
-
-
 
 create TABLE customers
 (
     id         serial PRIMARY key,
     first_name varchar(128),
     last_name  varchar(128),
-    email      varchar(128) NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'
+    email      varchar(128) UNIQUE NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'
 ) ,
-    password   varchar(256) NOt NULL,
-    salt varchar(256) NOt null,
+    password   varchar(256) ,
+    salt varchar(256) CHECK((password is not null and salt is null) = FALSE),
     gender     varchar(32) CHECK (gender in ('male', 'female', 'other')),
     status     varchar(32) CHECK (status in ('active', 'inactive', 'pending')),
     created_date TIMESTAMP WITH time zone default current_timestamp
 );
+
+CREATE
+UNIQUE INDEX on customers(email);
 
 create table shipping_methods
 (
     id          serial PRIMARY key,
     name        varchar(128) not null,
     description text,
-    price_rules TEXT[] DEFAULT Array['*']
+    price_type  text CHECK ( price_type in ('flat', 'percent')),
+    price       int CHECK (price > 0)
 );
 
 create table payment_methods
@@ -39,18 +40,21 @@ create table payment_methods
     id                   serial PRIMARY key,
     name                 varchar(128) not NULL,
     description          TEXT,
-    price_increase_rules text[],
-    price_decrease_rules text[]
+    price_increase_type  text CHECK ( price_increase_type in ('flat', 'percent')),
+    price_decrease_type  text CHECK ( price_decrease_type in ('flat', 'percent')),
+    price_increase_value int CHECK (price_increase_value > 0),
+    price_decrease_value int check (price_decrease_value > 0)
 );
 
 
 CREATE TABLE categories
 (
-    id             serial PRIMARY KEY,
-    name           varchar(128) NOT NULL,
-    description    VARCHAR,
-    image_link     VARCHAR,
-    sub_categories integer[]
+    id              serial PRIMARY KEY,
+    name            varchar(128) NOT NULL,
+    description     VARCHAR,
+    image_link      VARCHAR,
+    parent_category integer,
+    foreign key (parent_category) REFERENCES categories (id)
 );
 
 
@@ -64,10 +68,10 @@ CREATE TABLE products
     current_stock       int          NOT NULL CHECK (current_stock >= 0),
     bought              int          NOT NULL CHECK (bought >= 0) DEFAULT 0,
     has_discount        boolean      NOT NULL                     DEFAULT FALSE,
-    discount_price      float CHECK (has_discount = TRUE OR discount_price = NULL
+    discount_price      float CHECK (has_discount = TRUE OR discount_price is NULL
         ),
     discount_start_date TIMESTAMP,
-    discount_end_date   TIMESTAMP CHECK (discount_start_date = NULL OR discount_end_date > discount_start_date
+    discount_end_date   TIMESTAMP CHECK (discount_start_date is NULL OR discount_end_date >= discount_start_date
         ),
     big_image_link      TEXT,
     image_links         TEXT[],
@@ -79,17 +83,26 @@ CREATE TABLE products
     address             varchar(256),
     CONSTRAINT valid_category_id foreign key (category_id) REFERENCES categories (id) ON DELETE CASCADE
 );
+create
+index on products(category_id);
+
 
 create table receipts
 (
-    id                    serial PRIMARY key,
-    order_date            TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP,
-    total_unique_products integer NOT NULL CHECK ( total_unique_products > 0),
-    customer_id           integer NOT NULL,
-    status                varchar(60)              DEFAULT 'pending' CHECK (status in ('pending', 'cancelled', 'delivered')),
-    total_price           NUMERIC NOT NULL CHECK (total_price >= 0),
-    constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set NULL
+    id                 serial PRIMARY key,
+    order_date         TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP,
+    customer_id        integer NOT NULL,
+    status             varchar(60)              DEFAULT 'pending' CHECK (status in ('pending', 'cancelled', 'delivered')),
+    total_price        NUMERIC NOT NULL CHECK (total_price >= 0),
+    shipping_method_id int,
+    payment_method_id  int,
+    constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set NULL,
+    constraint valid_shipping_method_id foreign key (shipping_method_id) REFERENCES shipping_methods (id),
+    constraint valid_payment_method_id foreign key (payment_method_id) REFERENCES payment_methods (id)
 );
+
+create
+index on receipts(customer_id);
 
 create table orders
 (
@@ -97,7 +110,8 @@ create table orders
     product_id integer NOT NULL,
     constraint valid_receipt_id foreign key (receipt_id) REFERENCES receipts (id) on delete set null,
     constraint valid_product_id foreign key (product_id) REFERENCES products (id) on delete set null,
-    quantity   integer NOT NULL CHECK (quantity > 0)
+    quantity   integer NOT NULL CHECK (quantity > 0),
+    PRIMARY key (receipt_id, product_id)
 );
 
 
@@ -105,9 +119,10 @@ create table reviews
 (
     customer_id  integer not null,
     product_id   integer not null,
-    constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set null,
-    constraint valid_product_id foreign key (product_id) REFERENCES products (id) on delete set null,
     show         boolean                  DEFAULT true,
     value        TEXT    NOT NULL,
-    created_date TIMESTAMP with time zone DEFAULT current_timestamp
+    created_date TIMESTAMP with time zone DEFAULT current_timestamp,
+    constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set null,
+    constraint valid_product_id foreign key (product_id) REFERENCES products (id) on delete set null,
+    PRIMARY key (customer_id, product_id)
 );

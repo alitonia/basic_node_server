@@ -4,14 +4,18 @@ from os.path import isfile, join
 WRITE_ON_INSERT_DATA = True
 ENABLE_CATEGORY = True
 ENABLE_PRODUCT = True
+ENABLE_CUSTOMER = True
+ENABLE_REVIEW = True
+ENABLE_REVIEW = True
+ENABLE_SHIPPING = True
 
 SEED = 1337
 CATEGORY_LIMIT = 20
 PRODUCT_LIMIT = 1000
+CUSTOMER_LIMIT = 200
+REVIEW_LIMIT = 3000
 
 insert_file_path = 'fake_data_generator/results/new_data.sql'
-MAX_SUB_CATEGORIES = 3
-SUB_CATEGORY_CHOSEN_RATE = 1  # >0
 category_images_storage_path = 'client/public/images/category'
 
 category_image_paths = [f"images/category/{f}" for f in listdir(category_images_storage_path) if

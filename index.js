@@ -9,11 +9,14 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(require('./redis/redis_get_middleware'))
-
+// app.use(require('./middlewares/redis_cache/redis_get_middleware'))
+app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
 // api
+app.use(require('./routes/apis/product.js'))
 app.use(require('./routes/apis/categories.js'));
 app.use(require('./routes/apis/products'))
+app.use(require('./routes/apis/reviews.js'))
+
 
 // blog
 app.use(require('./routes/etc/author.js'));
