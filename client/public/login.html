@@ -2,52 +2,7 @@
 <html lang="en">
 <head><title>Sign In Page</title>
     <link rel="stylesheet" href="./assets/css/login/login.css">
-    <script>
-        function login() {
-            const email = document.getElementById("email").value;
-            const pwd = document.getElementById("password").value;
-            const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-
-            if (email === '') {
-                alert("please enter user name.");
-            } else if (pwd === '') {
-                alert("enter the password");
-            } else if (!filter.test(email)) {
-                alert("Enter valid email id.");
-            } else if (pwd.length < 6) {
-                alert("Password min is 6.");
-            } else {
-                // post
-                const target_route = '/login';
-
-                fetch(target_route, {
-                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                    mode: 'cors', // no-cors, *cors, same-origin
-                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                    credentials: 'same-origin', // include, *same-origin, omit
-                    headers: {
-                        'Content-Type': 'application/json'
-                        // 'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    redirect: 'follow', // manual, *follow, error
-                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                    body: JSON.stringify({
-                        username: email,
-                        password: pwd
-                    })
-                }).then(data => {
-                    if (data.status === 200) {
-                        //server redirect
-                        window.location = data.url;
-                    }
-                }).catch(err => {
-                    alert('Something went wrong');
-                })
-
-            }
-        }
-    </script>
 </head>
 <body>
 <!-- <center> -->
@@ -82,5 +37,63 @@
     <!-- End main div -->
 </div>
 <!-- </center> -->
+
+<script>
+    function injectCallbackUsername() {
+        const current_url = new URL(window.location.href)
+        const maybeUsername = current_url.searchParams.get('username')
+
+        if (maybeUsername) {
+            console.log(maybeUsername)
+            document.getElementById('email').value = maybeUsername
+        }
+    }
+
+    injectCallbackUsername();
+
+    function login() {
+        const email = document.getElementById("email").value;
+        const pwd = document.getElementById("password").value;
+        const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+        if (email === '') {
+            alert("please enter user name.");
+        } else if (pwd === '') {
+            alert("enter the password");
+        } else if (!filter.test(email)) {
+            alert("Enter valid email id.");
+        } else if (pwd.length < 6) {
+            alert("Password min is 6.");
+        } else {
+            // post
+            const target_route = '/login';
+
+            fetch(target_route, {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify({
+                    username: email,
+                    password: pwd
+                })
+            }).then(data => {
+                if (data.status === 200) {
+                    //server redirect
+                    window.location = data.url;
+                }
+            }).catch(err => {
+                alert('Something went wrong');
+            })
+
+        }
+    }
+</script>
 </body>
 </html>
