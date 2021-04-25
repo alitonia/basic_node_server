@@ -42,7 +42,9 @@ On Window:
 
 ### TODO:
 
-* Signup api
 * Add transaction api
+* Review api
 * EJS
 * Validate params
+* Responsive
+* auto move
