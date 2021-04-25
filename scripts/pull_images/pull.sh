@@ -3,7 +3,7 @@
 IMAGE_LIMIT=1500 # might be smaller due to duplication
 DATA_URL=https://s3.eu-central-1.amazonaws.com/fashion-gan/images.zip
 ZIP_FILE=scripts/pull_images/images.zip
-IMAGE_DESTINATION=client/public/images/product/
+IMAGE_DESTINATION=client/public/gen_images/product/
 
 if test -f "$ZIP_FILE"; then
   echo "$ZIP_FILE exists."

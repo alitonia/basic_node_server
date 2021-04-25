@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Sign In Page</title>
+    <link rel="stylesheet" href="./styles/login.css">
+    <script>
+        //Log in function
+        function login() {
+            const email = document.getElementById("email").value;
+            const pwd = document.getElementById("password").value;
+            const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if (email === '') {
+                alert("please enter user name.");
+            } else if (pwd === '') {
+                alert("enter the password");
+            } else if (!filter.test(email)) {
+                alert("Enter valid email id.");
+            } else if (pwd.length < 6 || pwd.length > 6) {
+                alert("Password min and max length is 6.");
+            } else {
+                alert('Thank You for Login & You are Redirecting to our website');
+                // window.location = "https://www.google.com";
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- <center> -->
+<!-- Begin div main -->
+<div id="main">
+    <!-- class h-tag of main div -->
+    <!-- Login Title -->
+    <div class="t-tag">
+        <div class="text">
+            <p><br>Sign In</p>
+        </div>
+    </div>
+
+    <!-- login box -->
+    <div class="login">
+        <input type="text" placeholder="Email address" id="email" class="tb"/><br>
+        <input type="password" placeholder="Password" id="password" class="tb"/>
+        <p style="text-align: right;justify-content: flex-end;color: rgb(94, 94, 90);">
+            Forgot <a href="./main.css" style="color: rgb(23, 153, 66);text-decoration: none;">Username/Password?</a>
+        </p>
+        <input type="submit" value="SIGN IN" onclick="login()" class="btn"/><br>
+        <!-- End of login box -->
+    </div>
+    <br>
+    <div class="footer-content">
+        <span style="font-size: 2ch;">Don't have account?</span>
+        <p><b><a href="./sign_up.html"
+                 style="color: rgb(57, 167, 62);text-decoration: none; font-weight: 500;font-size: 2.5ch;">SIGN UP
+            NOW</a></b></p>
+    </div>
+
+    <!-- End main div -->
+</div>
+<!-- </center> -->
+</body>
+</html>

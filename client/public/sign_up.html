@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Sign up page</title>
+    <link rel="stylesheet" href="./styles/login.css">
+    <script>
+        function checkValid() {
+            const email = document.getElementById("email").value;
+            const pwd = document.getElementById("password").value;
+            const uname = document.getElementById("username").value;
+            const conf_pwd = document.getElementById("con_password").value;
+            const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if (uname === '') {
+                alert("Please enter user name.");
+            } else if (email === "") {
+                alert("Please enter Email address.");
+            } else if (pwd === '') {
+                alert("Please enter the password");
+            } else if (conf_pwd === "") {
+                alert("Please Enter the confirm password");
+            } else if (!filter.test(email)) {
+                alert("Enter valid email id.");
+            } else if (pwd.length < 6 || pwd.length > 6) {
+                alert("Password min and max length is 6.");
+            } else if (pwd !== conf_pwd) {
+                alert("Your Confirm password isn't correct.Please enter again!");
+            } else {
+                alert('Thank You for Registering & You are Redirecting to Login website');
+                //Redirecting to other page or webste code or you can set your own html page.
+                window.location = "./login_site.html";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<div id="main">
+    <div class="t-tag">
+        <div class="text">
+            <p><br>Sign Up</p>
+        </div>
+    </div>
+    <br>
+    <!-- !-- login box -->
+    <!-- <br><br><br> -->
+    <div class="login">
+
+        <input type="text" placeholder="Full name" id="username" class="tb"/><br>
+        <!-- <input type="radio" id="male">Male <input type="radio" id="female">Female<br>  -->
+        <!-- <form action=""> -->
+        <input type="text" placeholder="Email address" id="email" class="tb"/><br>
+        <input type="password" placeholder="Create Password" id="password" class="tb"/><br>
+        <input type="password" placeholder="Confirm Password" id="con_password" class="tb"/><br>
+        <input type="submit" value="Create account" onclick="checkValid()" class="btn"/><br>
+        <!-- </table> -->
+        <!-- </form> -->
+    </div>
+
+</body>
+<html>
+
+</html>

@@ -1,5 +1,5 @@
 ZIP_FILE=scripts/extract_banner/Ads.zip
-IMAGE_DESTINATION=client/public/images/category/
+IMAGE_DESTINATION=client/public/gen_images/category/
 
 echo "cleaning $IMAGE_DESTINATION"
 rm -rf $IMAGE_DESTINATION

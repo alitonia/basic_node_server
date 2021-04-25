@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 echo '* Add db user if not exists *'
 docker exec db createdb --if-not-exists -U user db
 echo 'Done'

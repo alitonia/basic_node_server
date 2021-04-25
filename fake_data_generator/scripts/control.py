@@ -16,13 +16,13 @@ CUSTOMER_LIMIT = 200
 REVIEW_LIMIT = 3000
 
 insert_file_path = 'fake_data_generator/results/new_data.sql'
-category_images_storage_path = 'client/public/images/category'
+category_images_storage_path = 'client/public/gen_images/category'
 
-category_image_paths = [f"images/category/{f}" for f in listdir(category_images_storage_path) if
+category_image_paths = [f"gen_images/category/{f}" for f in listdir(category_images_storage_path) if
                         isfile(join(category_images_storage_path, f))]
 
-product_images_storage_path = 'client/public/images/product'
-product_image_paths = [f"images/product/{f}" for f in listdir(product_images_storage_path) if
+product_images_storage_path = 'client/public/gen_images/product'
+product_image_paths = [f"gen_images/product/{f}" for f in listdir(product_images_storage_path) if
                        isfile(join(product_images_storage_path, f))]
 
 MIN_PRICE_BASE = 0.1
