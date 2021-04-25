@@ -8,17 +8,43 @@
             const email = document.getElementById("email").value;
             const pwd = document.getElementById("password").value;
             const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+
             if (email === '') {
                 alert("please enter user name.");
             } else if (pwd === '') {
                 alert("enter the password");
             } else if (!filter.test(email)) {
                 alert("Enter valid email id.");
-            } else if (pwd.length < 6 || pwd.length > 6) {
-                alert("Password min and max length is 6.");
+            } else if (pwd.length < 6) {
+                alert("Password min is 6.");
             } else {
-                alert('Thank You for Login & You are Redirecting to our website');
-                // window.location = "https://www.google.com";
+                // post
+                const target_route = '/login';
+
+                fetch(target_route, {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        username: email,
+                        password: pwd
+                    })
+                }).then(data => {
+                    if (data.status === 200) {
+                        window.location = data.url;
+                    }
+                }).catch(err => {
+                    alert('Something went wrong');
+                })
+
             }
         }
     </script>
@@ -48,7 +74,7 @@
     <br>
     <div class="footer-content">
         <span style="font-size: 2ch;">Don't have account?</span>
-        <p><b><a href="./sign_up.html"
+        <p><b><a href="signup.html"
                  style="color: rgb(57, 167, 62);text-decoration: none; font-weight: 500;font-size: 2.5ch;">SIGN UP
             NOW</a></b></p>
     </div>

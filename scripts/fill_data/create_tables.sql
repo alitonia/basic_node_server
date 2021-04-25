@@ -16,8 +16,8 @@ create TABLE customers
     last_name  varchar(128),
     email      varchar(128) UNIQUE NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'
 ) ,
-    password   varchar(256) ,
-    salt varchar(256) CHECK((password is not null and salt is null) = FALSE),
+    password_hash   varchar(256) ,
+    salt varchar(256) CHECK((password_hash is not null and salt is null) = FALSE),
     gender     varchar(32) CHECK (gender in ('male', 'female', 'other')),
     status     varchar(32) CHECK (status in ('active', 'inactive', 'pending')),
     created_date TIMESTAMP WITH time zone default current_timestamp

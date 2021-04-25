@@ -21,14 +21,14 @@
                 alert("Please Enter the confirm password");
             } else if (!filter.test(email)) {
                 alert("Enter valid email id.");
-            } else if (pwd.length < 6 || pwd.length > 6) {
+            } else if (pwd.length < 6) {
                 alert("Password min and max length is 6.");
             } else if (pwd !== conf_pwd) {
                 alert("Your Confirm password isn't correct.Please enter again!");
             } else {
                 alert('Thank You for Registering & You are Redirecting to Login website');
                 //Redirecting to other page or webste code or you can set your own html page.
-                window.location = "./login_site.html";
+                window.location = "login.html";
             }
         }
     </script>

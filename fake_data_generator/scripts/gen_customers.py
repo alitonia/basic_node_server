@@ -3,13 +3,19 @@ from faker.providers import lorem, address
 
 from control import SEED, CUSTOMER_LIMIT, WRITE_ON_INSERT_DATA, insert_file_path
 from get_random_element import get_random_element
+import bcrypt
 
 fake = Faker()
 Faker.seed(SEED)
 fake.add_provider(lorem)
 fake.add_provider(address)
 
-test_account = ('test_first', 'test_last', 'test@ggg.cc', 'NULL', 'NULL', 'other', 'active')
+test_salt = bcrypt.gensalt()
+
+test_account = (
+    'test_first', 'test_last', 'test@ggg.cc',
+    bcrypt.hashpw('123456'.encode('utf-8'), test_salt).decode("utf-8"), test_salt.decode("utf-8"),
+    'other', 'active')
 
 
 def gen_customers():
@@ -17,7 +23,7 @@ def gen_customers():
     --  Customers
     ALTER SEQUENCE customers_id_seq RESTART;
     
-    INSERT INTO customers(first_name, last_name, email, password, salt, gender, status)
+    INSERT INTO customers(first_name, last_name, email, password_hash, salt, gender, status)
     VALUES 
     {test_account},
     """
@@ -29,11 +35,12 @@ def gen_customers():
         first_name = ''.join(name.split(' ')[-1:]).rstrip()
         last_name = ''.join(name.split(' ')[:-1]).rstrip()
         email = fake.email()
-        password = 'NULL'
-        salt = 'NULL'
+        _password = 'default_password'
+        salt = bcrypt.gensalt().decode("utf-8")
+        password_hash = bcrypt.hashpw(_password.encode("utf-8"), salt.encode("utf-8")).decode("utf-8")
         gender = get_random_element(gender_list)
         status = get_random_element(status_list)
-        data += f"('{first_name}', '{last_name}', '{email}', {password}, {salt}, '{gender}', '{status}')"
+        data += f"('{first_name}', '{last_name}', '{email}', '{password_hash}', '{salt}', '{gender}', '{status}')"
         if i != CUSTOMER_LIMIT - 1:
             data += ','
         data += '\n'

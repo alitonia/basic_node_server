@@ -8,6 +8,7 @@ from gen_customers import gen_customers
 from gen_products import gen_products
 from gen_reviews import gen_reviews
 
+
 data = """
 START TRANSACTION;
 DELETE FROM reviews;
