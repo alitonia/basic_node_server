@@ -42,7 +42,7 @@ On Window:
 
 ### TODO:
 
-* Add Login, signup api
+* Signup api
 * Add transaction api
 * EJS
 * Validate params

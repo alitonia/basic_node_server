@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<html lang="en">
 <head>
     <title>Sign up page</title>
     <link rel="stylesheet" href="./assets/css/login/login.css">
@@ -7,7 +8,7 @@
         function checkValid() {
             const email = document.getElementById("email").value;
             const pwd = document.getElementById("password").value;
-            const uname = document.getElementById("username").value;
+            const uname = document.getElementById("name").value;
             const conf_pwd = document.getElementById("con_password").value;
             const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -22,13 +23,38 @@
             } else if (!filter.test(email)) {
                 alert("Enter valid email id.");
             } else if (pwd.length < 6) {
-                alert("Password min and max length is 6.");
+                alert("Password min is 6.");
             } else if (pwd !== conf_pwd) {
-                alert("Your Confirm password isn't correct.Please enter again!");
+                alert("Your Confirm password isn't correct. Please enter again!");
             } else {
-                alert('Thank You for Registering & You are Redirecting to Login website');
-                //Redirecting to other page or webste code or you can set your own html page.
-                window.location = "login.html";
+                // alert('Thank You for Registering & You are Redirecting to Login website');
+                // window.location = "login.html";
+                const target_route = '/signup';
+
+                fetch(target_route, {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        name: uname,
+                        username: email,
+                        password: pwd
+                    })
+                }).then(data => {
+                    if (data.status === 200) {
+                        //server redirect
+                        window.location = `/login.html?username=${email}`;
+                    }
+                }).catch(err => {
+                    alert('Something went wrong');
+                })
             }
         }
     </script>
@@ -42,12 +68,12 @@
             <p><br>Sign Up</p>
         </div>
     </div>
-    <br>
+    <br/>
     <!-- !-- login box -->
     <!-- <br><br><br> -->
     <div class="login">
 
-        <input type="text" placeholder="Full name" id="username" class="tb"/><br>
+        <input type="text" placeholder="Full name" id="name" class="tb"/><br>
         <!-- <input type="radio" id="male">Male <input type="radio" id="female">Female<br>  -->
         <!-- <form action=""> -->
         <input type="text" placeholder="Email address" id="email" class="tb"/><br>
@@ -57,8 +83,7 @@
         <!-- </table> -->
         <!-- </form> -->
     </div>
-
+</div>
 </body>
-<html>
 
 </html>

@@ -3,7 +3,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const {findUser} = require('../../pg_database/queries/find_user')
 
-const getHash = (password, salt) => bcrypt.hash(password, salt)
+const getHash = (password, salt) => bcrypt.hash(password, salt);
+
+exports.getHash = getHash;
 
 exports.passportConfig = (app) => {
     passport.use(new LocalStrategy(
@@ -21,6 +23,8 @@ exports.passportConfig = (app) => {
                     } else {
                         return cb(null, user);
                     }
+                }).catch(err => {
+                    return cb(err, false, {message: 'Incorrect username or password'});
                 })
             });
         }));

@@ -27,7 +27,10 @@ app.use(require('./routes/apis/categories.js'));
 app.use(require('./routes/apis/products'))
 app.use(require('./routes/apis/reviews.js'))
 
+// login/signup
 app.use(require('./routes/apis/login.js'))
+app.use(require('./routes/apis/signup.js'))
+
 
 // blog
 app.use(require('./routes/etc/author.js'));
