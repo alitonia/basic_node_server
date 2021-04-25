@@ -1,0 +1,133 @@
+.product_area_title {
+    text-align: center;
+}
+
+.product_area_title h2 {
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 6px;
+}
+
+.product_area_title span {
+    color: #33d286;
+}
+
+.product_area {
+    text-align: center;
+}
+
+.product_area .divider {
+    margin-top: 16px;
+    position: relative;
+    display: inline-block;
+    background: #33d286;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.product_area .divider:before {
+    position: absolute;
+    content: '';
+    top: 5px;
+    left: 20px;
+    background: #33d286;
+    width: 30px;
+    height: 1px;
+}
+
+.product_area .divider:after {
+    position: absolute;
+    content: '';
+    top: 5px;
+    right: 20px;
+    background: #33d286;
+    width: 30px;
+    height: 1px;
+}
+
+/* PRODUCT FILTER */
+.product_filter {
+    width: 500px;
+    margin: 30px auto;
+}
+
+.product_filter_list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.product_filter_item {
+    font-size: 13px;
+    text-transform: uppercase;
+    display: inline-block;
+    font-weight: 400;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 12px 22px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    line-height: 1;
+
+}
+
+.product_filter_item:hover {
+    color: #33d286;
+    border: 1px solid #33d286;
+}
+
+/* PRODUCT */
+
+.product_item_list {
+    width: 1160px;
+    margin: 0 auto;
+}
+
+.product_item_container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.product_item_container .single_product {
+    width: 23%;
+}
+
+.single_product .product_image img {
+    width: 100%;
+}
+
+/* SINGLE PRODUCT */
+
+.single_product {
+    padding-bottom: 20px;
+}
+
+.product_text_info {
+    margin-bottom: 30px;
+}
+
+.product_text_info h4 {
+    text-transform: capitalize;
+    font-size: 17px;
+    margin: 16px 0;
+}
+
+.product_text_info .product_title {
+    text-decoration: none;
+    color: #000;
+}
+
+.product_text_info .price {
+    font-size: 16px;
+    color: #33d286;
+    margin-bottom: 10px;
+}
+
+
+
+
+

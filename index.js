@@ -39,7 +39,7 @@ app.get('/test', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, public_asset_path, 'doc.html'))
+    res.sendFile(path.join(__dirname, public_asset_path, 'home.html'))
 })
 
 app.get('/doc', (req, res) => {

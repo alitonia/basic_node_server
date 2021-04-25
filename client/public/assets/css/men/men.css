@@ -1,0 +1,129 @@
+.men_title_area {
+    margin-top: 20px;
+    padding: 50px 0;
+    margin-bottom: 40px;
+    background: linear-gradient(45deg, #43cea2 0%, #33d286 100%);
+}
+
+.men_container {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.col_left h2 {
+    font-size: 26px;
+    color: white;
+}
+
+.list_nav {
+    display: flex;
+    list-style: none;
+}
+
+.list_nav li,
+.list_nav li a {
+    color: #fff;
+    text-transform: uppercase;
+    padding-right: 20px;
+    font-size: 14px;
+}
+
+.list_nav li a {
+    text-decoration: none;
+}
+
+/* .men_page_container {
+    width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.men_page_container h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.men_input{
+    width: 48%;
+}
+
+.form_row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input_area {
+    border: 1.5px solid #ddd;
+    font-weight: 400;
+    letter-spacing: 1px;
+    min-width: 40px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.form_control {
+    padding: 10px 110px 10px 15px;
+}
+
+.form_control_subject {
+    padding: 10px 72% 10px 15px;
+}
+
+.form_control_message {
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.btn {
+    padding: 10px 20px;
+    color: white;
+    background: #33d286;
+    border: 1px solid #33d286;
+    font-size: 16px;
+}
+
+.men_info {
+    width: 48%;
+}
+
+.men_info .subtitle {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #888888;
+    margin-bottom: 25px;
+}
+
+.info_icon {
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    border: 1.5px solid #33d286;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 5%);
+    margin-right: 30px;
+}
+
+.single_info {
+    display: flex;
+}
+
+.single_info p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #888888;
+}
+
+.info_icon .fa-phone ,
+.info_icon .fa-envelope, 
+.info_icon .fa-map-marker-alt {
+    display: inline-block;
+    font-size: 16px;
+    color: #33d286;
+} */

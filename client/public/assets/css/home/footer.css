@@ -1,0 +1,97 @@
+.footer {
+    margin-top: 50px;
+    background: #222222;
+}
+
+.footer-container {
+    width: 90%;
+    margin: auto;
+}
+
+.footer_container_info {
+    display: flex;
+    justify-content: space-around;
+    padding: 60px 0 20px;
+    border-bottom: 0.5px dotted gray;
+}
+
+.single_footer {
+    color: white;
+    width: 33%;
+}
+
+.single_footer h4 {
+    color: #33d286;
+    text-transform: uppercase;
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+
+.single_footer li {
+    list-style: none;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.single_footer .newsletter_form p {
+    font-size: 16px;
+}
+
+.footer_btm_area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+.footer_social_icon_list {
+    display: flex;
+    justify-self: space-around;
+}
+
+.footer_social_icon_list li {
+    margin-right: 15px;
+}
+
+.footer_social_icon_list li {
+    width: 40px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 50%;
+    text-align: center;
+    transition: linear 0.3s;
+}
+
+.footer_social_icon_list li:hover {
+    background: #33d286;
+    border: 1px solid #33d286;
+}
+
+.footer_social_icon_list i {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.footer_copyright {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 15px;
+}
+
+.footer_payment_icon_list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer_social_icon_list li,
+.footer_payment_icon_list li {
+    margin-right: 15px;
+}
+
+.footer_payment_icon i {
+    text-decoration: none;
+    font-size: 35px;
+    color: #fff;
+}
+

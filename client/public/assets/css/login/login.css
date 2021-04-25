@@ -1,0 +1,108 @@
+body {
+    /* background-image: url("https://cdn.dribbble.com/users/230268/screenshots/6444217/hopp.png"); */
+    background-image: url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+    /* background-size: 50%; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* height: 60%;  */
+    background-color: #fff;
+}
+
+#main {
+    width: 500px;
+    height: 90vmin;
+    border-radius: 20px;
+    /* background-color:#fff; */
+    /* background-image: url("https://i.pinimg.com/originals/2f/03/8c/2f038c01a4964392f6069a9cc0ef6973.jpg"); */
+    border-top: 1px solid #0f1110;
+    border-bottom: 1px solid #0f1110;
+    border-left: 1px solid #0f1110;
+    border-right: 1px solid #0f1110;
+    position: relative;
+    background: rgb(250, 248, 246, 0.9);
+    /* opacity: 0.6; */
+    margin: 0 auto;
+}
+
+.login {
+    margin: 30px auto;
+    /* text-align: center; */
+    display: grid;
+    justify-content: center;
+}
+
+#main .tb {
+    height: 35px;
+    width: 350px;
+    border: 1px solid #0f1110;
+    font-weight: bolder;
+    opacity: 0.9;
+    /* margin-left: auto;margin-right: auto;margin-top: 2%; */
+    border-radius: 15px;
+    background-color: #fff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+    outline: none;
+    margin: 0 auto;
+    padding-left: 2ch;
+    /* margin:auto; */
+    /* color: #000; */
+    /* margin:auto; */
+}
+
+#main .btn {
+    width: 350px;
+    height: 40px;
+    outline: none;
+    border: 1px solid #0f1110;
+    text-shadow: 0 0.5px 0.5px #fff;
+    border-radius: 15px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    background-color: #0b6338;
+}
+
+#main .btn:hover {
+    background-color: rgb(110, 15, 44);
+    outline: none;
+    border-radius: 15px;
+    color: #f1f1f1;
+    border: 1px solid #f1f1f1;
+}
+
+.sex {
+    width: 350px;
+}
+
+.t-tag {
+    width: 500px;
+    height: 20vmin;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #0b6338;
+    border-bottom: 1px solid #abaab1;
+    text-align: center;
+}
+
+.text p {
+    margin: 0;
+    text-align: center;
+    /* size: 50ch; */
+    font-size: 5ch;
+    color: #fff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.footer-content {
+    display: grid;
+    justify-content: center;
+
+}
+

@@ -7,7 +7,7 @@ route.post('/login',
         'local',
         {
             failureRedirect: '/login.html?retry=true',
-            successRedirect: '/chicken.html'
+            successRedirect: '/home.html'
         }
     ),
 );

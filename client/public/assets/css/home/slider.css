@@ -1,0 +1,247 @@
+/* SLIDE */
+.slider {
+    height: 490px;
+}
+
+.slider_container {
+    position: relative;
+}
+
+.single_slide {
+    height: 490px;
+    display: none;
+}
+
+.slide_1 {
+    background: url("../../images/slides/slide_1.jpg") center /cover no-repeat;
+}
+
+.slide_2 {
+    background: url("../../images/slides/slide_2.jpg") center /cover no-repeat;
+}
+
+.slide_3 {
+    background: url("../../images/slides/slide_3.jpg") center /cover no-repeat;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: white;
+    border: none;
+    outline: none;
+    color: #0ed374;
+    padding: 16px 30px;
+    border-radius: 50px;
+    border: 1px solid white;
+    cursor: pointer;
+    min-width: 120px;
+    transition: 0.4s ease;
+    font-weight: 600;
+}
+
+.main_btn:hover {
+    color: white;
+    background: #33d286;
+    border: 1px solid #33d286;
+}
+
+
+.slide_content {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+}
+
+.slide_content_1 {
+    align-items: center;
+    padding-left: 200px;
+}
+
+.slide_content_2 {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.slide_content_3 {
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 200px;
+    text-align: right;
+}
+
+.slide_content p {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 22px;
+    margin-bottom: 35px;
+}
+
+.slide_content h1 {
+    color: #33d286;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 40px;
+    margin: 20px 0;
+}
+
+.slide_content h4 {
+    margin: 30px 0;
+    font-size: 1.8rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: white;
+}
+
+.slide_content a {
+    font-size: 1.6rem;
+    font-weight: 530;
+}
+
+/* BUTTON TO NEXT SLIDE */
+
+.dot {
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: #bbb 0.6s ease;
+    box-shadow: 0 0 6px rgb(221 221 221 / 50%);
+}
+
+.active,
+.dot:hover {
+    height: 13px;
+    width: 13px;
+    background-color: #33d286;
+}
+
+.next_slide {
+    text-align: center;
+    position: relative;
+    top: -50px;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 3s;
+    animation-name: fade;
+    animation-duration: 3s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .6
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .6
+    }
+    to {
+        opacity: 1
+    }
+}
+
+#owl_previous {
+    position: relative;
+    top: -300px;
+    left: 2%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+#owl_previous .fa-angle-left,
+#owl_next .fa-angle-right {
+    font-size: 16px;
+    color: #33d286;
+}
+
+#owl_next {
+    position: relative;
+    top: -355px;
+    left: 94.5%;
+    margin-right: 5.5%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
+
+#owl_next:hover,
+#owl_previous:hover {
+    background-color: #4ae99c;
+    cursor: pointer;
+}
+
+#owl_next:hover i,
+#owl_previous:hover i {
+    color: #fff;
+}
+
+
+.slide_content_1 .animated_1 {
+    animation: fadeInLeft 1s 0s;
+}
+
+.slide_content_1 .animated_2 {
+    animation: fadeInLeft 1.2s 0s;
+}
+
+.slide_content_1 .animated_3 {
+    animation: fadeInLeft 1.4s 0s;
+}
+
+.slide_content_1 .animated_4 {
+    animation: fadeInLeft 1.6s 0s;
+}
+
+.slide_content_2 .animated_1 {
+    animation: fadeInUp 1s 0s;
+}
+
+.slide_content_2 .animated_2 {
+    animation: fadeInUp 1.6s 0s;
+}
+
+.slide_content_2 .animated_3 {
+    animation: fadeInUp 1.8s 0s;
+}
+
+.slide_content_2 .animated_4 {
+    animation: fadeInUp 2s 0s;
+}
+
+.slide_content_3 .animated_1 {
+    animation: fadeInRight 1s 0s;
+}
+
+.slide_content_3 .animated_2 {
+    animation: fadeInRight 1.2s 0s;
+}
+
+.slide_content_3 .animated_3 {
+    animation: fadeInRight 1.4s 0s;
+}
+
+.slide_content_3 .animated_4 {
+    animation: fadeInRight 1.6s 0s;
+}
