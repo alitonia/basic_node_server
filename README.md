@@ -39,3 +39,10 @@ On Window:
 * More services by adding to `docker-compose.yml`.
 * More routes by editing `index.js`.
 * Change database structure and data by changing `command.sh` and `scripts/fill_data`.
+
+### TODO:
+
+* Add Login, signup api
+* Add transaction api
+* EJS
+* Validate params
