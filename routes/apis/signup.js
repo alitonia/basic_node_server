@@ -2,7 +2,7 @@ const express = require('express');
 const route = express.Router();
 const {findUser} = require('../../pg_database/queries/find_user')
 const {createUser} = require('../../pg_database/mutation/create_user')
-const passport = require('passport')
+
 
 route.post('/signup',
     ((req, res) => {

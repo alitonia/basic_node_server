@@ -15,7 +15,6 @@ const addCustomerQuery = (user) => {
 
 exports.createUser = async function (user, cb) {
     const {name = null, email = null, password = null} = user;
-    console.log(user)
 
     if (name === null || email === null || password === null) {
         return cb(new Error("Invalid request"), null);
@@ -39,7 +38,6 @@ exports.createUser = async function (user, cb) {
                 password_hash: password_hash,
                 salt: salt
             }
-            console.log(user)
 
             pool.query(addCustomerQuery(user),
                 (err, response) => {
