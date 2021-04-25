@@ -11,6 +11,7 @@ fake.add_provider(address)
 
 test_account = ('test_first', 'test_last', 'test@ggg.cc', 'NULL', 'NULL', 'other', 'active')
 
+
 def gen_customers():
     data = f"""
     --  Customers
