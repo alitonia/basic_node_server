@@ -194,3 +194,4 @@ fabric.properties
 docker_data
 venv
 log
+.DS_Store
