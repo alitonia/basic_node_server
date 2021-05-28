@@ -61,7 +61,7 @@
 }
 
 .single_promo img::after {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0,0,0,0.5);
 }
 
 .image_banner {
@@ -72,7 +72,7 @@
     text-align: center;
     width: 68px;
     height: 38px;
-    padding: 12px 10px 0 8px;
+    padding: 12px 10px 0 8px; 
     background: #33d286;
 }
 
@@ -94,7 +94,7 @@
     opacity: 0.6;
 }
 
-.single_promo:hover h3 {
+.single_promo:hover h3{
     display: block;
     animation: fadeInUp 0.5s 0s;
 }

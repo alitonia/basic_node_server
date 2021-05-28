@@ -1,10 +1,10 @@
 // chuyển slide 
-let slideIndex;
-const slides = document.getElementsByClassName("single_slide");
-const dots = document.getElementsByClassName("dot");
-const nextSlide = document.getElementById("owl_next");
-const previousSlide = document.getElementById("owl_previous");
-let timeoutSlide = null;
+var slideIndex;
+var slides = document.getElementsByClassName("single_slide");
+var dots = document.getElementsByClassName("dot");
+var nextSlide = document.getElementById("owl_next");
+var previousSlide = document.getElementById("owl_previous");
+var timeoutSlide = null;
 
 function showSlides() {
     for (let i = 0; i < slides.length; i++) {

@@ -12,7 +12,7 @@
     margin: auto;
 }
 
-.col_left h2 {
+.col_left  h2 {
     font-size: 26px;
     color: white;
 }
@@ -47,7 +47,7 @@
     margin-bottom: 20px;
 }
 
-.contact_input {
+.contact_input{
     width: 48%;
 }
 
@@ -120,8 +120,8 @@
     color: #888888;
 }
 
-.info_icon .fa-phone,
-.info_icon .fa-envelope,
+.info_icon .fa-phone ,
+.info_icon .fa-envelope, 
 .info_icon .fa-map-marker-alt {
     display: inline-block;
     font-size: 16px;
