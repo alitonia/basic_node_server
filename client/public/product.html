@@ -16,6 +16,14 @@
     <script>
         const url = new URL(window.location)
 
+        const tryJSON = (x, fallback = null) => {
+            try {
+                return JSON.parse(x)
+            } catch (e) {
+                return fallback
+            }
+        }
+
         const get_products = async () => {
             const id = url.searchParams.get('product_id')
             return fetch(`/product/${id}`, {
@@ -55,9 +63,47 @@
                             <img src="${product.big_image_link}" alt="">
             `)
             document.querySelector('.product_title').innerText = product.name
-
             document.querySelector('.product_description').innerText = product.description
-            // document.querySelector('.product_page_name').innerText = product.name
+
+            const colors = tryJSON(product.color_options, [])
+
+            if (colors.length > 0) {
+                const c = document.querySelector('.color_container')
+                c.innerHTML = (`
+                <h4 class="label_color">COlOR : </h4>
+                    <div class="product_color">
+                    ` +
+                    colors.reduce((acc, cur) => {
+                        return acc + `
+                        <div class="pd_color color_${cur}" style="background-color: ${cur};">
+                            <a href="#"></a>
+                        </div>
+`
+                    }, '')
+                    +
+                    `
+                    </div>
+                `)
+            }
+
+            const sizes = tryJSON(product.size_options, [])
+
+            if (sizes.length > 0) {
+                const c = document.querySelector('.size_container')
+                c.innerHTML = (`
+                    <h4 class="label_size">SIZE: </h4>
+                    <div class="product_size">
+                    ` +
+                    sizes.reduce((acc, cur) => {
+                        return acc + `
+                        <div class="pd_size size_${cur}"><a href="#">${cur}</a></div>
+                        `
+                    }, '')
+                    +
+                    `
+                    </div>
+                `)
+            }
 
         }
 
@@ -127,31 +173,13 @@
                     <h4>OVERVIEW: </h4>
                     <p class="product_description"></p>
                 </div>
-                <h4 class="label_size">SIZE: </h4>
-                <div class="product_size">
-                    <div class="pd_size"><a href="#">s</a></div>
-                    <div class="pd_size"><a href="#">m</a></div>
-                    <div class="pd_size"><a href="#">l</a></div>
-                    <div class="pd_size"><a href="#">xl</a></div>
-                    <div class="pd_size"><a href="#">xxl</a></div>
+
+                <div class="size_container">
+
                 </div>
-                <h4 class="label_color">COlOR : </h4>
-                <div class="product_color">
-                    <div class="pd_color red">
-                        <a href="#"></a>
-                    </div>
-                    <div class="pd_color green">
-                        <a href="#"></a>
-                    </div>
-                    <div class="pd_color black">
-                        <a href="#"></a>
-                    </div>
-                    <div class="pd_color white">
-                        <a href="#"></a>
-                    </div>
-                    <div class="pd_color yellow">
-                        <a href="#"></a>
-                    </div>
+
+                <div class="color_container">
+
                 </div>
                 <div class="product_quantity">
                     <h4>QUANTITY: </h4>
