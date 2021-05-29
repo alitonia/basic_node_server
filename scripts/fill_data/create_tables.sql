@@ -67,12 +67,6 @@ CREATE TABLE products
     price               float        NOT NULL CHECK (price >= 0),
     current_stock       int          NOT NULL CHECK (current_stock >= 0),
     bought              int          NOT NULL CHECK (bought >= 0) DEFAULT 0,
---     has_discount        boolean      NOT NULL                     DEFAULT FALSE,
---     discount_price      float CHECK (has_discount = TRUE OR discount_price is NULL
---         ),
---     discount_start_date TIMESTAMP,
---     discount_end_date   TIMESTAMP CHECK (discount_start_date is NULL OR discount_end_date >= discount_start_date
---         ),
     big_image_link      TEXT,
     image_links         TEXT[],
     category_id         integer      NOT NULL,
