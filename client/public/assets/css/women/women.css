@@ -1,11 +1,11 @@
-.men_title_area {
+.women_title_area {
     margin-top: 20px;
     padding: 50px 0;
     margin-bottom: 40px;
     background: linear-gradient(45deg, #43cea2 0%, #33d286 100%);
 }
 
-.men_container {
+.women_container {
     width: 1200px;
     display: flex;
     justify-content: space-between;
@@ -34,7 +34,7 @@
     text-decoration: none;
 }
 
-.men_box_content_icon {
+.women_box_content_icon {
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -43,7 +43,7 @@
     margin-top: 20px;
 }
 
-.men_box_content_icon i {
+.women_box_content_icon i {
     margin-left: 9px;
 }
 

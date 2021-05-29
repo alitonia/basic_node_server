@@ -19,10 +19,10 @@
     line-height: 80px;
 }
 
-.menu_item > a {
+.menu_item  a {
     text-decoration: none;
-    color: black;
-    margin: 0 30px;
+    color: rgb(0, 0, 0);
+    margin: 0 20px;
     font-size: 1.8rem;
     font-weight: 550;
     transition: linear 0.2s;
@@ -40,6 +40,52 @@
     z-index: 999;
 }
 
+.sign_in_up {
+    display: flex;
+}
+
+.sign_in a h3, .sign_up a h3{
+    padding: 8px 20px;
+    border-radius: 16px;
+    margin-top: 28px;
+    color: #eee;
+}
+
+.sign_in a h3 {
+    border: 1px solid #0c7a0c;
+    background: #0c7a0c;
+}
+
+.sign_up a h3 {
+    border: 1px solid #06327a;
+    background: #06327a;
+}
+
+.sign_up {
+    margin-right: 20px;
+    margin-left: 50px;
+}
+
+.sign_up a,
+.sign_in a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: serif;
+    font-weight: 550;
+    letter-spacing: 1px;
+}
+
+.sign_up:hover a h3{
+    border: 1px solid #129ef0;
+    background: #129ef0;
+    color: black;
+}
+
+.sign_in:hover a h3{
+    border: 1px solid #12fa12;
+    background: #12fa12;
+    color: black;
+}
 /* SUB MENU */
 
 .menu_men_item,

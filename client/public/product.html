@@ -6,55 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/home/main.css">
-    <link rel="stylesheet" href="./assets/css/men/men.css">
-    <link rel="stylesheet" href="./assets/css/home/product_area.css">
+    <link rel="stylesheet" href="./assets/css/contact/contact.css">
+    <link rel="stylesheet" href="./assets/css/men/product_details.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
-    <title>Category</title>
-    <script>
-        const serialize = function (obj) {
-            const str = [];
-            for (let p in obj)
-                if (obj.hasOwnProperty(p)) {
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                }
-            return str.join("&");
-        }
+    <link rel="stylesheet" href="./assets/css/men/product_details.css">
+    <title>Product Detail</title>
 
+    <script>
         const url = new URL(window.location)
 
-        const getCategory = async () => {
-            const category_id = url.searchParams.get('category_id')
-            if (category_id) {
-                return fetch(`/category/${category_id}`, {
-                    mode: 'cors', // no-cors, *cors, same-origin
-                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                    credentials: 'same-origin', // include, *same-origin, omit
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    redirect: 'follow', // manual, *follow, error
-                    referrerPolicy: 'no-referrer',
-                })
-                    .then(x => x.json())
-                    .then(x => {
-                        if (x.error) {
-                            return undefined
-                        }
-                        return x.length > 0 ? x[0] : null
-                    }).catch(err => {
-                        console.warn(err)
-                        return null
-                    })
-            } else {
-                return null
-            }
-        }
-
-        const get_products = async (id) => {
-            const page_number = url.searchParams.get('page') || 0
-            const offset = page_number * 20;
-            return fetch(`/products?category_id=${id}&offset=${offset}`, {
+        const get_products = async () => {
+            const id = url.searchParams.get('product_id')
+            return fetch(`/product/${id}`, {
                 mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
@@ -69,52 +33,35 @@
                     if (x.error) {
                         return undefined
                     }
-                    return x
+                    return x.length > 0 ? x[0] : null
                 }).catch(err => {
+                    console.warn(err)
                     return null
                 })
         }
 
+
         const start = async () => {
-            const category = await getCategory()
-            if (category === undefined) {
+            const product = await get_products()
+            if (product === undefined) {
                 window.location.replace('404.html')
             }
-            if (category === null) {
+            if (product === null) {
                 return;
             }
-            document.querySelector('.page_name').innerText = category.name
-            const products = await get_products(category.id)
-            if (category === undefined) {
-                window.location.replace('404.html')
-            }
-            if (category === undefined) {
-                return;
-            }
-            const p = document.querySelector('.product_item_container')
-
-
-            products.forEach(product => {
-                const pres = document.createElement("div")
-                pres.className = "single_product"
-                pres.innerHTML = `
-                        <div class="product_image product_view_${product.id}">
+            console.log(product)
+            document.querySelector('.product_page_name').innerText = product.name
+            document.querySelector('.product_img').innerHTML = (`
                             <img src="${product.big_image_link}" alt="">
-                            <div class="product_text_info">
-                                <h4>
-                                    <a href="/product.html?product_id=${product.id}" class="product_title">${product.name}</a>
-                                </h4>
-                                <span class="price">$${(product.price).toFixed(2)}</span>
-                            </div>
-                        </div>
-                `
+            `)
+            document.querySelector('.product_title').innerText = product.name
 
-                p.appendChild(pres)
-            })
+            document.querySelector('.product_description').innerText = product.description
+            // document.querySelector('.product_page_name').innerText = product.name
+
         }
 
         start();
-
 
     </script>
 </head>
@@ -150,28 +97,74 @@
             </div>
         </div>
     </header>
-    <div class="men_title_area">
-        <div class="men_container">
+    <div class="contact_title_area">
+        <div class="contact_container">
             <div class="col_left">
-                <h2 class="page_name"></h2>
+                <h2 class="product_page_name">Shop Details</h2>
             </div>
             <div class="col_right">
                 <ul class="list_nav">
                     <li><a href="./home.html">Home</a></li>
-                    <li><span>Men</span></li>
+                    <li><span>Category</span></li>
+                    <li><span>Product Title</span></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="content">
-        <div class="product_item">
-            <div class="product_item_list">
-                <div class="product_item_container">
-
+    <div class="product_details">
+        <div class="product_details_container">
+            <!-- Product details image -->
+            <div class="product_img">
+            </div>
+            <!-- Product details info -->
+            <div class="product_details_info">
+                <div class="product_title"></div>
+                <div class="product_price_container">
+                    <div class="product_price">$20.00</div>
+                    <div class="product_rating"></div>
+                </div>
+                <div class="product_overview">
+                    <h4>OVERVIEW: </h4>
+                    <p class="product_description"></p>
+                </div>
+                <h4 class="label_size">SIZE: </h4>
+                <div class="product_size">
+                    <div class="pd_size"><a href="#">s</a></div>
+                    <div class="pd_size"><a href="#">m</a></div>
+                    <div class="pd_size"><a href="#">l</a></div>
+                    <div class="pd_size"><a href="#">xl</a></div>
+                    <div class="pd_size"><a href="#">xxl</a></div>
+                </div>
+                <h4 class="label_color">COlOR : </h4>
+                <div class="product_color">
+                    <div class="pd_color red">
+                        <a href="#"></a>
+                    </div>
+                    <div class="pd_color green">
+                        <a href="#"></a>
+                    </div>
+                    <div class="pd_color black">
+                        <a href="#"></a>
+                    </div>
+                    <div class="pd_color white">
+                        <a href="#"></a>
+                    </div>
+                    <div class="pd_color yellow">
+                        <a href="#"></a>
+                    </div>
+                </div>
+                <div class="product_quantity">
+                    <h4>QUANTITY: </h4>
+                    <input class="cart_plus_minus_box" type="number" value="1" min="1">
+                </div>
+                <div class="product_btn add_to_cart_btn">
+                    <a href="#">Add To Cart</a>
                 </div>
             </div>
         </div>
     </div>
+
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer_container_info">

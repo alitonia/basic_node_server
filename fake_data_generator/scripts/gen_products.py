@@ -1,5 +1,5 @@
 import datetime
-from random import randint, random
+from random import randint, random, sample
 
 from faker import Faker
 from faker.providers import lorem, address
@@ -10,6 +10,7 @@ from control import CATEGORY_LIMIT, SEED, PRODUCT_LIMIT, MIN_PRICE_SCALING, MIN_
     WRITE_ON_INSERT_DATA, insert_file_path, CAP_DISCOUNT_PERCENTAGE
 from get_random_timestamp import get_random_timestamp
 from get_random_element import get_random_element
+import json
 
 fake = Faker()
 Faker.seed(SEED)
@@ -20,6 +21,14 @@ fake.add_provider(address)
 categories_id_collection = [i + 1 for i in range(CATEGORY_LIMIT)]
 
 
+def gen_color():
+    str = '#'
+    pick_char = '1234567890abcdef'
+    for i in range(6):
+        str += pick_char[randint(0, len(pick_char) - 1)]
+    return str
+
+
 def gen_products():
     if len(categories_id_collection) > 0:
         data = """
@@ -28,14 +37,14 @@ ALTER SEQUENCE products_id_seq RESTART;
 
 INSERT INTO products(name, description, full_description, price, current_stock,
                      bought, big_image_link, image_links, category_id,
-                      rating, total_rated, address, created_date)
+                      rating, total_rated, address, created_date, color_options, size_options)
 VALUES
 """
 
     for i in range(PRODUCT_LIMIT):
         new_name = ' '.join(fake.words(nb=randint(3, 7))).capitalize()
-        description = fake.paragraph()
-        full_description = fake.paragraph(nb_sentences=randint(3, 7))
+        description = fake.paragraph(nb_sentences=randint(7, 12))
+        full_description = fake.paragraph(nb_sentences=randint(12, 20))
         price = (random() + MIN_PRICE_BASE) * randint(MIN_PRICE_SCALING, MAX_PRICE_SCALING)
         current_stock = randint(0, STOCK_UPPER_BOUND)
         bought = randint(0, BOUGHT_UPPER_BOUND)
@@ -95,10 +104,14 @@ VALUES
         total_rated = randint(1, RATED_NUMBER_UPPER_BOUND)
         address = f"{fake.address()}"
 
+        color_options = [gen_color() for i in range(randint(0, 5))]
+        size_possible_options = sample(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'], randint(0, 5))
+
         new_value = f"('{new_name}', '{description}', '{full_description}', " \
                     f"{price}, {current_stock}, {bought}, " \
                     f"'{big_image_link}', {image_links}, {category_id}, " \
-                    f"{rating}, {total_rated}, '{address}', '{created_date}')"
+                    f"{rating}, {total_rated}, '{address}', '{created_date}', " \
+                    f"'{json.dumps(color_options)}', '{json.dumps(size_possible_options)}')"
         data += new_value
         if i != PRODUCT_LIMIT - 1:
             data += ','
