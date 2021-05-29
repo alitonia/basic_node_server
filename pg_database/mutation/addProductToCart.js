@@ -1,0 +1,163 @@
+const pool = require('../connect_database.js');
+
+const select_product_id = (id) => {
+    return (
+        `SELECT *
+         FROM products
+         where id = ${id};`
+    )
+};
+
+const check_existing_cart = (id) => {
+    return (
+        `SELECT *
+         FROM receipts
+         where customer_id = ${id}
+           and status = 'created';`
+    )
+}
+
+const create_cart = (user_id) => {
+    return (
+        `INSERT INTO receipts(customer_id)
+         VALUES (${user_id});`
+    )
+}
+
+const buy_product = (id, quantity) => {
+    return (
+        `
+            UPDATE products
+            set quantity = quantity - ${quantity}
+            where id = ${id};
+
+        `
+    )
+}
+
+
+const check_existing_orders = (receipt_id, product_id) => {
+    return (
+        `SELECT *
+         FROM orders
+         where receipt_id = ${receipt_id}
+           and product_id = ${product_id};`
+    )
+}
+
+const create_new_order = (receipt_id, product_id, quantity) => {
+    return (
+        `INSERT INTO orders(receipt_id, product_id, quantity)
+         values (${receipt_id}, ${product_id}, ${quantity});
+
+        UPDATE products
+        SET current_stock= current_stock - ${quantity},
+            bought=bought + ${quantity}
+        where id = ${product_id};
+        `
+    )
+}
+
+
+const add_to_existing_order = (receipt_id, product_id, quantity) => {
+    return (
+        `UPDATE orders
+         set quantity = quantity + ${quantity}
+         where receipt_id = ${receipt_id}
+           and product_id = ${product_id};
+
+        UPDATE products
+        SET current_stock = current_stock - ${quantity},
+            bought=bought + ${quantity}
+        where id = ${product_id};
+        `
+    )
+}
+
+
+module.exports.addToCart = (req, res) => {
+    const body = req.body
+    const product_id = body && body.product_id ? body.product_id : null
+    const quantity = body && body.quantity ? Number.parseInt(body.quantity) : null
+    const user_id = req.user.id
+
+    if (product_id && quantity) {
+        // return res.send('ok')
+        pool.query(select_product_id(product_id),
+            (err, response) => {
+                if (err) {
+                    res.status(403)
+                    return res.send('Connection error')
+                }
+                const check_avail = response.rows.length > 0
+                if (check_avail <= 0) {
+                    res.status(403)
+                    return res.send('Product doesn\'t exist')
+                } else if (response.rows[0].current_stock < quantity) {
+                    res.status(403)
+                    return res.send('Out of stock')
+                } else {
+                    // res.send('ok')
+                    pool.query(check_existing_cart(user_id), (err1, response1) => {
+                        if (err1) {
+                            res.status(403)
+                            return res.send('Error checking cart')
+                        }
+                        if (!response1 || response1.rows.length === 0) {
+                            pool.query(create_cart(user_id), (err2, response2) => {
+                                    if (err2) {
+                                        res.status(403)
+                                        return res.send('Error create new cart')
+                                    } else {
+                                    }
+                                }
+                            )
+                        } else {
+                            //need update cart
+                        }
+
+
+                        pool.query(check_existing_cart(user_id), (err, response) => {
+                            if (err || response.rows.length == 0) {
+                                res.status(403)
+                                return res.send('Error create new cart')
+                            } else {
+                                const receipt_id = response.rows[0].id
+                                // if product already exist => add more, else create new order
+                                pool.query(check_existing_orders(receipt_id, product_id), (err, response) => {
+                                    if (err) {
+                                        res.status(403)
+                                        return res.send('Internal error')
+                                    } else if (response.rows.length === 0) {
+                                        pool.query(create_new_order(receipt_id, product_id, quantity), (err, response) => {
+                                                if (err) {
+                                                    res.status(403)
+                                                    return res.send('Internal error')
+                                                } else {
+                                                    res.send('OK')
+                                                }
+                                            }
+                                        )
+                                    } else {
+                                        pool.query(add_to_existing_order(receipt_id, product_id, quantity), (err, response) => {
+                                                if (err) {
+                                                    res.status(403)
+                                                    return res.send('Internal error')
+                                                } else {
+                                                    res.send('OK')
+                                                }
+                                            }
+                                        )
+                                    }
+                                })
+                            }
+                        })
+                    })
+                }
+            });
+    } else {
+        res.status(401)
+        return res.send("Invalid request")
+    }
+
+};

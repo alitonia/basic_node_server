@@ -67,12 +67,12 @@ CREATE TABLE products
     price               float        NOT NULL CHECK (price >= 0),
     current_stock       int          NOT NULL CHECK (current_stock >= 0),
     bought              int          NOT NULL CHECK (bought >= 0) DEFAULT 0,
-    has_discount        boolean      NOT NULL                     DEFAULT FALSE,
-    discount_price      float CHECK (has_discount = TRUE OR discount_price is NULL
-        ),
-    discount_start_date TIMESTAMP,
-    discount_end_date   TIMESTAMP CHECK (discount_start_date is NULL OR discount_end_date >= discount_start_date
-        ),
+--     has_discount        boolean      NOT NULL                     DEFAULT FALSE,
+--     discount_price      float CHECK (has_discount = TRUE OR discount_price is NULL
+--         ),
+--     discount_start_date TIMESTAMP,
+--     discount_end_date   TIMESTAMP CHECK (discount_start_date is NULL OR discount_end_date >= discount_start_date
+--         ),
     big_image_link      TEXT,
     image_links         TEXT[],
     category_id         integer      NOT NULL,
@@ -92,13 +92,20 @@ create table receipts
     id                 serial PRIMARY key,
     order_date         TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP,
     customer_id        integer NOT NULL,
-    status             varchar(60)              DEFAULT 'pending' CHECK (status in ('pending', 'cancelled', 'delivered')),
-    total_price        NUMERIC NOT NULL CHECK (total_price >= 0),
-    shipping_method_id int,
-    payment_method_id  int,
-    constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set NULL,
-    constraint valid_shipping_method_id foreign key (shipping_method_id) REFERENCES shipping_methods (id),
-    constraint valid_payment_method_id foreign key (payment_method_id) REFERENCES payment_methods (id)
+    status             varchar(60)              DEFAULT 'created' CHECK (status in ('created', 'pending', 'cancelled', 'delivered')),
+    billing_first_name varchar(60),
+    billing_last_name  varchar(60),
+    company_name       varchar(60),
+    email              varchar(60),
+    phone_number       varchar(60),
+    country            varchar(60),
+    address            varchar(60),
+    postcode           varchar(60),
+    city               varchar(60),
+    note               varchar(60),
+    payment_method     varchar(60),
+    shipping_address   varchar(60),
+    constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set NULL
 );
 
 create
@@ -108,9 +115,9 @@ create table orders
 (
     receipt_id integer NOT NULL,
     product_id integer NOT NULL,
+    quantity   integer NOT NULL CHECK (quantity > 0),
     constraint valid_receipt_id foreign key (receipt_id) REFERENCES receipts (id) on delete set null,
     constraint valid_product_id foreign key (product_id) REFERENCES products (id) on delete set null,
-    quantity   integer NOT NULL CHECK (quantity > 0),
     PRIMARY key (receipt_id, product_id)
 );
 

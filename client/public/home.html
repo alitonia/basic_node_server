@@ -14,422 +14,431 @@
     <link rel="stylesheet" href="./assets/css/contact/about_us.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Home</title>
+
+    <script>
+        const url = new URL(window.location);
+        const token = url.searchParams.get('token')
+        if (token) {
+            document.cookie = `token=${token}`
+        }
+    </script>
 </head>
 
+
 <body>
-    <div class="shop">
-        <!-- Header -->
-        <header class="header">
-            <div class="grid">
-                <div class="header_navbar">
-                    <div class="logo">
-                        <img src="./assets/images/logo/logo.png" alt="logo">
+<div class="shop">
+    <!-- Header -->
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <div class="logo">
+                    <img src="./assets/images/logo/logo.png" alt="logo">
+                </div>
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item">
+                                <a class="home" href="#">HOME</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="men" href="./men.html">MEN</a>
+                                <ul class="menu_men_item">
+                                    <li><a href="#">SHIRT</a></li>
+                                    <li><a href="#">T-SHIRT</a></li>
+                                    <li><a href="#">JEANS</a></li>
+                                    <li><a href="#">SUIT</a></li>
+                                    <li><a href="#">SHORT</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="menu_item">
+                                <a class="women" href="#">WOMEN</a>
+                                <ul class="menu_women_item">
+                                    <li><a href="#">SHIRT</a></li>
+                                    <li><a href="#">T-SHIRT</a></li>
+                                    <li><a href="#">DRESS</a></li>
+                                    <li><a href="#">SKIRT</a></li>
+                                    <li><a href="#">JEANS</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu_item">
+                                <a class="contact" href="./contact.html">CONTACT</a>
+                            </li>
+
+                            <li class="menu_item">
+                                <a class="aboutus" href="./aboutus.html">ABOUT US</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="menu_wrap">
-                        <div class="main_menu">
-                            <ul class="menu_list">
-                                <li class="menu_item">
-                                    <a class="home" href="#">HOME</a>
-                                </li>
-                                <li class="menu_item">
-                                    <a class="men"href="./men.html">MEN</a>
-                                    <ul class="menu_men_item">
-                                        <li><a href="#">SHIRT</a></li>
-                                        <li><a href="#">T-SHIRT</a></li>
-                                        <li><a href="#">JEANS</a></li>
-                                        <li><a href="#">SUIT</a></li>
-                                        <li><a href="#">SHORT</a></li>
+                </div>
+            </div>
+        </div>
+    </header>
 
-                                    </ul>
-                                </li>
-                                <li class="menu_item">
-                                    <a class="women" href="#">WOMEN</a>
-                                    <ul class="menu_women_item">
-                                        <li><a href="#">SHIRT</a></li>
-                                        <li><a href="#">T-SHIRT</a></li>
-                                        <li><a href="#">DRESS</a></li>
-                                        <li><a href="#">SKIRT</a></li>
-                                        <li><a href="#">JEANS</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu_item">
-                                    <a class="contact" href="./contact.html">CONTACT</a>
-                                </li>
+    <div class="slider">
+        <div class="slider_container">
+            <div class="single_slide fade slide_1">
+                <div class="slide_content slide_content_1">
+                    <div class="slide_content_container">
+                        <p class="animated_1">New Year 2021</p>
+                        <h1 class="animated_2">BEST SHOPPING</h1>
+                        <h4 class="animated_3">Big Sale of This Week 50% off</h4>
+                        <!-- link to some where -->
+                        <a href="#" class="btn main_btn animated_4">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slide fade slide_2">
+                <div class="slide_content slide_content_2">
+                    <div class="slide_content_container">
+                        <p class="animated_1">WOMEN FASHION</p>
+                        <h1 class="animated_2">POPULAR STYlE</h1>
+                        <h4 class="animated_3">Big Sale of This Week 50% off</h4>
+                        <!-- link to some where -->
+                        <a href="#" class="btn main_btn animated_4">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slide fade slide_3">
+                <div class="slide_content slide_content_3">
+                    <div class="slide_content_container">
+                        <p class="animated_1">MEN FASHION</p>
+                        <h1 class="animated_2">POPULAR STYLE</h1>
+                        <h4 class="animated_3">Big Sale of This Week 50% off</h4>
+                        <!-- link to some where -->
+                        <a href="#" class="btn main_btn animated_4">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="next_slide">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div id="owl_previous">
+                <i class="fa fa-angle-left"></i>
+            </div>
 
-                                <li class="menu_item">
-                                    <a class="aboutus" href="./aboutus.html">ABOUT US</a>
-                                </li>
-                            </ul>
+            <div id="owl_next">
+                <i class="fa fa-angle-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="promo_area">
+            <div class="row">
+                <div class="col image_banner">
+                    <div class="single_promo">
+                        <img src="./assets/images/promo/promo_1.jpg" alt="">
+                        <div class="single_promo_content">
+                            <div class="single_promo_title">
+                                <h2>MEN</h2>
+                            </div>
+                            <h3>2021 Collection</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col_2 image_banner">
+                    <div class="single_promo">
+                        <img src="./assets/images/promo/promo_2.jpg" alt="">
+                        <div class="single_promo_content">
+                            <div class="single_promo_title">
+                                <h2>SHOE</h2>
+                            </div>
+                            <h3>2021 Collection</h3>
+                        </div>
+                    </div>
+
+                    <div class="single_promo">
+                        <img src="./assets/images/promo/promo_3.jpg" alt="">
+                        <div class="single_promo_content">
+                            <div class="single_promo_title">
+                                <h2>WATCH</h2>
+                            </div>
+                            <h3>2021 Collection</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col image_banner">
+                    <div class="single_promo">
+                        <img src="./assets/images/promo/promo_4.jpg" alt="">
+                        <div class="single_promo_content">
+                            <div class="single_promo_title">
+                                <h2>WOMEN</h2>
+                            </div>
+                            <h3>2021 Collection</h3>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+        <div class="product_area">
+            <div class="product_area_title">
+                <h2>Our <span>Products</span></h2>
+            </div>
+            <div class="divider">
+            </div>
+            <div class="product_filter">
+                <ul class="product_filter_list">
+                    <li class="product_filter_item">All</li>
+                    <li class="product_filter_item">Sale</li>
+                    <li class="product_filter_item">BestSeller</li>
+                    <li class="product_filter_item">Feature</li>
+                </ul>
+            </div>
+            <div class="product_item">
+                <div class="product_item_list">
+                    <div class="product_item_container">
+                        <div class="single_product">
+                            <div class="product_image">
+                                <a href="./shop_detail.html">
+                                    <img src="./assets/images/products/1.jpg" alt="">
+                                    <!-- <div class="new_badge"> New </div> -->
+                                    <div class="box_content">
+                                        <div class="box_content_icon">
+                                            <a href="#"><i class="far fa-heart"></i></a>
+                                        </div>
+                                        <div class="box_content_icon">
+                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                        </div>
+                                        <div class="box_content_icon">
+                                            <a href="#"><i class="fas fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product_text_info">
+                                        <h4>
+                                            <a href="./shop_detail.html" class="product_title">Product Title</a>
+                                        </h4>
+                                        <span class="price">$123.00</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/2.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/3.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
 
-        <div class="slider">
-            <div class="slider_container">
-                <div class="single_slide fade slide_1">
-                    <div class="slide_content slide_content_1">
-                        <div class="slide_content_container">
-                            <p class="animated_1">New Year 2021</p>
-                            <h1 class="animated_2">BEST SHOPPING</h1>
-                            <h4 class="animated_3">Big Sale of This Week 50% off</h4>
-                            <!-- link to some where -->
-                            <a href="#" class="btn main_btn animated_4">Shop Now</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="single_slide fade slide_2">
-                    <div class="slide_content slide_content_2">
-                        <div class="slide_content_container">
-                            <p class="animated_1">WOMEN FASHION</p>
-                            <h1 class="animated_2">POPULAR STYlE</h1>
-                            <h4 class="animated_3">Big Sale of This Week 50% off</h4>
-                            <!-- link to some where -->
-                            <a href="#" class="btn main_btn animated_4">Shop Now</a>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/4.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="single_slide fade slide_3">
-                    <div class="slide_content slide_content_3">
-                        <div class="slide_content_container">
-                            <p class="animated_1">MEN FASHION</p>
-                            <h1 class="animated_2">POPULAR STYLE</h1>
-                            <h4 class="animated_3">Big Sale of This Week 50% off</h4>
-                            <!-- link to some where -->
-                            <a href="#" class="btn main_btn animated_4">Shop Now</a>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/5.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="next_slide">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-                <div id="owl_previous">
-                    <i class="fa fa-angle-left"></i>
-                </div>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/6.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
 
-                <div id="owl_next">
-                    <i class="fa fa-angle-right"></i>
+                            </div>
+                        </div>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/7.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_product">
+                            <div class="product_image">
+                                <img src="./assets/images/products/8.jpg" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="" class="product_title">Product Title</a>
+                                    </h4>
+                                    <span class="price">$123.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="container">
-            <div class="promo_area">
-                <div class="row">
-                    <div class="col image_banner">
-                        <div class="single_promo">
-                            <img src="./assets/images/promo/promo_1.jpg" alt="">
-                            <div class="single_promo_content">
-                                <div class="single_promo_title">
-                                    <h2>MEN</h2>
-                                </div>
-                                <h3>2021 Collection</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col_2 image_banner">
-                        <div class="single_promo">
-                            <img src="./assets/images/promo/promo_2.jpg" alt="">
-                            <div class="single_promo_content">
-                                <div class="single_promo_title">
-                                    <h2>SHOE</h2>
-                                </div>
-                                <h3>2021 Collection</h3>
-                            </div>
-                        </div>
-                        
-                        <div class="single_promo">
-                            <img src="./assets/images/promo/promo_3.jpg" alt="">
-                            <div class="single_promo_content">
-                                <div class="single_promo_title">
-                                    <h2>WATCH</h2>
-                                </div>
-                                <h3>2021 Collection</h3>
-                            </div>
-                        </div> 
-                    </div>
-                    <div class="col image_banner">
-                        <div class="single_promo">
-                            <img src="./assets/images/promo/promo_4.jpg" alt="">
-                            <div class="single_promo_content">
-                                <div class="single_promo_title">
-                                    <h2>WOMEN</h2>
-                                </div>
-                                <h3>2021 Collection</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product_area">
-                <div class="product_area_title">
-                    <h2>Our <span>Products</span></h2>
-                </div>
-                <div class="divider">
-                </div>
-                <div class="product_filter">
-                    <ul class="product_filter_list">
-                        <li class="product_filter_item">All</li>
-                        <li class="product_filter_item">Sale</li>
-                        <li class="product_filter_item">BestSeller</li>
-                        <li class="product_filter_item">Feature</li>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer_container_info">
+                <div class="single_footer">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li>4060 Reppert Coal Road, MS</li>
+                        <li>39201 USA</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
                     </ul>
                 </div>
-                <div class="product_item">
-                    <div class="product_item_list">
-                        <div class="product_item_container">
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <a href="./shop_detail.html">
-                                        <img src="./assets/images/products/1.jpg" alt="">
-                                        <!-- <div class="new_badge"> New </div> -->
-                                        <div class="box_content">
-                                            <div class="box_content_icon">
-                                                <a href="#"><i class="far fa-heart"></i></a>
-                                            </div>
-                                            <div class="box_content_icon">
-                                                <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                            </div>
-                                            <div class="box_content_icon">
-                                                <a href="#"><i class="fas fa-search"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product_text_info">
-                                            <h4>
-                                                <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                            </h4>
-                                            <span class="price">$123.00</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/2.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/3.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/4.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/5.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/6.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/7.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_product">
-                                <div class="product_image">
-                                    <img src="./assets/images/products/8.jpg" alt="">
-                                    <div class="box_content">
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="far fa-heart"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                        </div>
-                                        <div class="box_content_icon">
-                                            <a href="#"><i class="fas fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product_text_info">
-                                        <h4>
-                                            <a href="" class="product_title">Product Title</a>
-                                        </h4>
-                                        <span class="price">$123.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="single_footer">
+                    <h4>INFORMATION</h4>
+                    <ul>
+                        <li>About us</li>
+                        <li>Delivery Information</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms & Conditions</li>
+                        <li>Contact us</li>
+                    </ul>
+                </div>
+                <div class="single_footer">
+                    <h4>Service</h4>
+                    <ul>
+                        <li>My Account</li>
+                        <li>Return</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
                 </div>
             </div>
-
-        </div>
-        <footer class="footer">
-            <div class="footer-container">
-                <div class="footer_container_info">
-                    <div class="single_footer">
-                        <h4>CONTACT</h4>
-                        <ul>
-                            <li>4060 Reppert Coal Road, MS</li>
-                            <li>39201 USA</li>
-                            <li>(+123) 685 78</li>
-                            <li>(+123) 685 78</li>
-                            <li>Contact@yourcompany.com</li>
-                        </ul>
-                    </div>
-                    <div class="single_footer">
-                        <h4>INFORMATION</h4>
-                        <ul>
-                            <li>About us</li>
-                            <li>Delivery Information</li>
-                            <li>Privacy Policy</li>
-                            <li>Terms & Conditions</li>
-                            <li>Contact us</li>
-                        </ul>
-                    </div>
-                    <div class="single_footer">
-                        <h4>Service</h4>
-                        <ul>
-                            <li>My Account</li>
-                            <li>Return</li>
-                            <li>(+123) 685 78</li>
-                            <li>(+123) 685 78</li>
-                            <li>Contact@yourcompany.com</li>
-                        </ul>
-                    </div>
+            <div class="footer_btm_area">
+                <div class="footer_social_icon">
+                    <ul class="footer_social_icon_list">
+                        <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href=""><i class="fab fa-google"></i></a></li>
+                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fas fa-rss"></i></a></li>
+                    </ul>
                 </div>
-                <div class="footer_btm_area">
-                    <div class="footer_social_icon">
-                        <ul class="footer_social_icon_list">
-                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href=""><i class="fab fa-google"></i></a></li>
-                            <li><a href=""><i class="fab fa-linkedin"></i></a></li>
-                            <li><a href=""><i class="fab fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fas fa-rss"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="footer_copyright">
-                        <p class="copyright_text">© 2021 All Rights Reserved FancyShop</p>
-                    </div>
-                    <div class="footer_payment_icon">
-                        <ul class="footer_payment_icon_list">
-                            <li><a href=""><i class="fab fa-cc-paypal"></i></a></li>
-                            <li><a href=""><i class="fab fa-cc-visa"></i></a></li>
-                            <li><a href=""><i class="fab fa-cc-discover"></i></a></li>
-                            <li><a href=""><i class="fab fa-cc-mastercard"></i></a></li>
-                            <li><a href=""><i class="fab fa-cc-amex"></i></a></li>
-                        </ul>
-                    </div>
+                <div class="footer_copyright">
+                    <p class="copyright_text">© 2021 All Rights Reserved FancyShop</p>
+                </div>
+                <div class="footer_payment_icon">
+                    <ul class="footer_payment_icon_list">
+                        <li><a href=""><i class="fab fa-cc-paypal"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-visa"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-discover"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-mastercard"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-amex"></i></a></li>
+                    </ul>
                 </div>
             </div>
-        </footer>
-
-        <script src="./assets/js/main.js"></script>
         </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+</div>
 </body>
 
 </html>

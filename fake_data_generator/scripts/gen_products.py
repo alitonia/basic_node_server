@@ -27,9 +27,7 @@ def gen_products():
 ALTER SEQUENCE products_id_seq RESTART;
 
 INSERT INTO products(name, description, full_description, price, current_stock,
-                     bought, has_discount, discount_price,
-                     discount_start_date, discount_end_date,
-                     big_image_link, image_links, category_id,
+                     bought, big_image_link, image_links, category_id,
                       rating, total_rated, address, created_date)
 VALUES
 """
@@ -99,8 +97,6 @@ VALUES
 
         new_value = f"('{new_name}', '{description}', '{full_description}', " \
                     f"{price}, {current_stock}, {bought}, " \
-                    f"{has_discount}, {discount_price}, " \
-                    f"{discount_start_date}, {discount_end_date}, " \
                     f"'{big_image_link}', {image_links}, {category_id}, " \
                     f"{rating}, {total_rated}, '{address}', '{created_date}')"
         data += new_value

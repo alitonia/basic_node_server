@@ -1,14 +1,38 @@
 const bcrypt = require("bcrypt");
 const passport = require('passport');
+const {TOKEN_SECRET} = require("../../config");
 const LocalStrategy = require('passport-local').Strategy;
 const {findUser} = require('../../pg_database/queries/find_user')
 
 const getHash = (password, salt) => bcrypt.hash(password, salt);
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
 
 exports.getHash = getHash;
 
 exports.passportConfig = (app) => {
-    passport.use(new LocalStrategy(
+    passport.use(
+        'jwt',
+        new JWTstrategy(
+            {
+                secretOrKey: TOKEN_SECRET,
+                jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+            },
+            async (token, done) => {
+                try {
+                    return done(null, token.user);
+                } catch (error) {
+                    done(error);
+                }
+            }
+        )
+    );
+
+    passport.use('local', new LocalStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password'
+        },
         async function (username, password, cb) {
             findUser({username: username}, function (err, user) {
                 if (err) {
