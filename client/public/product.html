@@ -85,7 +85,25 @@
                     </div>
                 `)
             }
-            // document.querySelector('.product_page_name').innerText = product.name
+
+            const sizes = tryJSON(product.size_options, [])
+
+            if (sizes.length > 0) {
+                const c = document.querySelector('.size_container')
+                c.innerHTML = (`
+                    <h4 class="label_size">SIZE: </h4>
+                    <div class="product_size">
+                    ` +
+                    sizes.reduce((acc, cur) => {
+                        return acc + `
+                        <div class="pd_size size_${cur}"><a href="#">${cur}</a></div>
+                        `
+                    }, '')
+                    +
+                    `
+                    </div>
+                `)
+            }
 
         }
 
@@ -157,14 +175,7 @@
                 </div>
 
                 <div class="size_container">
-                    <h4 class="label_size">SIZE: </h4>
-                    <div class="product_size">
-                        <div class="pd_size"><a href="#">s</a></div>
-                        <div class="pd_size"><a href="#">m</a></div>
-                        <div class="pd_size"><a href="#">l</a></div>
-                        <div class="pd_size"><a href="#">xl</a></div>
-                        <div class="pd_size"><a href="#">xxl</a></div>
-                    </div>
+
                 </div>
 
                 <div class="color_container">
