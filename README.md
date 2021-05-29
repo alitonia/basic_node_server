@@ -42,9 +42,7 @@ On Window:
 
 ### TODO:
 
-* Add transaction api
-* Review api
-* EJS
-* Validate params
-* Responsive
+* Validate params?
+* Responsive?
 * auto move
+* REAL DATA

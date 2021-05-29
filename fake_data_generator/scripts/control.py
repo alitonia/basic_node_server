@@ -12,7 +12,7 @@ ENABLE_SHIPPING = True
 SEED = 1337
 CATEGORY_LIMIT = 20
 PRODUCT_LIMIT = 1000
-CUSTOMER_LIMIT = 200
+CUSTOMER_LIMIT = 20
 REVIEW_LIMIT = 3000
 
 insert_file_path = 'fake_data_generator/results/new_data.sql'

@@ -23,6 +23,7 @@ app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
 
 // api
 app.use(require('./routes/apis/product.js'))
+app.use(require('./routes/apis/category.js'));
 app.use(require('./routes/apis/categories.js'));
 app.use(require('./routes/apis/products'))
 app.use(require('./routes/apis/reviews.js'))

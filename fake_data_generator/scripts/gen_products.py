@@ -69,7 +69,7 @@ VALUES
         if len(product_image_paths) > 0:
             chosen_index = randint(0, len(product_image_paths) - 1)
             big_image_link = product_image_paths[chosen_index]
-            product_image_paths.pop(chosen_index)
+            # product_image_paths.pop(chosen_index) # can duplicate image
 
         image_links = 'NULL'
         number_of_images = randint(0, PRODUCT_IMAGES_UPPER_BOUND)
