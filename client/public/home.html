@@ -283,8 +283,20 @@
 
     const limit = 12;
 
+    const parseCookie = str =>
+        str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+
+    const structuredCookie = parseCookie(document.cookie)
+    const isLogin = !!structuredCookie['token']
+
     const get_products = async (sortby) => {
-        return fetch(`/products?limit=${limit}&sortby=${sortby}`, {
+        return fetch(`/products?limit=${limit}${sortby ? `&sortby=${sortby}` : ''}`, {
             mode: 'same-origin', // no-cors, *cors, same-origin
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
@@ -318,6 +330,7 @@
         switch (name.toLowerCase()) {
             case 'all':
                 products = await get_products();
+                break;
             default:
                 products = await get_products(name.toLowerCase());
         }
@@ -359,8 +372,30 @@
         })
     }
 
+    function handleLogout() {
+        document.cookie = "token="
+        document.location.replace('/home.html')
+    }
+
+    function loginUpperBar() {
+        document.querySelector('.sign_in_up').innerHTML = `
+        <div class="log_out">
+            <a onclick="handleLogout()">
+                <h3>Log out</h3>
+            </a>
+        </div>
+        `
+    }
+
     async function start() {
+        if (isLogin) {
+            loginUpperBar()
+        } else {
+
+        }
         handleChangePromo('all')
+
+
     }
 
     start()

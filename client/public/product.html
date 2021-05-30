@@ -17,6 +17,7 @@
         const url = new URL(window.location)
         let shouldHaveSize = false
         let shouldHaveColor = false
+        let productData = null
 
         const tryJSON = (x, fallback = null) => {
             try {
@@ -69,6 +70,7 @@
             if (product === null) {
                 return;
             }
+            productData = product
             console.log(product)
             document.querySelector('.product_page_name').innerText = product.name
             document.querySelector('.product_img').innerHTML = (`
@@ -76,6 +78,7 @@
             `)
             document.querySelector('.product_title').innerText = product.name
             document.querySelector('.product_description').innerText = product.description
+            document.querySelector('.product_price').innerText = `$${product.price.toFixed(2)}`
 
             const colors = tryJSON(product.color_options, [])
             shouldHaveColor = colors.length > 0
@@ -152,9 +155,9 @@
             const quantity = document.querySelector('.quantity_value').value
             const product_id = url.searchParams.get('product_id')
             const token = parseCookie(document.cookie)['token']
+            const price = productData.price
 
-            console.log(size, color, quantity, product_id, token)
-            console.log('abc')
+            console.log(size, color, quantity, product_id, token, price)
 
             if (!token) {
                 alert('Please login to add product to cart');
@@ -176,7 +179,8 @@
                         product_id: product_id,
                         quantity: quantity,
                         size: size,
-                        color: color
+                        color: color,
+                        price: price
                     })
                 }).then(x => {
                     if (x.status >= 400) {

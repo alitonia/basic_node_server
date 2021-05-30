@@ -115,6 +115,7 @@ create table orders
     quantity   integer NOT NULL CHECK (quantity > 0),
     color      varchar(256),
     size       varchar(256),
+    price      float DEFAULT 0 CHECK (price >= 0),
     constraint valid_receipt_id foreign key (receipt_id) REFERENCES receipts (id) on delete set null,
     constraint valid_product_id foreign key (product_id) REFERENCES products (id) on delete set null,
     PRIMARY key (receipt_id, product_id, color, size)

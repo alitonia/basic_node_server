@@ -44,7 +44,7 @@
     display: flex;
 }
 
-.sign_in a h3, .sign_up a h3 {
+.sign_in a h3, .sign_up a h3, .log_out a h3 {
     padding: 8px 20px;
     border-radius: 16px;
     margin-top: 28px;
@@ -61,18 +61,25 @@
     background: #06327a;
 }
 
+.log_out a h3 {
+    border: 1px solid #962d2d;
+    background: #4a1c40;
+}
+
 .sign_up {
     margin-right: 20px;
     margin-left: 50px;
 }
 
 .sign_up a,
-.sign_in a {
+.sign_in a,
+.log_out a{
     text-decoration: none;
     font-size: 1rem;
     font-family: serif;
     font-weight: 550;
     letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .sign_up:hover a h3 {
@@ -85,6 +92,12 @@
     border: 1px solid #12fa12;
     background: #12fa12;
     color: black;
+}
+
+.log_out:hover a h3 {
+    border: 1px solid #f9dfdc;
+    background: #0a81ab;
+    color: white;
 }
 
 /* SUB MENU */
