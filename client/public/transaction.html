@@ -75,7 +75,23 @@
 
         }
 
+        const parseCookie = str =>
+            str
+                .split(';')
+                .map(v => v.split('='))
+                .reduce((acc, v) => {
+                    acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                    return acc;
+                }, {});
+
+
         async function start() {
+            const structuredCookie = parseCookie(document.cookie)
+            if (!structuredCookie['token']) {
+                alert('You must login')
+                setTimeout(() => document.location.replace('/login.html'), 1000)
+                return;
+            }
 
         }
 
