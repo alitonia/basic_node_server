@@ -39,7 +39,7 @@
         const get_products = async () => {
             const id = url.searchParams.get('product_id')
             return fetch(`/product/${id}`, {
-                mode: 'cors', // no-cors, *cors, same-origin
+                mode: 'same-origin', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
@@ -163,7 +163,7 @@
             } else if (quantity && product_id) {
                 fetch('/add_to_cart', {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                    mode: 'cors', // no-cors, *cors, same-origin
+                    mode: 'same-origin', // no-cors, *cors, same-origin
                     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                     credentials: 'same-origin', // include, *same-origin, omit
                     headers: {

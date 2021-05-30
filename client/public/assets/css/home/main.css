@@ -19,7 +19,7 @@
     line-height: 80px;
 }
 
-.menu_item  a {
+.menu_item a {
     text-decoration: none;
     color: rgb(0, 0, 0);
     margin: 0 20px;
@@ -44,7 +44,7 @@
     display: flex;
 }
 
-.sign_in a h3, .sign_up a h3{
+.sign_in a h3, .sign_up a h3 {
     padding: 8px 20px;
     border-radius: 16px;
     margin-top: 28px;
@@ -75,17 +75,18 @@
     letter-spacing: 1px;
 }
 
-.sign_up:hover a h3{
+.sign_up:hover a h3 {
     border: 1px solid #129ef0;
     background: #129ef0;
     color: black;
 }
 
-.sign_in:hover a h3{
+.sign_in:hover a h3 {
     border: 1px solid #12fa12;
     background: #12fa12;
     color: black;
 }
+
 /* SUB MENU */
 
 .menu_men_item,
@@ -100,7 +101,7 @@
 }
 
 .menu_men_item li a,
-.menu_women_item li a{
+.menu_women_item li a {
     display: block;
     text-decoration: none;
     height: 30px;

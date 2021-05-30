@@ -15,13 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Home</title>
 
-    <script>
-        // const url = new URL(window.location);
-        // const token = url.searchParams.get('token')
-        // if (token) {
-        //     document.cookie = `token=${token}`
-        // }
-    </script>
+
 </head>
 
 
@@ -43,7 +37,7 @@
                                 <a class="home" href="#">HOME</a>
                             </li>
                             <li class="menu_item">
-                                <a class="men" href="./men.html">MEN</a>
+                                <a class="men" href="./category.html?category_id=1">MEN</a>
                                 <ul class="menu_men_item">
                                     <li><a href="#">SHIRT</a></li>
                                     <li><a href="#">T-SHIRT</a></li>
@@ -54,7 +48,7 @@
                                 </ul>
                             </li>
                             <li class="menu_item">
-                                <a class="women" href="./women.html">WOMEN</a>
+                                <a class="women" href="./category.html?category_id=2">WOMEN</a>
                                 <ul class="menu_women_item">
                                     <li><a href="#">SHIRT</a></li>
                                     <li><a href="#">T-SHIRT</a></li>
@@ -86,8 +80,8 @@
                 </div>
             </div>
         </div>
+    </header>
 </div>
-</header>
 
 <div class="slider">
     <div class="slider_container">
@@ -144,7 +138,7 @@
         <div class="row">
             <div class="col image_banner">
                 <div class="single_promo">
-                    <a href="men.html">
+                    <a href="./category.html?category_id=1">
                         <img src="./assets/images/promo/promo_1.jpg" alt="">
                         <div class="single_promo_content">
                             <div class="single_promo_title">
@@ -158,27 +152,31 @@
 
             <div class="col col_2 image_banner">
                 <div class="single_promo">
-                    <img src="./assets/images/promo/promo_2.jpg" alt="">
-                    <div class="single_promo_content">
-                        <div class="single_promo_title">
-                            <h2>SHOE</h2>
+                    <a href="./category.html?category_id=4">
+                        <img src="./assets/images/promo/promo_2.jpg" alt="">
+                        <div class="single_promo_content">
+                            <div class="single_promo_title">
+                                <h2>SHOE</h2>
+                            </div>
+                            <h3>2021 Collection</h3>
                         </div>
-                        <h3>2021 Collection</h3>
-                    </div>
+                    </a>
                 </div>
                 <div class="single_promo">
-                    <img src="./assets/images/promo/promo_3.jpg" alt="">
-                    <div class="single_promo_content">
-                        <div class="single_promo_title">
-                            <h2>WATCH</h2>
+                    <a href="./category.html?category_id=3">
+                        <img src="./assets/images/promo/promo_3.jpg" alt="">
+                        <div class="single_promo_content">
+                            <div class="single_promo_title">
+                                <h2>WATCH</h2>
+                            </div>
+                            <h3>2021 Collection</h3>
                         </div>
-                        <h3>2021 Collection</h3>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col image_banner">
                 <div class="single_promo">
-                    <a href="women.html">
+                    <a href="./category.html?category_id=2">
                         <img src="./assets/images/promo/promo_4.jpg" alt="">
                         <div class="single_promo_content">
                             <div class="single_promo_title">
@@ -200,221 +198,17 @@
         </div>
         <div class="product_filter">
             <ul class="product_filter_list">
-                <li class="product_filter_item">All</li>
-                <li class="product_filter_item">Sale</li>
-                <li class="product_filter_item">BestSeller</li>
-                <li class="product_filter_item">Feature</li>
+                <li class="product_filter_item select_all activated" onclick="handleChangePromo('All')">All</li>
+                <li class="product_filter_item select_sale" onclick="handleChangePromo('Sale')">Sale</li>
+                <li class="product_filter_item select_bestseller" onclick="handleChangePromo('BestSeller')">BestSeller
+                </li>
+                <li class="product_filter_item select_feature" onclick="handleChangePromo('Feature')">Feature</li>
             </ul>
         </div>
         <div class="product_item">
             <div class="product_item_list">
                 <div class="product_item_container">
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/1.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/2.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
 
-                            </a>
-                        </div>
-                    </div>
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/3.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-
-                    </div>
-
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/4.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/5.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/6.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-
-                    </div>
-
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/7.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="single_product">
-                        <div class="product_image">
-                            <a href="./shop_detail.html">
-                                <img src="./assets/images/products/8.jpg" alt="">
-                                <!-- <div class="new_badge"> New </div> -->
-                                <div class="box_content">
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
-                                    </div>
-                                    <div class="box_content_icon">
-                                        <a href="#"><i class="fas fa-search"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product_text_info">
-                                    <h4>
-                                        <a href="./shop_detail.html" class="product_title">Product Title</a>
-                                    </h4>
-                                    <span class="price">$123.00</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -483,6 +277,96 @@
 </footer>
 
 <script src="./assets/js/main.js"></script>
+
+
+<script>
+
+    const limit = 12;
+
+    const get_products = async (sortby) => {
+        return fetch(`/products?limit=${limit}&sortby=${sortby}`, {
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer',
+        })
+            .then(x => x.json())
+            .then(x => {
+                if (x.error) {
+                    return undefined
+                }
+                return x
+            }).catch(err => {
+                return null
+            })
+    }
+
+
+    async function handleChangePromo(name) {
+        const p = document.querySelector('.product_item_container')
+
+        const changeGroup = document.querySelectorAll('.product_filter_item')
+        changeGroup.forEach(c => c.className = c.className.split(' ').filter(x => x !== 'activated').join(' '))
+
+        const newStar = document.querySelector(`.product_filter_item.select_${name.toLowerCase()}`)
+        newStar.className = newStar.className + ' activated'
+        let products = []
+
+        switch (name.toLowerCase()) {
+            case 'all':
+                products = await get_products();
+            default:
+                products = await get_products(name.toLowerCase());
+        }
+
+        if (!products) {
+            products = [];
+        }
+
+        p.innerHTML = ''
+        products.forEach(product => {
+            const pres = document.createElement("div")
+            pres.className = "single_product"
+            pres.innerHTML = `
+                        <div class="product_image product_view_${product.id}">
+                            <a href="/product.html?product_id=${product.id}">
+                                <img src="${product.big_image_link}" alt="">
+                                <div class="box_content">
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="/product.html?product_id=${product.id}" class="product_title">${product.name}</a>
+                                    </h4>
+                                    <span class="price">$${(product.price).toFixed(2)}</span>
+                                </div>
+                            </a>
+                        </div>
+                `
+            p.appendChild(pres)
+        })
+    }
+
+    async function start() {
+        handleChangePromo('all')
+    }
+
+    start()
+</script>
+
+
 </div>
 </body>
 

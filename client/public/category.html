@@ -27,7 +27,7 @@
             const category_id = url.searchParams.get('category_id')
             if (category_id) {
                 return fetch(`/category/${category_id}`, {
-                    mode: 'cors', // no-cors, *cors, same-origin
+                    mode: 'same-origin', // no-cors, *cors, same-origin
                     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                     credentials: 'same-origin', // include, *same-origin, omit
                     headers: {
@@ -55,7 +55,7 @@
             const page_number = url.searchParams.get('page') || 0
             const offset = page_number * 20;
             return fetch(`/products?category_id=${id}&offset=${offset}`, {
-                mode: 'cors', // no-cors, *cors, same-origin
+                mode: 'same-origin', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
