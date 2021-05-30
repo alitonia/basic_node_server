@@ -19,12 +19,15 @@ def gen_categories():
     ALTER SEQUENCE categories_id_seq RESTART;
     
     INSERT INTO categories(name, description, image_link, parent_category)
-    VALUES
+    VALUES ('Men', 'Categories for men', 'assets/images/promo/promo_1.jpg', null),
+            ('Women', 'Category for women', 'assets/images/promo/promo_4.jpg', null),
+            ('Watch', 'Category for watch', 'assets/images/promo/promo_3.jpg', null),
+            ('Shoe', 'Category for shoe', 'assets/images/promo/promo_2.jpg', null),
         """
 
     categories_id_collection = []
 
-    for i in range(CATEGORY_LIMIT):
+    for i in range(2, CATEGORY_LIMIT):
         new_name = ' '.join(fake.words(nb=randint(1, 2))).capitalize()
         parent_category = 'NULL'
         random_image_link = 'NULL'

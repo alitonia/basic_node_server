@@ -15,6 +15,8 @@
 
     <script>
         const url = new URL(window.location)
+        let shouldHaveSize = false
+        let shouldHaveColor = false
 
         const tryJSON = (x, fallback = null) => {
             try {
@@ -23,6 +25,16 @@
                 return fallback
             }
         }
+
+        const parseCookie = str =>
+            str
+                .split(';')
+                .map(v => v.split('='))
+                .reduce((acc, v) => {
+                    acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                    return acc;
+                }, {});
+
 
         const get_products = async () => {
             const id = url.searchParams.get('product_id')
@@ -66,8 +78,9 @@
             document.querySelector('.product_description').innerText = product.description
 
             const colors = tryJSON(product.color_options, [])
+            shouldHaveColor = colors.length > 0
 
-            if (colors.length > 0) {
+            if (shouldHaveColor) {
                 const c = document.querySelector('.color_container')
                 c.innerHTML = (`
                 <h4 class="label_color">COlOR : </h4>
@@ -75,8 +88,7 @@
                     ` +
                     colors.reduce((acc, cur) => {
                         return acc + `
-                        <div class="pd_color color_${cur}" style="background-color: ${cur};">
-                            <a href="#"></a>
+                        <div class="pd_color color_${cur.slice(1,)}" style="background-color: ${cur};" onclick="handleColorClick('${cur}')">
                         </div>
 `
                     }, '')
@@ -87,8 +99,9 @@
             }
 
             const sizes = tryJSON(product.size_options, [])
+            shouldHaveSize = sizes.length > 0
 
-            if (sizes.length > 0) {
+            if (shouldHaveSize) {
                 const c = document.querySelector('.size_container')
                 c.innerHTML = (`
                     <h4 class="label_size">SIZE: </h4>
@@ -96,7 +109,7 @@
                     ` +
                     sizes.reduce((acc, cur) => {
                         return acc + `
-                        <div class="pd_size size_${cur}"><a href="#">${cur}</a></div>
+                        <div class="pd_size size_${cur}" onclick="handleSizeClick('${cur}')"><span>${cur}</span></div>
                         `
                     }, '')
                     +
@@ -104,7 +117,92 @@
                     </div>
                 `)
             }
+        }
 
+        const handleColorClick = (x) => {
+            const prev_color = document.querySelector('.color_value').value
+            if (prev_color) {
+                document.querySelector(`.pd_color.color_${prev_color.slice(1,)}`).style.border = '1px solid #eeeeee'
+            }
+            document.querySelector('.color_value').value = x
+            document.querySelector(`.pd_color.color_${x.slice(1,)}`).style.border = '2px solid #33d286'
+            console.log(x)
+        }
+
+        const handleSizeClick = (x) => {
+            const prev_size = document.querySelector('.size_value').value
+            if (prev_size) {
+                document.querySelector(`.pd_size.size_${prev_size}`).style.border = '1px solid #eeeeee'
+                document.querySelector(`.pd_size.size_${prev_size} > span`).style.color = '#000000'
+
+            }
+            document.querySelector('.size_value').value = x
+            document.querySelector(`.pd_size.size_${x}`).style.border = '2px solid #33d286'
+            document.querySelector(`.pd_size.size_${x} > span`).style.color = '#33d286'
+            console.log(x)
+        }
+
+
+        const handleAddToCart = () => {
+            const cMessage = document.querySelector('.message_status')
+            cMessage.innerHTML = (``)
+
+            const size = document.querySelector('.size_value').value
+            const color = document.querySelector('.color_value').value
+            const quantity = document.querySelector('.quantity_value').value
+            const product_id = url.searchParams.get('product_id')
+            const token = parseCookie(document.cookie)['token']
+
+            console.log(size, color, quantity, product_id, token)
+            console.log('abc')
+
+            if (!token) {
+                cMessage.innerHTML = (`
+                <h4 style="padding: 10px 10px 10px 0px; color: red;">Please login to add product to cart</h4>
+                `)
+            } else if ((shouldHaveSize && !size) || (shouldHaveColor && !color)) {
+                cMessage.innerHTML = (`
+                <h4 style="padding: 10px 10px 10px 0px; color: red;">Please select color and/or size option</h4>
+                `)
+            } else if (quantity && product_id) {
+                fetch('/add_to_cart', {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `bearer ${token}`
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({
+                        product_id: product_id,
+                        quantity: quantity,
+                        size: size,
+                        color: color
+                    })
+                }).then(x => {
+                    if (x.status >= 400) {
+                        throw new Error(x.statusText);
+                    }
+                    cMessage.innerHTML = (`
+                    <h4 style="padding: 10px 10px 10px 0px; color: green;">${'Added to Cart'}</h4>
+                `)
+                })
+                    .catch(e => {
+                        let msg = e.toString()
+                        if (msg === 'Error: Unauthorized') {
+                            msg = 'Session expired. Please login again.'
+                        }
+                        console.warn(e.toString())
+                        cMessage.innerHTML = (`
+                    <h4 style="padding: 10px 10px 10px 0px; color: red;">${msg}</h4>
+                `)
+                    })
+            } else {
+                console.log('Lacking smth')
+            }
         }
 
         start();
@@ -177,16 +275,25 @@
                 <div class="size_container">
 
                 </div>
+                <input type="hidden" name="size" class="size_value" value="">
+
 
                 <div class="color_container">
 
                 </div>
+                <input type="hidden" name="color" class="color_value" value="">
+
                 <div class="product_quantity">
                     <h4>QUANTITY: </h4>
-                    <input class="cart_plus_minus_box" type="number" value="1" min="1">
+                    <input class="cart_plus_minus_box quantity_value" type="number" value="1" min="1">
                 </div>
+
+                <div class="message_status">
+
+                </div>
+
                 <div class="product_btn add_to_cart_btn">
-                    <a href="#">Add To Cart</a>
+                    <a onclick="handleAddToCart()">Add To Cart</a>
                 </div>
             </div>
         </div>

@@ -36,19 +36,23 @@ const buy_product = (id, quantity) => {
 }
 
 
-const check_existing_orders = (receipt_id, product_id) => {
+const check_existing_orders = (receipt_id, product_id, color, size) => {
     return (
         `SELECT *
          FROM orders
          where receipt_id = ${receipt_id}
-           and product_id = ${product_id};`
+           and product_id = ${product_id}
+           and color = ${color ? "'" + color + "'" : 'NULL'}
+           and size = ${size ? "'" + size + "'" : 'NULL'}
+        `
     )
 }
 
-const create_new_order = (receipt_id, product_id, quantity) => {
+const create_new_order = (receipt_id, product_id, quantity, color, size) => {
     return (
-        `INSERT INTO orders(receipt_id, product_id, quantity)
-         values (${receipt_id}, ${product_id}, ${quantity});
+        `INSERT INTO orders(receipt_id, product_id, quantity, color, size)
+         values (${receipt_id}, ${product_id}, ${quantity},
+                 ${color ? "'" + color + "'" : 'NULL'}, ${size ? "'" + size + "'" : 'NULL'});
 
         UPDATE products
         SET current_stock= current_stock - ${quantity},
@@ -59,12 +63,15 @@ const create_new_order = (receipt_id, product_id, quantity) => {
 }
 
 
-const add_to_existing_order = (receipt_id, product_id, quantity) => {
+const add_to_existing_order = (receipt_id, product_id, quantity, color, size) => {
     return (
         `UPDATE orders
          set quantity = quantity + ${quantity}
          where receipt_id = ${receipt_id}
-           and product_id = ${product_id};
+           and product_id = ${product_id}
+           and color = ${color ? "'" + color + "'" : 'NULL'}
+           and size = ${size ? "'" + size + "'" : 'NULL'}
+        ;
 
         UPDATE products
         SET current_stock = current_stock - ${quantity},
@@ -79,6 +86,10 @@ module.exports.addToCart = (req, res) => {
     const body = req.body
     const product_id = body && body.product_id ? body.product_id : null
     const quantity = body && body.quantity ? Number.parseInt(body.quantity) : null
+
+    const color = body && body.color ? body.color : null
+    const size = body && body.size ? body.size : null
+
     const user_id = req.user.id
 
     if (product_id && quantity) {
@@ -113,23 +124,22 @@ module.exports.addToCart = (req, res) => {
                                 }
                             )
                         } else {
-                            //need update cart
                         }
 
 
                         pool.query(check_existing_cart(user_id), (err, response) => {
-                            if (err || response.rows.length == 0) {
+                            if (err || response.rows.length === 0) {
                                 res.status(403)
                                 return res.send('Error create new cart')
                             } else {
                                 const receipt_id = response.rows[0].id
                                 // if product already exist => add more, else create new order
-                                pool.query(check_existing_orders(receipt_id, product_id), (err, response) => {
+                                pool.query(check_existing_orders(receipt_id, product_id, color, size), (err, response) => {
                                     if (err) {
                                         res.status(403)
                                         return res.send('Internal error')
                                     } else if (response.rows.length === 0) {
-                                        pool.query(create_new_order(receipt_id, product_id, quantity), (err, response) => {
+                                        pool.query(create_new_order(receipt_id, product_id, quantity, color, size), (err, response) => {
                                                 if (err) {
                                                     res.status(403)
                                                     return res.send('Internal error')
@@ -139,7 +149,7 @@ module.exports.addToCart = (req, res) => {
                                             }
                                         )
                                     } else {
-                                        pool.query(add_to_existing_order(receipt_id, product_id, quantity), (err, response) => {
+                                        pool.query(add_to_existing_order(receipt_id, product_id, quantity, color, size), (err, response) => {
                                                 if (err) {
                                                     res.status(403)
                                                     return res.send('Internal error')

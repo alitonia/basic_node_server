@@ -94,18 +94,33 @@
             const p = document.querySelector('.product_item_container')
 
 
+            //TODO: handle button clicks
             products.forEach(product => {
                 const pres = document.createElement("div")
                 pres.className = "single_product"
                 pres.innerHTML = `
                         <div class="product_image product_view_${product.id}">
-                            <img src="${product.big_image_link}" alt="">
-                            <div class="product_text_info">
-                                <h4>
-                                    <a href="/product.html?product_id=${product.id}" class="product_title">${product.name}</a>
-                                </h4>
-                                <span class="price">$${(product.price).toFixed(2)}</span>
-                            </div>
+                            <a href="/product.html?product_id=${product.id}">
+                                <img src="${product.big_image_link}" alt="">
+                                <div class="box_content">
+                                    <div class="men_box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="men_box_content_icon">
+                                        <a href="#"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="men_box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="/product.html?product_id=${product.id}" class="product_title">${product.name}</a>
+                                    </h4>
+                                    <span class="price">$${(product.price).toFixed(2)}</span>
+                                </div>
+                            </a>
                         </div>
                 `
 

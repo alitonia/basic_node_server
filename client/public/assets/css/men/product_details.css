@@ -103,11 +103,23 @@
     color: black;
 }
 
+.product_size .pd_size span {
+    text-decoration: none;
+    font-size: 15px;
+    text-transform: uppercase;
+    transition: 0.4s;
+    color: black;
+}
+
 .pd_size:hover {
     border: 1px solid #33d286;
 }
 
 .pd_size:hover a {
+    color: #33d286;
+}
+
+.pd_size:hover span {
     color: #33d286;
 }
 

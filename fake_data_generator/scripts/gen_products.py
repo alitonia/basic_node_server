@@ -38,7 +38,7 @@ ALTER SEQUENCE products_id_seq RESTART;
 INSERT INTO products(name, description, full_description, price, current_stock,
                      bought, big_image_link, image_links, category_id,
                       rating, total_rated, address, created_date, color_options, size_options)
-VALUES
+VALUES 
 """
 
     for i in range(PRODUCT_LIMIT):
@@ -105,7 +105,11 @@ VALUES
         address = f"{fake.address()}"
 
         color_options = [gen_color() for i in range(randint(0, 5))]
-        size_possible_options = sample(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'], randint(0, 5))
+        size_possible_options = sample(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL'], randint(0, 5))
+
+        if i < 8:  # for men category
+            category_id = 1
+            big_image_link = f"assets/images/products/{i + 1}.jpg"
 
         new_value = f"('{new_name}', '{description}', '{full_description}', " \
                     f"{price}, {current_stock}, {bought}, " \
