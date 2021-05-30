@@ -12,114 +12,6 @@
 
     <title>Order Transaction</title>
 
-    <script>
-
-        function handleChangeRadio(name) {
-            const s = document.querySelector('.hidden_payment_method')
-            if (name === 'bank') {
-                s.value = 'bank'
-            } else if (name === 'paypal') {
-                s.value = 'paypal'
-            }
-        }
-
-        async function getOrders() {
-
-        }
-
-        async function purchase() {
-            const first_name = document.querySelector('.first_name').value
-            const last_name = document.querySelector('.last_name').value
-            const company_name = document.querySelector('.company_name').value
-            const email_address = document.querySelector('.email_address').value
-            const phone_number = document.querySelector('.phone_number').value
-            const country = document.querySelector('.country').value
-            const address = document.querySelector('.address').value
-            const postcode = document.querySelector('.postcode').value
-            const city = document.querySelector('.city').value
-            const note = document.querySelector('.note').value
-
-            const bank = document.querySelector('#customRadio1').value
-            const paypal = document.querySelector('#customRadio2').value
-            const hidden_payment = document.querySelector('.hidden_payment_method').value
-
-            const structuredCookie = parseCookie(document.cookie)
-            const token = structuredCookie['token']
-
-            const package = {
-                first_name: first_name,
-                last_name: last_name,
-                company_name: company_name,
-                email_address: email_address,
-                phone_number: phone_number,
-                country: country,
-                address: address,
-                postcode: postcode,
-                city: city,
-                note: note,
-                hidden_payment: hidden_payment
-            }
-
-            const isValid = Object.keys(package).reduce((acc, cur) => {
-                if (cur !== 'note') {
-                    return acc && !!package[cur]
-                } else {
-                    return acc
-                }
-            }, true)
-
-            if (!isValid) {
-                alert('Please fill in all fields')
-                return;
-            }
-
-            // TODO: add fetch
-
-            fetch('/buy', {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'same-origin', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `bearer ${token}`
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify(package)
-            }).then(x => {
-                if (x >= 400) {
-                    throw new Error(x.statusText)
-                }
-                document.location.href = '/order_success.html'
-            }).catch(err => {
-                alert(err.toString())
-            })
-        }
-
-        const parseCookie = str =>
-            str
-                .split(';')
-                .map(v => v.split('='))
-                .reduce((acc, v) => {
-                    acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-                    return acc;
-                }, {});
-
-
-        async function start() {
-            const structuredCookie = parseCookie(document.cookie)
-            if (!structuredCookie['token']) {
-                alert('You must login')
-                setTimeout(() => document.location.replace('/login.html'), 1000)
-                return;
-            }
-
-        }
-
-        start()
-
-    </script>
 </head>
 <body>
 <div class="shop">
@@ -360,5 +252,153 @@
         </div>
     </footer>
 </div>
+
+<script>
+
+    const parseCookie = str =>
+        str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+
+    const structuredCookie = parseCookie(document.cookie)
+    const token = structuredCookie['token']
+
+    function handleChangeRadio(name) {
+        const s = document.querySelector('.hidden_payment_method')
+        if (name === 'bank') {
+            s.value = 'bank'
+        } else if (name === 'paypal') {
+            s.value = 'paypal'
+        }
+    }
+
+    async function getOrders() {
+
+    }
+
+    async function purchase() {
+        const first_name = document.querySelector('.first_name').value
+        const last_name = document.querySelector('.last_name').value
+        const company_name = document.querySelector('.company_name').value
+        const email_address = document.querySelector('.email_address').value
+        const phone_number = document.querySelector('.phone_number').value
+        const country = document.querySelector('.country').value
+        const address = document.querySelector('.address').value
+        const postcode = document.querySelector('.postcode').value
+        const city = document.querySelector('.city').value
+        const note = document.querySelector('.note').value
+
+        const bank = document.querySelector('#customRadio1').value
+        const paypal = document.querySelector('#customRadio2').value
+        const hidden_payment = document.querySelector('.hidden_payment_method').value
+
+
+        const package = {
+            first_name: first_name,
+            last_name: last_name,
+            company_name: company_name,
+            email_address: email_address,
+            phone_number: phone_number,
+            country: country,
+            address: address,
+            postcode: postcode,
+            city: city,
+            note: note,
+            hidden_payment: hidden_payment
+        }
+
+        const isValid = Object.keys(package).reduce((acc, cur) => {
+            if (cur !== 'note') {
+                return acc && !!package[cur]
+            } else {
+                return acc
+            }
+        }, true)
+
+        if (!isValid) {
+            alert('Please fill in all fields')
+            return;
+        }
+
+        // TODO: add fetch
+
+        fetch('/buy', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(package)
+        }).then(x => {
+            if (x.status >= 400) {
+                throw new Error(x.statusText)
+            }
+            document.location.href = '/order_success.html'
+        }).catch(err => {
+            alert(err.toString())
+        })
+    }
+
+
+    async function getCurrentCart() {
+        return fetch('/get_cart_id', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status >= 400) {
+                throw new Error(x.statusText)
+            }
+            console.log(x)
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start() {
+        const structuredCookie = parseCookie(document.cookie)
+        if (!structuredCookie['token']) {
+            alert('You must login')
+            setTimeout(() => document.location.replace('/login.html'), 1000)
+            return;
+        }
+
+        let cart_id = null
+        const cart = await getCurrentCart()
+        if (!cart) {
+            return
+        }
+        // if (cart.length > 0) {
+        //     cart_id = cart[0].id
+        // }
+        //
+        // let orderList = []
+        //
+
+        console.log(cart)
+
+    }
+
+    start()
+
+</script>
 </body>
 </html>
