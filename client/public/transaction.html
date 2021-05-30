@@ -157,7 +157,7 @@
                         <tfoot>
                         <tr>
                             <td><b>Total</b></td>
-                            <td>$$$</td>
+                            <td class="total_amount">$$$</td>
                         </tr>
                         </tfoot>
                     </table>
@@ -363,6 +363,10 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }).then(x => {
             if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    document.cookie = "token="
+                }
                 throw new Error(x.statusText)
             }
             console.log(x)
@@ -390,9 +394,32 @@
 
         const p = document.querySelector('.table-order > tbody')
 
-        cart.forEach(item => {
+        const close_cart = cart.reduce((acc, cur) => {
+            if (!acc[cur.product_id]) {
+                acc[cur.product_id] = {
+                    name: cur.product_name,
+                    price: cur.quantity * cur.price
+                }
+            } else {
+                acc[cur.product_id].price += cur.quantity * cur.price
+            }
+            return acc
+        }, {})
 
-        })
+        p.innerHTML = (`
+        ${Object.values(close_cart).reduce((acc, item) => {
+            return acc + `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>$${item.price.toFixed(2)}</td>
+                        </tr>
+`
+        }, '')}
+        `)
+
+        const total = Object.values(close_cart).reduce((acc, cur) => acc + cur.price, 0)
+        document.querySelector('.total_amount').innerText = `$${total.toFixed(2)}`
+
     }
 
     start()

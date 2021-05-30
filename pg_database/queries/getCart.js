@@ -2,9 +2,17 @@ const pool = require('../connect_database.js');
 
 const get_products_in_cart = (cart_id) => {
     return (
-        `SELECT *
-         FROM orders
-         where receipt_id = ${cart_id};`
+        `SELECT orders.receipt_id as receipt_id,
+                orders.product_id as product_id,
+                orders.quantity   as quantity,
+                orders.color      as color,
+                orders.size       as size,
+                products.price    as price,
+                products.name     as product_name
+         FROM orders,
+              products
+         where orders.receipt_id = ${cart_id}
+           and orders.product_id = products.id;`
     )
 }
 
