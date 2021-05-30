@@ -14,6 +14,7 @@ exports.purchase = (req, res) => {
     const user_id = req.user.id
     pool.query(puchaseCurrentCart(user_id),
         (err, response) => {
+        console.log(err, response)
             if (err) {
                 res.status(403)
                 res.send('Can\'t make purchase. Please try again')

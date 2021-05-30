@@ -87,9 +87,10 @@
                     throw new Error(data.statusText)
                 }
                 data.json().then(x => {
+                    console.log(x.token)
                     document.cookie = `token=${x.token}`
                 })
-                window.location.href = "home.html"
+                // window.location.href = "home.html"
             }).catch(err => {
                 alert('Invalid username or password');
             })

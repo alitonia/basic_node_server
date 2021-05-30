@@ -43,6 +43,9 @@
             const paypal = document.querySelector('#customRadio2').value
             const hidden_payment = document.querySelector('.hidden_payment_method').value
 
+            const structuredCookie = parseCookie(document.cookie)
+            const token = structuredCookie['token']
+
             const package = {
                 first_name: first_name,
                 last_name: last_name,
@@ -72,7 +75,26 @@
 
             // TODO: add fetch
 
-
+            fetch('/buy', {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `bearer ${token}`
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(package)
+            }).then(x => {
+                if (x >= 400) {
+                    throw new Error(x.statusText)
+                }
+                document.location.href = '/order_success.html'
+            }).catch(err => {
+                alert(err.toString())
+            })
         }
 
         const parseCookie = str =>
@@ -194,9 +216,7 @@
                         <label for="address">Address:</label>
                         <textarea rows="3" name="street"
                                   id="address" placeholder="Street address. Apartment, suite, unit etc. (optional)"
-                                  class="form-control address">
-
-                        </textarea>
+                                  class="form-control address"></textarea>
                     </div>
                     <div class="form-row">
                         <div class="single-row">
@@ -251,7 +271,7 @@
                     </table>
                 </div>
                 <div class="payment-method">
-                    <input type="hidden" value="bank" class="hidden_payment_method"/>
+                    <input type="hidden" value="" class="hidden_payment_method"/>
                     <ul>
                         <li>
                             <div class="custom-radio">
