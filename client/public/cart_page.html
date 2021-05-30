@@ -13,7 +13,6 @@
 
     <title>View Cart</title>
     <script src="./assets/js/cart.js">
-        // loadData();
     </script>
 </head>
 <body>
@@ -62,50 +61,29 @@
             </div>
         </div>
     </div>
-    <!-- Cart Page Area -->
-    <!-- <script src="./assets/js/cart.js">
-        loadData();
-    </script> -->
-    <div class = "cart_page_area">
-        <div class = "cart_page_container">
+
+    <div class="cart_page_area">
+        <div class="cart_page_container">
             <div class="cart_title">
                 <h2>Your Current Order</h2>
             </div>
 
-            <div id = "board">
-                <!-- Table of products -->
-                <script>
-                    // loadData();
-                    
-                for(x=0; x<len_array;x++) {
-                    var board = document.createElement('div');
-                    board.className = "a_product";
-                    // board.innerHTML = '<p class="id_product">Some Text</p><h2 class="name_of_product">Some text name</h2>';
-                    board.innerHTML="<div class='product_infor'><img class='product_img' src=''><div class='product_detail'><h2 class='product_title'></h2><p>Color: <span class='color_product'></span></p><p>Size: <span class='size_product'></span></p></div></div><div class='product_price'><h2>Price($)</h2><p class='price'></p></div><div class='product_quantity'><h2>Quantity</h2><p class='quantity'></p></div><div class='btn_delete'><button class='remove'>Remove</button></div></div>";
-                    document.getElementById('board').appendChild(board);
-                    document.getElementsByClassName("product_title")[x].innerHTML = an_array[x]["product_name"]; 
-                    document.getElementsByClassName("color_product")[x].innerHTML = an_array[x]["color"]; 
-                    document.getElementsByClassName("size_product")[x].innerHTML = an_array[x]["size"]; 
-                    document.getElementsByClassName("price")[x].innerHTML = an_array[x]["price"]; 
-                    document.getElementsByClassName("quantity")[x].innerHTML = an_array[x]["quantity"]; 
-                    document.getElementsByClassName("product_img")[x].src = an_array[x]["img"]; 
-                }
-            </script>
+            <div id="board">
+                <h3 style="font-size: 20px;">Your cart is empty</h3>
             </div>
-        
-            <div class = "cart_continue">
+
+            <div class="cart_continue">
                 <!-- Choose next action  -->
-                <div class = "continue_shopping">                  
-                    <a href="./home.html" style="text-decoration: none;color: #ffffff;">Continue Shopping</a>       
+                <div class="continue_shopping home_button">
+                    <a href="./home.html" style="text-decoration: none;color: #ffffff;">Continue Shopping</a>
                 </div>
-                <div class = "continue_shopping" style="float: right;position: relative;">
+                <div class="continue_shopping transaction_button" style="float: right;position: relative;">
                     <a href="./transaction.html" style="text-decoration: none;color: #ffffff;">Check Out</a>
                 </div>
             </div>
         </div>
 
     </div>
-
 
 
     <footer class="footer">
@@ -168,18 +146,137 @@
         </div>
     </footer>
 </div>
-<script>
-    function setup() {
-        var els = document.getElementsByClassName("remove");
-        for (var i = 0; i < els.length; i++) {
-            els[i].addEventListener('click', function (e) {
-                e.preventDefault();
-                e.target.closest('div.a_product').remove();
 
-            });
+
+<script>
+    const parseCookie = str =>
+        str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+
+    const structuredCookie = parseCookie(document.cookie)
+    const token = structuredCookie['token']
+
+    const handleRemove = (product_id, receipt_id, color, size) => {
+        console.log(product_id, receipt_id, color, size)
+
+        return fetch('/order', {
+            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                product_id: product_id, receipt_id: receipt_id, color: color, size: size
+            })
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    document.cookie = "token="
+                }
+                throw new Error(x.statusText)
+            }
+            console.log(x)
+            document.location.replace(document.location.href)
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function getCurrentCart() {
+        return fetch('/get_cart_id', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    document.cookie = "token="
+                    alert('Your session has ended. Please log in again')
+                    document.location.replace('/home.html')
+                }
+                throw new Error(x.statusText)
+            }
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start() {
+        if (!structuredCookie['token']) {
+            alert('You must login')
+            setTimeout(() => document.location.replace('/login.html'), 200)
+            return;
+        }
+
+        const cart = await getCurrentCart()
+        if (!cart) {
+            return
+        }
+        console.log(cart)
+
+        const b = document.querySelector('#board')
+
+
+        if (cart.length === 0) {
+            b.style.border = 'none'
+            b.style['background-color'] = '#ffffff'
+            document.querySelector('.home_button').style['margin-left'] = '27%'
+            document.querySelector(`.transaction_button`).remove()
+        } else {
+            b.innerHTML = (`
+            ${cart.reduce((acc, cur) => {
+                return acc + `
+                <div class="a_product">
+                    <div class='product_infor'>
+                        <img class='product_img' src='${cur.big_image_link}'>
+                        <div class='product_detail'>
+                            <h2 class='product_title' style="line-height: 23px">${cur.product_name}</h2>
+                            <p>Color: <span class='color_product'>${cur.color}</span></p>
+                            <p>Size: <span class='size_product'>${cur.size}</span></p>
+                        </div>
+                    </div>
+                    <div class='product_price'>
+                        <h2>Price($)</h2>
+                        <p class='price'>$${cur.price.toFixed(2)}</p>
+                    </div>
+                    <div class='product_quantity'>
+                        <h2>Quantity</h2>
+                        <p class='quantity'>${cur.quantity}</p>
+                    </div>
+                    <div class='btn_delete'>
+                        <button class='remove' onclick="handleRemove(${cur.product_id}, ${cur.receipt_id}, '${cur.color}', '${cur.size}')">Remove</button>
+                    </div>
+                </div>
+                `
+            }, '')}
+
+            `)
         }
     }
-    setup();
+
+    start()
 </script>
 </body>
 </html>

@@ -33,6 +33,7 @@ app.use(require('./routes/apis/reviews.js'))
 app.use(require('./routes/apis/addProductToCart.js'))
 app.use(require('./routes/apis/buy.js'))
 app.use(require('./routes/apis/getCurrentCart.js'))
+app.use(require('./routes/apis/removeOrder.js'))
 
 
 // login/signup
