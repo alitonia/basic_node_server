@@ -25,9 +25,9 @@ exports.createUser = async function (user, cb) {
     getHash(password, salt.toString())
         .then(password_hash => {
             const spliter = name.split(' ')
-            if (spliter.length < 2) {
-                return cb(new Error('Invalid request'), false, {message: 'Invalid request'});
-            }
+            // if (spliter.length < 2) {
+            //     return cb(new Error('Invalid request'), false, {message: 'Invalid request'});
+            // }
             const first_name = spliter[0]
             const last_name = spliter.slice(1,).join(' ')
 

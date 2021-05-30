@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home/main.css">
+    <link rel="stylesheet" href="./assets/css/transaction/transaction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/home/footer.css">
+    <link rel="stylesheet" href="./assets/css/cart/cart.css">
+
+    <title>View Cart</title>
+    <script src="./assets/js/cart.js">
+        // loadData();
+    </script>
+</head>
+<body>
+<div class="shop">
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <div class="logo">
+                    <img src="./assets/images/logo/logo.png" alt="logo">
+                </div>
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item">
+                                <a href="./home.html">HOME</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./men.html">MEN</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="#">WOMEN</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./contact.html">CONTACT</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="aboutus" href="./aboutus.html">ABOUT US</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="transaction_title_area">
+        <div class="transaction_container">
+            <div class="col_left">
+                <h2>Your Cart</h2>
+            </div>
+            <div class="col_right">
+                <ul class="list_nav">
+                    <li><a href="./home.html">Home</a></li>
+                    <li><span>View Cart </span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Page Area -->
+    <!-- <script src="./assets/js/cart.js">
+        loadData();
+    </script> -->
+    <div class = "cart_page_area">
+        <div class = "cart_page_container">
+            <div class="cart_title">
+                <h2>Your Current Order</h2>
+            </div>
+
+            <div id = "board">
+                <!-- Table of products -->
+                <script>
+                    // loadData();
+                    
+                for(x=0; x<len_array;x++) {
+                    var board = document.createElement('div');
+                    board.className = "a_product";
+                    // board.innerHTML = '<p class="id_product">Some Text</p><h2 class="name_of_product">Some text name</h2>';
+                    board.innerHTML="<div class='product_infor'><img class='product_img' src=''><div class='product_detail'><h2 class='product_title'></h2><p>Color: <span class='color_product'></span></p><p>Size: <span class='size_product'></span></p></div></div><div class='product_price'><h2>Price($)</h2><p class='price'></p></div><div class='product_quantity'><h2>Quantity</h2><p class='quantity'></p></div><div class='btn_delete'><button class='remove'>Remove</button></div></div>";
+                    document.getElementById('board').appendChild(board);
+                    document.getElementsByClassName("product_title")[x].innerHTML = an_array[x]["product_name"]; 
+                    document.getElementsByClassName("color_product")[x].innerHTML = an_array[x]["color"]; 
+                    document.getElementsByClassName("size_product")[x].innerHTML = an_array[x]["size"]; 
+                    document.getElementsByClassName("price")[x].innerHTML = an_array[x]["price"]; 
+                    document.getElementsByClassName("quantity")[x].innerHTML = an_array[x]["quantity"]; 
+                    document.getElementsByClassName("product_img")[x].src = an_array[x]["img"]; 
+                }
+            </script>
+            </div>
+        
+            <div class = "cart_continue">
+                <!-- Choose next action  -->
+                <div class = "continue_shopping">                  
+                    <a href="./home.html" style="text-decoration: none;color: #ffffff;">Continue Shopping</a>       
+                </div>
+                <div class = "continue_shopping" style="float: right;position: relative;">
+                    <a href="./transaction.html" style="text-decoration: none;color: #ffffff;">Check Out</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer_container_info">
+                <div class="single_footer">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li>4060 Reppert Coal Road, MS</li>
+                        <li>39201 USA</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
+                </div>
+                <div class="single_footer">
+                    <h4>INFORMATION</h4>
+                    <ul>
+                        <li>About us</li>
+                        <li>Delivery Information</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms & Conditions</li>
+                        <li>Contact us</li>
+                    </ul>
+                </div>
+                <div class="single_footer">
+                    <h4>Service</h4>
+                    <ul>
+                        <li>My Account</li>
+                        <li>Return</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_btm_area">
+                <div class="footer_social_icon">
+                    <ul class="footer_social_icon_list">
+                        <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href=""><i class="fab fa-google"></i></a></li>
+                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fas fa-rss"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer_copyright">
+                    <p class="copyright_text">© 2021 All Rights Reserved FancyShop</p>
+                </div>
+                <div class="footer_payment_icon">
+                    <ul class="footer_payment_icon_list">
+                        <li><a href=""><i class="fab fa-cc-paypal"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-visa"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-discover"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-mastercard"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-amex"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script>
+    function setup() {
+        var els = document.getElementsByClassName("remove");
+        for (var i = 0; i < els.length; i++) {
+            els[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                e.target.closest('div.a_product').remove();
+
+            });
+        }
+    }
+    setup();
+</script>
+</body>
+</html>
