@@ -93,15 +93,14 @@ create table receipts
     billing_first_name varchar(60),
     billing_last_name  varchar(60),
     company_name       varchar(60),
-    email              varchar(60),
+    email              varchar(128),
     phone_number       varchar(60),
     country            varchar(60),
-    address            varchar(60),
+    address            varchar(180),
     postcode           varchar(60),
     city               varchar(60),
     note               varchar(60),
     payment_method     varchar(60),
-    shipping_address   varchar(60),
     constraint valid_customer_id foreign key (customer_id) REFERENCES customers (id) on delete set NULL
 );
 

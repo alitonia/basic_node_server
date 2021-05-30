@@ -26,7 +26,7 @@ module.exports.getCart = (req, res) => {
                 res.status = 501
                 return res.send({error: 'Something went wrong'})
             }
-            if (response.rows === 0) {
+            if (response.rows === 0 || !response.rows[0]) {
                 return res.send([])
             }
 
