@@ -2,6 +2,7 @@
     width: 80%;
     height: 550px;
     margin: auto;
+    line-height: 20px;
 }
 
 .product_details_container {
@@ -87,7 +88,7 @@
 }
 
 .product_size .pd_size {
-    border: 1px solid #eeeeee;
+    border: 1px solid #c41b1b;
     width: 36px;
     height: 36px;
     text-align: center;
@@ -133,13 +134,15 @@
 
 .product_color {
     display: flex;
+    
 }
 
 .product_color .pd_color {
-    border: 1px solid rgb(170, 166, 166);
+    border: 1px solid rgb(170, 4, 4);
     width: 36px;
     height: 36px;
     margin-right: 40px;
+    
 }
 
 .product_color .red {
@@ -170,7 +173,7 @@
 }
 
 .add_to_cart_btn {
-    margin-top: 20px;
+    margin-top: 5px;
     width: 150px;
     height: 40px;
     border: 1px solid #33d286;
@@ -180,7 +183,9 @@
     line-height: 40px;
     float: right;
 }
-
+.add_to_cart_btn :hover{
+    cursor: pointer;
+}
 .add_to_cart_btn a {
     text-decoration: none;
     font-size: 15px;
