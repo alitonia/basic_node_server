@@ -74,10 +74,15 @@
 
             <div class="cart_continue">
                 <!-- Choose next action  -->
-                <div class="continue_shopping home_button">
+                <div class="continue_shopping home_button" style="cursor:pointer;"
+                     onclick="(()=>{window.location.href = './home.html'})()"
+                >
                     <a href="./home.html" style="text-decoration: none;color: #ffffff;">Continue Shopping</a>
                 </div>
-                <div class="continue_shopping transaction_button" style="float: right;position: relative;">
+                <div class="continue_shopping transaction_button"
+                     style="float: right;position: relative;cursor:pointer;"
+                     onclick="(()=>{window.location.href = './transaction.html'})()"
+                >
                     <a href="./transaction.html" style="text-decoration: none;color: #ffffff;">Check Out</a>
                 </div>
             </div>
