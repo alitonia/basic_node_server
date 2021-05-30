@@ -11,6 +11,77 @@
     <link rel="stylesheet" href="./assets/css/home/footer.css">
 
     <title>Order Transaction</title>
+
+    <script>
+
+        function handleChangeRadio(name) {
+            const s = document.querySelector('.hidden_payment_method')
+            if (name === 'bank') {
+                s.value = 'bank'
+            } else if (name === 'paypal') {
+                s.value = 'paypal'
+            }
+        }
+
+        async function getOrders() {
+
+        }
+
+        async function purchase() {
+            const first_name = document.querySelector('.first_name').value
+            const last_name = document.querySelector('.last_name').value
+            const company_name = document.querySelector('.company_name').value
+            const email_address = document.querySelector('.email_address').value
+            const phone_number = document.querySelector('.phone_number').value
+            const country = document.querySelector('.country').value
+            const address = document.querySelector('.address').value
+            const postcode = document.querySelector('.postcode').value
+            const city = document.querySelector('.city').value
+            const note = document.querySelector('.note').value
+
+            const bank = document.querySelector('#customRadio1').value
+            const paypal = document.querySelector('#customRadio2').value
+            const hidden_payment = document.querySelector('.hidden_payment_method').value
+
+            const package = {
+                first_name: first_name,
+                last_name: last_name,
+                company_name: company_name,
+                email_address: email_address,
+                phone_number: phone_number,
+                country: country,
+                address: address,
+                postcode: postcode,
+                city: city,
+                note: note,
+                hidden_payment: hidden_payment
+            }
+
+            const isValid = Object.keys(package).reduce((acc, cur) => {
+                if (cur !== 'note') {
+                    return acc && !!package[cur]
+                } else {
+                    return acc
+                }
+            }, true)
+
+            if (!isValid) {
+                alert('Please fill in all fields')
+                return;
+            }
+
+            // TODO: add fetch
+
+
+        }
+
+        async function start() {
+
+        }
+
+        start()
+
+    </script>
 </head>
 <body>
 <div class="shop">
@@ -57,36 +128,46 @@
             </div>
         </div>
     </div>
+
     <div class="transaction_page_area">
         <div class="transaction_page_container">
             <div class="billing_details">
                 <div class="billing_title">
                     <h3>Billing Details</h3>
                 </div>
-                <form class ="form_input">
+                <form class="form_input">
                     <div class="form-row">
                         <div class="single-row">
-                            <input name="first_name" placeholder="First name" class="form-control" type="text">
+                            <input name="first_name" placeholder="First name"
+                                   class="form-control first_name"
+                                   type="text">
                         </div>
                         <div class="single-row">
-                            <input name="last_name" placeholder="Last name" class="form-control" type="text">
+                            <input name="last_name" placeholder="Last name"
+                                   class="form-control last_name"
+                                   type="text">
                         </div>
                     </div>
                     <div class="form-group">
-                        <input name="company_name" placeholder="Company name" class="form-control" type="text">
+                        <input name="company_name" placeholder="Company name"
+                               class="form-control company_name"
+                               type="text">
                     </div>
                     <div class="form-row">
                         <div class="single-row">
-                            <input name="email_address" placeholder="Email address" class="form-control" type="text">
+                            <input name="email_address"
+                                   placeholder="Email address"
+                                   class="form-control email_address" type="text">
                         </div>
                         <div class="single-row">
-                            <input name="phone_number" placeholder="Phone Number" class="form-control" type="text">
+                            <input name="phone_number" placeholder="Phone Number"
+                                   class="form-control phone_number" type="text">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="country">Country:</label>
                         <div class="custom-select-wrapper">
-                            <select id="country" class="custom-select">
+                            <select id="country" class="custom-select country">
                                 <option value="canada">Canada *</option>
                                 <option value="american">American</option>
                                 <option value="australia">Australia</option>
@@ -94,25 +175,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>    
-                        <textarea rows="3" name="street" id="address" placeholder="Street address. Apartment, suite, unit etc. (optional)" class="form-control"></textarea>
+                        <label for="address">Address:</label>
+                        <textarea rows="3" name="street"
+                                  id="address" placeholder="Street address. Apartment, suite, unit etc. (optional)"
+                                  class="form-control address">
+
+                        </textarea>
                     </div>
                     <div class="form-row">
                         <div class="single-row">
-                            <input name="postcode" placeholder="Post Code/Zip" class="form-control" type="text">
+                            <input name="postcode" placeholder="Post Code/Zip"
+                                   class="form-control postcode"
+                                   type="text">
                         </div>
                         <div class="single-row">
-                            <input name="city" placeholder="Town/City" class="form-control" type="text">
+                            <input name="city" placeholder="Town/City"
+                                   class="form-control city" type="text">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="address">Order note:</label>    
-                        <textarea rows="3" name="street" placeholder="Order note" class="form-control" style="min-height: 140px;"></textarea>
-                    
-                        <div class="custom-control custom-checkbox" style="display:flex;text-align: left;">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">SHIP TO A DIFFERENT ADDRESS?</label>
-                        </div>                             
+                        <label for="address">Order note:</label>
+                        <textarea rows="3" name="note"
+                                  placeholder="Order note"
+                                  class="form-control note"
+                                  style="min-height: 140px;"></textarea>
+
                     </div>
                 </form>
             </div>
@@ -123,55 +210,59 @@
                 <div class="table_of_order">
                     <table class="table-order">
                         <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Total</th>
-                            </tr>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Total</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <!-- Print products and prices here by java script -->
-                            <tr>
-                                <td>Men Clothe</td>
-                                <td>90$</td>
-                            </tr>
-                            <tr>
-                                <td>Men Clothe</td>
-                                <td>90$</td>
-                            </tr>
+                        <!-- Print products and prices here by java script -->
+                        <tr>
+                            <td>Men Clothe</td>
+                            <td>90$</td>
+                        </tr>
+                        <tr>
+                            <td>Men Clothe</td>
+                            <td>90$</td>
+                        </tr>
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td><b>Total</b></td>
-                                <td>$$$</td>
-                            </tr>
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td>$$$</td>
+                        </tr>
                         </tfoot>
                     </table>
                 </div>
                 <div class="payment-method">
+                    <input type="hidden" value="bank" class="hidden_payment_method"/>
                     <ul>
                         <li>
                             <div class="custom-radio">
-                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
+                                       value="bank" onclick="handleChangeRadio('bank')">
                                 <label class="custom-control-label" for="customRadio1">Direct Bank Transfer</label>
-                                <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lobortis sem. Quisque at 
-                                sapien ut odio</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lobortis sem.
+                                    Quisque at
+                                    sapien ut odio</p>
                             </div>
                         </li>
-                        <li>    
+                        <li>
                             <div class="custom-radio" style="margin-top: 10%;">
-                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"
+                                       value="paypal" onclick="handleChangeRadio('paypal')">
                                 <label class="custom-control-label" for="customRadio2">PayPal</label>
                             </div>
 
                         </li>
                     </ul>
                 </div>
-                <div class="button-place-order">
-                     <a href="./order_success.html" style="text-decoration: none;color: #ffffff;">Place Order</a>
-                </div>
+                <button class="button-place-order" onclick="purchase()">
+                    <span style="text-decoration: none;color: #ffffff;">Place Order</span>
+                </button>
             </div>
         </div>
-        
+
     </div>
     <footer class="footer">
         <div class="footer-container">
