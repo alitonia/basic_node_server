@@ -83,12 +83,15 @@
                     password: pwd
                 })
             }).then(data => {
-                if (data.status === 200) {
-                    //server redirect
-                    window.location = data.url;
+                if (data.status >= 400) {
+                    throw new Error(data.statusText)
                 }
+                data.json().then(x => {
+                    document.cookie = `token=${x.token}`
+                })
+                window.location.href = "home.html"
             }).catch(err => {
-                alert('Something went wrong');
+                alert('Invalid username or password');
             })
 
         }

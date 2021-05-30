@@ -157,13 +157,9 @@
             console.log('abc')
 
             if (!token) {
-                cMessage.innerHTML = (`
-                <h4 style="padding: 10px 10px 10px 0px; color: red;">Please login to add product to cart</h4>
-                `)
+                alert('Please login to add product to cart');
             } else if ((shouldHaveSize && !size) || (shouldHaveColor && !color)) {
-                cMessage.innerHTML = (`
-                <h4 style="padding: 10px 10px 10px 0px; color: red;">Please select color and/or size option</h4>
-                `)
+                alert('Please select color and/or size option');
             } else if (quantity && product_id) {
                 fetch('/add_to_cart', {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -193,15 +189,12 @@
                     .catch(e => {
                         let msg = e.toString()
                         if (msg === 'Error: Unauthorized') {
-                            msg = 'Session expired. Please login again.'
+                            msg = 'Session expired. Please login again.option'
                         }
-                        console.warn(e.toString())
-                        cMessage.innerHTML = (`
-                    <h4 style="padding: 10px 10px 10px 0px; color: red;">${msg}</h4>
-                `)
+                        alert(msg)
                     })
             } else {
-                console.log('Lacking smth')
+                alert('Something went wrong')
             }
         }
 
