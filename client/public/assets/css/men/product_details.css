@@ -165,13 +165,18 @@
 
 .product_quantity {
     margin-top: 35px;
+    /* display: flex; */
 }
 
 .product_quantity .cart_plus_minus_box {
     width: 50px;
     height: 25px;
 }
-
+.message_status{
+    width: 30%;
+    float: left;
+    color: red;
+}
 .add_to_cart_btn {
     margin-top: 5px;
     width: 150px;
@@ -183,7 +188,7 @@
     line-height: 40px;
     float: right;
 }
-.add_to_cart_btn :hover{
+.add_to_cart_btn:hover{
     cursor: pointer;
 }
 .add_to_cart_btn a {
