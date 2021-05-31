@@ -41,23 +41,24 @@
                             <li class="menu_item">
                                 <a class="aboutus" href="./aboutus.html">ABOUT US</a>
                             </li>
-                            <li class="menu_item">
+                            <li class="menu_item cart_button">
                                 <a href="./cart_page.html">CART</a>
                             </li>
                         </ul>
-                    </div>
-                    <div class="sign_in_up">
-                        <div class="sign_up">
-                            <a href="./signup.html">
-                                <h3>SIGN UP</h3>
-                            </a>
+                        <div class="sign_in_up">
+                            <div class="sign_up">
+                                <a href="./signup.html">
+                                    <h3>SIGN UP</h3>
+                                </a>
+                            </div>
+                            <div class="sign_in">
+                                <a href="./login.html">
+                                    <h3>SIGN IN</h3>
+                                </a>
+                            </div>
                         </div>
-                        <div class="sign_in">
-                            <a href="./login.html">
-                                <h3>SIGN IN</h3>
-                            </a>
-                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -291,7 +292,40 @@
 
     }
 
+    const parseCookie = str => {
+        if (str === '') {
+            return {}
+        }
+        return str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+    }
+
+    function loginUpperBar() {
+        document.querySelector('.sign_in_up').innerHTML = `
+        <div class="log_out">
+            <a onclick="handleLogout()">
+                <h3>Log out</h3>
+            </a>
+        </div>
+        `
+    }
+
     const start = async () => {
+        const structuredCookie = parseCookie(document.cookie)
+        const isLogin = !!structuredCookie['token']
+
+        if (isLogin) {
+            loginUpperBar()
+            document.querySelector('.cart_button').style.display = 'initial'
+        } else {
+            document.querySelector('.cart_button').style.display = 'none'
+        }
+
         const url_ob = new URL(location.href)
         const current_page = url_ob.searchParams.get('page') || 0
         const sortby = url_ob.searchParams.get('sortby') || 0
@@ -357,7 +391,7 @@
 
 </script>
 <script>
-    
+
 </script>
 </body>
 </html>
