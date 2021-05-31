@@ -389,6 +389,7 @@
 
     async function start() {
         const structuredCookie = parseCookie(document.cookie)
+
         if (!structuredCookie['token']) {
             alert('You must login')
             setTimeout(() => document.location.replace('/login.html'), 200)
