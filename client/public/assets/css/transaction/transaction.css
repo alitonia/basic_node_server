@@ -489,6 +489,18 @@ label{
     padding-top: 15px;
 }
 
+.icon-404{
+    width: 30%;
+    text-align: right;
+}
+.icon-404 img{
+    image-resolution:unset;
+    max-width: 35%;
+    height: auto;
+    background-color: white;
+    padding-top: 5px;
+}
+
 
 .success-message{
     width: 80%;
@@ -498,12 +510,32 @@ label{
     height: auto;
     margin-bottom: 100px;
 }
+
+
 .success-message h2{
     font-family: sans-serif;
     font-weight: lighter;
     font-size: 60px;
     color: #33d286
 }
+
+.failed-message{
+    width: 70%;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 40px;
+    height: auto;
+    margin-bottom: 100px;
+}
+
+
+.failed-message h2{
+    font-family: sans-serif;
+    font-weight:500;
+    font-size: 60px;
+    color: #080808
+}
+
 
 .home-back{
     clear: both;
