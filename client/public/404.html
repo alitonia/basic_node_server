@@ -17,7 +17,8 @@
     <header class="header">
         <div class="grid">
             <div class="header_navbar">
-                <div class="logo">
+                <div class="logo" style="cursor:pointer"
+                     onclick="(()=>{window.location.href='/home.html'})()">
                     <img src="./assets/images/logo/logo.png" alt="logo">
                 </div>
                 <div class="menu_wrap">
@@ -27,10 +28,10 @@
                                 <a href="./home.html">HOME</a>
                             </li>
                             <li class="menu_item">
-                                <a href="./men.html">MEN</a>
+                                <a href="./category.html?category_id=1">MEN</a>
                             </li>
                             <li class="menu_item">
-                                <a href="#">WOMEN</a>
+                                <a href="./category.html?category_id=2">WOMEN</a>
                             </li>
                             <li class="menu_item">
                                 <a href="./contact.html">CONTACT</a>
@@ -60,16 +61,17 @@
     <div class="transaction_page_area" style="width: 100%;height:400%;">
         <div class="transaction_page_container" style="margin-top: 120px;">
             <div class="icon-404">
-                <img src="./assets/images/404-icon/icon-404.jpeg" alt="404-icon" >
+                <img src="./assets/images/404-icon/icon-404.jpeg" alt="404-icon">
             </div>
             <div class="failed-message">
                 <h2>404 NOT FOUND !!!</h2>
             </div>
-            <div class="home-back">
+            <div class="home-back" style="cursor:pointer"
+                 onclick="(()=>{window.location.href='/home.html'})()">
                 <a href="./home.html" style="text-decoration: none;">Back to Home</a>
             </div>
         </div>
-        
+
     </div>
     <footer class="footer">
         <div class="footer-container">

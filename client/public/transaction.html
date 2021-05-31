@@ -271,6 +271,7 @@
 
     const structuredCookie = parseCookie(document.cookie)
     const token = structuredCookie['token']
+    let cartData = null
 
     function handleChangeRadio(name) {
         const s = document.querySelector('.hidden_payment_method')
@@ -282,6 +283,11 @@
     }
 
     async function purchase() {
+        if (cartData === null || cartData.length === 0) {
+            alert('Nothing to purchase')
+            return;
+        }
+
         const first_name = document.querySelector('.first_name').value
         const last_name = document.querySelector('.last_name').value
         const company_name = document.querySelector('.company_name').value
@@ -392,6 +398,7 @@
             return
         }
         console.log(cart)
+        cartData = cart
 
         const p = document.querySelector('.table-order > tbody')
 
