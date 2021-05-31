@@ -42,7 +42,3 @@ On Window:
 
 ### TODO:
 
-* Validate params?
-* Responsive?
-* auto move
-* REAL DATA
