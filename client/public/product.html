@@ -211,45 +211,72 @@
     </script>
 </head>
 <body>
-<div class="shop">
-    <header class="header">
-        <div class="grid">
-            <div class="header_navbar">
-                <a href="./home.html">
-                    <div class="logo">
-                        <img src="./assets/images/logo/logo.png" alt="logo">
+    <div class="shop">
+        <!-- Header -->
+        <header class="header">
+            <div class="grid">
+                <div class="header_navbar">
+                    <a href="./home.html">
+                        <div class="logo">
+                            <img src="./assets/images/logo/logo.png" alt="logo">
+                        </div>
+                    </a>
+                    <div class="menu_wrap">
+                        <div class="main_menu">
+                            <ul class="menu_list">
+                                <li class="menu_item">
+                                    <a class="home" href="#">HOME</a>
+                                </li>
+                                <li class="menu_item">
+                                    <a class="men" href="./category.html?category_id=1">MEN</a>
+                                    <ul class="menu_men_item">
+                                        <li><a href="#">SHIRT</a></li>
+                                        <li><a href="#">T-SHIRT</a></li>
+                                        <li><a href="#">JEANS</a></li>
+                                        <li><a href="#">SUIT</a></li>
+                                        <li><a href="#">SHORT</a></li>
+    
+                                    </ul>
+                                </li>
+                                <li class="menu_item">
+                                    <a class="women" href="./category.html?category_id=2">WOMEN</a>
+                                    <ul class="menu_women_item">
+                                        <li><a href="#">SHIRT</a></li>
+                                        <li><a href="#">T-SHIRT</a></li>
+                                        <li><a href="#">DRESS</a></li>
+                                        <li><a href="#">SKIRT</a></li>
+                                        <li><a href="#">JEANS</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu_item">
+                                    <a class="contact" href="./contact.html">CONTACT</a>
+                                </li>
+                                <li class="menu_item">
+                                    <a class="aboutus" href="./aboutus.html">ABOUT US</a>
+                                </li>
+                                <li class="menu_item">
+                                    <a href="./cart_page.html">CART</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </a>
-                <div class="menu_wrap">
-                    <div class="main_menu">
-                        <ul class="menu_list">
-                            <li class="menu_item">
-                                <a href="./home.html">HOME</a>
-                            </li>
-                            <li class="menu_item">
-                                <a href="./men.html">MEN</a>
-                            </li>
-                            <li class="menu_item">
-                                <a href="#">WOMEN</a>
-                            </li>
-                            <li class="menu_item">
-                                <a href="./cart_page.html">CART</a>
-                            </li>
-                            <li class="menu_item">
-                                <a href="./contact.html">CONTACT</a>
-                            </li>
-                            <li class="menu_item">
-                                <a class="aboutus" href="./aboutus.html">ABOUT US</a>
-                            </li>
-                            <li class="menu_item" >
-                                <a href="./cart_page.html">CART</a>
-                            </li>
-                        </ul>
+                    <div class="sign_in_up">
+                        <div class="sign_up" style="padding: 2px;">
+                            <a href="./signup.html">
+                                <h3>SIGN UP</h3>
+                            </a>
+                        </div>
+                        <div class="sign_in">
+                            <a href="./login.html">
+                                <h3>SIGN IN</h3>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
+    </div>
+
     <div class="contact_title_area">
         <div class="contact_container">
             <div class="col_left">
@@ -301,7 +328,7 @@
 
                 </div>
 
-                <div class="product_btn add_to_cart_btn">
+                <div class="product_btn add_to_cart_btn" style="margin-top: -20px;">
                     <a onclick="handleAddToCart()">Add To Cart</a>
                 </div>
             </div>
@@ -368,6 +395,33 @@
             </div>
         </div>
     </footer>
-</div>
+    <script>
+ 
+
+    const structuredCookie = parseCookie(document.cookie)
+    const isLogin = !!structuredCookie['token']
+
+
+function handleLogout() {
+        document.cookie = "token="
+        document.location.replace(window.location.href)
+    }
+
+    function loginUpperBar() {
+        document.querySelector('.sign_in_up').innerHTML = `
+        <div class="log_out">
+            <a onclick="handleLogout()">
+                <h3>Log out</h3>
+            </a>
+        </div>
+        `
+    }
+
+if (isLogin) {
+            loginUpperBar()
+        } else {
+
+        }
+    </script>
 </body>
 </html>

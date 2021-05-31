@@ -47,6 +47,18 @@
                         </ul>
                     </div>
                 </div>
+                <div class="sign_in_up">
+                    <div class="sign_up">
+                        <a href="./signup.html">
+                            <h3>SIGN UP</h3>
+                        </a>
+                    </div>
+                    <div class="sign_in">
+                        <a href="./login.html">
+                            <h3>SIGN IN</h3>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -196,5 +208,45 @@
         </div>
     </div>
 </footer>
+<script>
+
+const parseCookie = str => {
+        if (str === '') {
+            return {}
+        }
+        return str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+    }
+
+    const structuredCookie = parseCookie(document.cookie)
+    const isLogin = !!structuredCookie['token']
+
+
+function handleLogout() {
+        document.cookie = "token="
+        document.location.replace(window.location.href)
+    }
+
+    function loginUpperBar() {
+        document.querySelector('.sign_in_up').innerHTML = `
+        <div class="log_out">
+            <a onclick="handleLogout()">
+                <h3>Log out</h3>
+            </a>
+        </div>
+        `
+    }
+
+if (isLogin) {
+            loginUpperBar()
+        } else {
+
+        }
+</script>
 </body>
 </html>

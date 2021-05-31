@@ -17,8 +17,9 @@
     margin: 0 5px;
     font-family: serif;
     line-height: 80px;
+    text-align: center;
+    display: flex;
 }
-
 .menu_item a {
     text-decoration: none;
     color: rgb(0, 0, 0);
@@ -42,6 +43,8 @@
 
 .sign_in_up {
     display: flex;
+    float: right;
+    font-family: sans-serif;
 }
 
 .sign_in a h3, .sign_up a h3, .log_out a h3 {
