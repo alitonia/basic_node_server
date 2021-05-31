@@ -63,6 +63,9 @@
                             <li class="menu_item">
                                 <a class="aboutus" href="./aboutus.html">ABOUT US</a>
                             </li>
+                            <li class="menu_item">
+                                <a href="./cart_page.html">CART</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -210,6 +213,14 @@
                 <div class="product_item_container">
 
                 </div>
+                <div class="naviagte-buttons">
+                    <div class="navigate-left">
+                        <button class="control-button" onclick="handleSeeMore()"> <</button>
+                    </div>
+                    <div class="navigate-right">
+                        <button class="control-button" onclick="handleSeeMore()"> ></button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -320,8 +331,10 @@
             })
     }
 
+    let currentPromo = null
 
     async function handleChangePromo(name) {
+        currentPromo = name;
         const p = document.querySelector('.product_item_container')
 
         const changeGroup = document.querySelectorAll('.product_filter_item')
@@ -389,6 +402,11 @@
             </a>
         </div>
         `
+    }
+
+    const handleSeeMore = () => {
+        console.log(currentPromo)
+        window.location.href = `/products.html?title=${currentPromo}&sortby=${currentPromo.toLowerCase()}`
     }
 
     async function start() {

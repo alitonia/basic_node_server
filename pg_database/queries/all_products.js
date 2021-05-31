@@ -28,8 +28,6 @@ const toOrderByString = (x) => {
     else if (element.includes('feature')) {
         str += ' rating desc'
     }
-    console.log(str)
-
     return str
 }
 

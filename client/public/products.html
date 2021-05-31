@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./assets/css/home/product_area.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
-    <title>Category</title>
+    <title class="top-title">Category</title>
 
 </head>
 <body>
@@ -151,6 +151,8 @@
         return str.join("&");
     }
 
+    const capitalize = (str) => str && str.length > 0 ? str[0].toUpperCase() + str.slice(1,) : ''
+
     const url = new URL(window.location)
 
     const getCategory = async () => {
@@ -181,10 +183,10 @@
         }
     }
 
-    const get_products = async (id) => {
+    const get_products = async (sortby) => {
         const page_number = url.searchParams.get('page') || 0
         const offset = page_number * 20;
-        return fetch(`/products?category_id=${id}&offset=${offset}`, {
+        return fetch(`/products?offset=${offset}${sortby ? `&sortby=${sortby}` : ''}`, {
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
@@ -222,20 +224,20 @@
     const start = async () => {
         const url_ob = new URL(location.href)
         const current_page = url_ob.searchParams.get('page') || 0
+        const sortby = url_ob.searchParams.get('sortby') || 0
+
+
+        const title = capitalize(url_ob.searchParams.get('title')) || 'Products'
+        document.querySelector('.top-title').innerText = title
 
         if (Number.parseInt(current_page) === 0) {
             document.querySelector('.cb-left').remove()
         }
 
-        const category = await getCategory()
-        if (category === undefined) {
-            window.location.replace('404.html')
-        }
-        if (category === null) {
-            return;
-        }
-        document.querySelector('.page_name').innerText = category.name
-        const products = await get_products(category.id)
+        document.querySelector('.page_name').innerText = title
+
+        const products = await get_products(sortby)
+
 
         const p = document.querySelector('.product_item_container')
 
