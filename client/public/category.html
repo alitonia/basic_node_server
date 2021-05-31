@@ -58,12 +58,13 @@
             <div class="col_right">
                 <ul class="list_nav">
                     <li><a href="./home.html">Home</a></li>
-                    <li><span>Men</span></li>
+                    <li><span class="breadcrumb_location">Men</span></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="content">
+
         <div class="product_item">
             <div class="product_item_list">
                 <div class="product_item_container">
@@ -235,6 +236,8 @@
             return;
         }
         document.querySelector('.page_name').innerText = category.name
+        document.querySelector('.breadcrumb_location').innerText = category.name.toUpperCase()
+
         const products = await get_products(category.id)
 
         const p = document.querySelector('.product_item_container')

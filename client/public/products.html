@@ -58,12 +58,18 @@
             <div class="col_right">
                 <ul class="list_nav">
                     <li><a href="./home.html">Home</a></li>
-                    <li><span>Men</span></li>
+                    <li><span class="breadcrumb_location">Men</span></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="content">
+
+        <div style="margin: 0 20px 20px 97px;">
+            <input type="text" placeholder="Search for something"
+                   class="search_value" oninput="handleSearch()"/>
+        </div>
+
         <div class="product_item">
             <div class="product_item_list">
                 <div class="product_item_container">
@@ -155,38 +161,10 @@
 
     const url = new URL(window.location)
 
-    const getCategory = async () => {
-        const category_id = url.searchParams.get('category_id')
-        if (category_id) {
-            return fetch(`/category/${category_id}`, {
-                mode: 'same-origin', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer',
-            })
-                .then(x => x.json())
-                .then(x => {
-                    if (x.error) {
-                        return undefined
-                    }
-                    return x.length > 0 ? x[0] : null
-                }).catch(err => {
-                    console.warn(err)
-                    return null
-                })
-        } else {
-            return null
-        }
-    }
-
-    const get_products = async (sortby) => {
+    const get_products = async (sortby, search) => {
         const page_number = url.searchParams.get('page') || 0
-        const offset = page_number * 20;
-        return fetch(`/products?offset=${offset}${sortby ? `&sortby=${sortby}` : ''}`, {
+        const offset = search ? 0 : page_number * 20;
+        return fetch(`/products?offset=${offset}${sortby ? `&sortby=${sortby}` : ''}${search ? `&search=${search}` : ''}`, {
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
@@ -221,6 +199,86 @@
         window.location.href = url_ob.href
     }
 
+
+    let requestor = null
+
+    const handleSearch = async () => {
+        const url_ob = new URL(location.href)
+        const sortby = url_ob.searchParams.get('sortby') || 0
+        const search_value = document.querySelector('.search_value').value
+
+        if (requestor) {
+            clearTimeout(requestor)
+        }
+
+        requestor = setTimeout(() => {
+            document.querySelector('.cb-right').style.display = 'none'
+            document.querySelector('.cb-left').style.display = 'none'
+
+            get_products(sortby, search_value).then(products => {
+                console.log(products)
+                console.log('123')
+                const p = document.querySelector('.product_item_container')
+
+                if (!search_value) {
+                    const url_ob = new URL(location.href)
+                    const current_page = url_ob.searchParams.get('page') || 0
+
+                    if (Number.parseInt(current_page) !== 0) {
+                        document.querySelector('.cb-left').style.display = 'initial'
+                    }
+
+                    if (products.length >= 20) {
+                        //no more
+                        document.querySelector('.cb-right').style.display = 'initial'
+                    }
+                }
+
+                // if (products.length < 20) {
+                //     //no more
+                //     document.querySelector('.cb-right').style.display = 'none'
+                // }
+
+                p.innerHTML = ''
+
+                products.forEach(product => {
+                    const pres = document.createElement("div")
+                    pres.className = "single_product"
+                    pres.innerHTML = `
+                        <div class="product_image product_view_${product.id}">
+                            <a href="/product.html?product_id=${product.id}">
+                                <img src="${product.big_image_link}" alt="">
+                                <div class="box_content">
+                                    <div class="men_box_content_icon">
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </div>
+                                    <div class="men_box_content_icon">
+                                        <a href="/product.html?product_id=${product.id}"><i class="fas fa-cart-plus"></i></a>
+                                    </div>
+                                    <div class="men_box_content_icon">
+                                        <a href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="product_text_info">
+                                    <h4>
+                                        <a href="/product.html?product_id=${product.id}" class="product_title">${product.name}</a>
+                                    </h4>
+                                    <span class="price">$${(product.price).toFixed(2)}</span>
+                                </div>
+                            </a>
+                        </div>
+                `
+
+                    p.appendChild(pres)
+                })
+            }).catch(err => {
+                console.warn(err)
+            })
+        }, 500)
+
+    }
+
     const start = async () => {
         const url_ob = new URL(location.href)
         const current_page = url_ob.searchParams.get('page') || 0
@@ -229,21 +287,22 @@
 
         const title = capitalize(url_ob.searchParams.get('title')) || 'Products'
         document.querySelector('.top-title').innerText = title
+        document.querySelector('.breadcrumb_location').innerText = title.toUpperCase()
+
 
         if (Number.parseInt(current_page) === 0) {
-            document.querySelector('.cb-left').remove()
+            document.querySelector('.cb-left').style.display = 'none'
         }
 
         document.querySelector('.page_name').innerText = title
 
         const products = await get_products(sortby)
 
-
         const p = document.querySelector('.product_item_container')
 
         if (products.length < 20) {
             //no more
-            document.querySelector('.cb-right').remove()
+            document.querySelector('.cb-right').style.display = 'none'
         }
 
 

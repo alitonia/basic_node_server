@@ -294,6 +294,7 @@
 
     const limit = 12;
 
+
     const parseCookie = str => {
         if (str === '') {
             return {}
@@ -309,6 +310,9 @@
 
     const structuredCookie = parseCookie(document.cookie)
     const isLogin = !!structuredCookie['token']
+
+
+
 
     const get_products = async (sortby) => {
         return fetch(`/products?limit=${limit}${sortby ? `&sortby=${sortby}` : ''}`, {

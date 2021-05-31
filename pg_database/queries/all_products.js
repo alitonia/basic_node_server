@@ -20,33 +20,38 @@ const toOrderByString = (x) => {
 
     if (element.includes('sale')) {
         str += ' price asc '
-    }
-    else if (element.includes('bestseller')) {
+    } else if (element.includes('bestseller')) {
         str += ' bought desc'
 
-    }
-    else if (element.includes('feature')) {
+    } else if (element.includes('feature')) {
         str += ' rating desc'
     }
     return str
 }
 
 const sql_select_all = (query) => {
-    const {limit = 20, offset = 0, category_id = null, sortby = ''} = query ?? {}
-    // const
-    return (
-        `SELECT products.*
-         FROM products `
+        const {limit = 20, offset = 0, category_id = null, sortby = '', search = ''} = query ?? {}
+
+        const x = `SELECT products.*
+                   FROM products `
         + (category_id !== null ?
             `INNER JOIN categories on products.category_id = categories.id
             WHERE categories.id = ${category_id}`
             : '')
-        + '   ' + toOrderByString(sortby) + ' '
+        + ((category_id === null) ? `${!!search ? ` where products.name  SIMILAR TO '%${search}%' ` : ''}` : '')
+            + '   ' + toOrderByString(sortby) + ' '
 
-        + `LIMIT ${limit} OFFSET ${offset}`
-        + ' ;'
-    )
-};
+            + `LIMIT ${limit} OFFSET ${offset}`
+            + ' ;'
+
+        console.log(x)
+
+        // const
+        return (
+            x
+        )
+    }
+;
 
 module.exports.findAll = (req, res) => {
     pool.query(sql_select_all(req.query),
