@@ -19,7 +19,7 @@ route.post('/login', function (req, res, next) {
 
         const body = {id: user.id, email: user.username};
         const token = generateAccessToken({user: body});
-        res.header('Set-Cookie', `token=${token}; SameSite=Strict; Max-Age=${1000 * 3600 / 2}`)
+        res.header('Set-Cookie', `token=${token}; SameSite=Strict;`)
         return res.send(({
             token: token
         }))
