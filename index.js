@@ -34,6 +34,8 @@ app.use(require('./routes/apis/addProductToCart.js'))
 app.use(require('./routes/apis/buy.js'))
 app.use(require('./routes/apis/getCurrentCart.js'))
 app.use(require('./routes/apis/removeOrder.js'))
+app.use(require('./routes/apis/viewOrderHistory.js'))
+app.use(require('./routes/apis/viewOrderDetails.js'))
 
 
 // login/signup
@@ -61,7 +63,7 @@ app.get('/doc', (req, res) => {
 
 app.use(express.static(path.join(__dirname, public_asset_path)));
 
-app.get('/*', (req, res)=>{
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, public_asset_path, '404.html'))
 })
 

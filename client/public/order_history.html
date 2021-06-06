@@ -55,6 +55,21 @@
             color: #33d286;
         }
 
+        .action-button {
+            padding: 6px 16px;
+            background: #33d286;
+            border: none;
+            border-radius: 5px;
+            font-size: 17px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background: #fb9300;
+        }
+
     </style>
     <script src="./assets/js/cart.js">
     </script>
@@ -79,7 +94,7 @@
                                 <a href="./men.html">MEN</a>
                             </li>
                             <li class="menu_item">
-                                <a href="#">WOMEN</a>
+                                <a href="./women.html">WOMEN</a>
                             </li>
                             <li class="menu_item">
                                 <a href="./contact.html">CONTACT</a>
@@ -105,7 +120,7 @@
             <div class="col_right">
                 <ul class="list_nav">
                     <li><a href="./home.html">Home</a></li>
-                    <li><span>View Cart </span></li>
+                    <li><span>View Orders</span></li>
                 </ul>
             </div>
         </div>
@@ -114,35 +129,20 @@
     <div class="cart_page_area">
         <div class="cart_page_container">
 
-<!--            <div id="board">-->
-<!--                <h3 style="font-size: 20px;">No orders yet</h3>-->
-<!--            </div>-->
-
-            <div>
+            <div class="board-space">
                 <table class="styled-table">
                     <thead>
                     <tr>
                         <th>Id</th>
                         <th>Date</th>
                         <th>Status</th>
-                        <th colspan="2">Actions</th>
+                        <th rowspan="3">Actions</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>Dom</td>
-                        <td>6000</td>
-                        <td>Dom</td>
-                        <td>6000</td>
-                    </tr>
-<!--                    FOR pending-->
-                    <tr class="active-row">
-                        <td>Melissa</td>
-                        <td>5150</td>
-                        <td>Melissa</td>
-                        <td>5150</td>
-                    </tr>
+
+                    <tbody class="injectable-space">
                     </tbody>
+
                 </table>
 
             </div>
@@ -153,12 +153,6 @@
                      onclick="(()=>{window.location.href = './home.html'})()"
                 >
                     <a href="./home.html" style="text-decoration: none;color: #ffffff;">Continue Shopping</a>
-                </div>
-                <div class="continue_shopping transaction_button"
-                     style="float: right;position: relative;cursor:pointer;"
-                     onclick="(()=>{window.location.href = './transaction.html'})()"
-                >
-                    <a href="./transaction.html" style="text-decoration: none;color: #ffffff;">Check Out</a>
                 </div>
             </div>
         </div>
@@ -229,6 +223,8 @@
 
 
 <script>
+    const capitalize = (str) => str && str.length > 0 ? str[0].toUpperCase() + str.slice(1,) : ''
+
     const parseCookie = str => {
         if (str === '') {
             return {}
@@ -245,41 +241,8 @@
     const structuredCookie = parseCookie(document.cookie)
     const token = structuredCookie['token']
 
-    const handleRemove = (product_id, receipt_id, color, size) => {
-        console.log(product_id, receipt_id, color, size)
-
-        return fetch('/order', {
-            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
-            mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${token}`
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify({
-                product_id: product_id, receipt_id: receipt_id, color: color, size: size
-            })
-        }).then(x => {
-            if (x.status >= 400) {
-                if (x.status == 401) {
-                    //unauthorized. Maybe out of session
-                    document.cookie = "token="
-                }
-                throw new Error(x.statusText)
-            }
-            console.log(x)
-            document.location.replace(document.location.href)
-        }).catch(err => {
-            alert(err.toString())
-            return null
-        })
-    }
-
-    async function getCurrentCart() {
-        return fetch('/get_cart_id', {
+    async function getOrders() {
+        return fetch('/orders', {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -307,6 +270,11 @@
         })
     }
 
+    function handleView(id) {
+        console.log(id)
+        window.location.href = `./order_detail.html?receipt_id=${id}`
+    }
+
     async function start() {
         if (!structuredCookie['token']) {
             alert('You must login')
@@ -314,53 +282,50 @@
             return;
         }
 
-        const cart = await getCurrentCart()
-        if (!cart) {
+        const orders = await getOrders()
+        if (!orders) {
             return
         }
-        console.log(cart)
+        console.log(orders)
 
-        const b = document.querySelector('#board')
+        const injectSpace = document.querySelector('.injectable-space')
+        const space = document.querySelector('.board-space')
 
 
-        if (cart.length === 0) {
-            b.style.border = 'none'
-            b.style['background-color'] = '#ffffff'
-            document.querySelector('.home_button').style['margin-left'] = '27%'
-            document.querySelector(`.transaction_button`).remove()
+        if (orders.length === 0) {
+            space.innerHTML = (`
+                <h4>Your history is empty</h4>
+            `)
         } else {
-            b.innerHTML = (`
-            ${cart.reduce((acc, cur) => {
-                return acc + `
-                <div class="a_product">
-                    <div class='product_infor'>
-                        <img class='product_img' src='${cur.big_image_link}'>
-                        <div class='product_detail'>
-                            <h2 class='product_title' style="line-height: 23px">${cur.product_name}</h2>
-                            <p>Color: <span class='color_product'>${cur.color}</span></p>
-                            <p>Size: <span class='size_product'>${cur.size}</span></p>
-                        </div>
-                    </div>
-                    <div class='product_price'>
-                        <h2>Price($)</h2>
-                        <p class='price'>$${cur.price.toFixed(2)}</p>
-                    </div>
-                    <div class='product_quantity'>
-                        <h2>Quantity</h2>
-                        <p class='quantity'>${cur.quantity}</p>
-                    </div>
-                    <div class='btn_delete'>
-                        <button class='remove' onclick="handleRemove(${cur.product_id}, ${cur.receipt_id}, '${cur.color}', '${cur.size}')">Remove</button>
-                    </div>
-                </div>
-                `
+            injectSpace.innerHTML = (`
+            ${orders.reduce((acc, cur) => {
+                const {id = null, order_date = '', status,} = cur
+                const highlight = status === 'pending'
+                const canView = true;
+
+                if (id !== null) {
+                    return `
+                    <tr class="${highlight ? 'active-row' : 'normal-row'}">
+                        <td>${id}</td>
+                        <td>${order_date}</td>
+                        <td>${capitalize(status)}</td>
+                        <td>
+                            <div>
+                                ${canView ? `<button class="action-button" onclick="handleView(${id})">View</button>` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                ` + acc;
+                } else {
+                    return acc
+                }
             }, '')}
 
             `)
         }
     }
 
-    // start()
+    start()
 </script>
 </body>
 </html>

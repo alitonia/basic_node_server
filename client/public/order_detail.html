@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
 
-    <title>Order Transaction</title>
+    <title>Order Detail</title>
 
 </head>
 <body>
@@ -33,7 +33,7 @@
                                 <a href="./men.html">MEN</a>
                             </li>
                             <li class="menu_item">
-                                <a href="#">WOMEN</a>
+                                <a href="./women.html">WOMEN</a>
                             </li>
                             <li class="menu_item">
                                 <a href="./contact.html">CONTACT</a>
@@ -53,12 +53,12 @@
     <div class="transaction_title_area">
         <div class="transaction_container">
             <div class="col_left">
-                <h2>Shop Details</h2>
+                <h2>Order Details</h2>
             </div>
             <div class="col_right">
                 <ul class="list_nav">
                     <li><a href="./home.html">Home</a></li>
-                    <li><span>CHECK OUT</span></li>
+                    <li><span>ORDER DETAILS</span></li>
                 </ul>
             </div>
         </div>
@@ -75,34 +75,34 @@
                         <div class="single-row">
                             <input name="first_name" placeholder="First name"
                                    class="form-control first_name"
-                                   type="text">
+                                   type="text" disabled>
                         </div>
                         <div class="single-row">
                             <input name="last_name" placeholder="Last name"
                                    class="form-control last_name"
-                                   type="text">
+                                   type="text" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <input name="company_name" placeholder="Company name"
                                class="form-control company_name"
-                               type="text">
+                               type="text" disabled>
                     </div>
                     <div class="form-row">
                         <div class="single-row">
                             <input name="email_address"
                                    placeholder="Email address"
-                                   class="form-control email_address" type="text">
+                                   class="form-control email_address" type="text" disabled>
                         </div>
                         <div class="single-row">
                             <input name="phone_number" placeholder="Phone Number"
-                                   class="form-control phone_number" type="text">
+                                   class="form-control phone_number" type="text" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="country">Country:</label>
                         <div class="custom-select-wrapper">
-                            <select id="country" class="custom-select country">
+                            <select id="country" class="custom-select country" disabled>
                                 <option value="canada">Canada *</option>
                                 <option value="american">American</option>
                                 <option value="australia">Australia</option>
@@ -113,17 +113,17 @@
                         <label for="address">Address:</label>
                         <textarea rows="3" name="street"
                                   id="address" placeholder="Street address. Apartment, suite, unit etc. (optional)"
-                                  class="form-control address"></textarea>
+                                  class="form-control address" disabled></textarea>
                     </div>
                     <div class="form-row">
                         <div class="single-row">
                             <input name="postcode" placeholder="Post Code/Zip"
                                    class="form-control postcode"
-                                   type="text">
+                                   type="text" disabled>
                         </div>
                         <div class="single-row">
                             <input name="city" placeholder="Town/City"
-                                   class="form-control city" type="text">
+                                   class="form-control city" type="text" disabled>
                         </div>
                     </div>
                     <div class="form-group">
@@ -131,7 +131,7 @@
                         <textarea rows="3" name="note"
                                   placeholder="Order note"
                                   class="form-control note"
-                                  style="min-height: 140px;"></textarea>
+                                  style="min-height: 140px;" disabled></textarea>
 
                     </div>
                 </form>
@@ -149,12 +149,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Print products and prices here by java script -->
+
                         </tbody>
                         <tfoot>
                         <tr>
                             <td><b>Total</b></td>
-                            <td class="total_amount">0</td>
+                            <td class="total_amount"></td>
                         </tr>
                         </tfoot>
                     </table>
@@ -165,7 +165,7 @@
                         <li>
                             <div class="custom-radio">
                                 <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
-                                       value="bank" onclick="handleChangeRadio('bank')">
+                                       value="bank" onclick="handleChangeRadio('bank')" disabled>
                                 <label class="custom-control-label" for="customRadio1">Direct Bank Transfer</label>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lobortis sem.
                                     Quisque at
@@ -175,15 +175,15 @@
                         <li>
                             <div class="custom-radio" style="margin-top: 10%;">
                                 <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"
-                                       value="paypal" onclick="handleChangeRadio('paypal')">
+                                       value="paypal" onclick="handleChangeRadio('paypal')" disabled>
                                 <label class="custom-control-label" for="customRadio2">PayPal</label>
                             </div>
 
                         </li>
                     </ul>
                 </div>
-                <button class="button-place-order" onclick="purchase()">
-                    <span style="text-decoration: none;color: #ffffff;">Place Order</span>
+                <button class="button-place-order" onclick="(()=>{window.location.href='./order_history.html'})()">
+                    <span style="text-decoration: none;color: #ffffff;">Go back</span>
                 </button>
             </div>
         </div>
@@ -266,7 +266,7 @@
 
     const structuredCookie = parseCookie(document.cookie)
     const token = structuredCookie['token']
-    let cartData = null
+    let receiptData = null
 
     function handleChangeRadio(name) {
         const s = document.querySelector('.hidden_payment_method')
@@ -277,128 +277,50 @@
         }
     }
 
-    async function purchase() {
-        if (cartData === null || cartData.length === 0) {
-            alert('Nothing to purchase')
+    async function fillData(o) {
+        if (receiptData === null) {
+            alert('Invalid receipts')
             return;
         }
 
-        const first_name = document.querySelector('.first_name').value
-        const last_name = document.querySelector('.last_name').value
-        const company_name = document.querySelector('.company_name').value
-        const email_address = document.querySelector('.email_address').value
-        const phone_number = document.querySelector('.phone_number').value
-        const country = document.querySelector('.country').value
-        const address = document.querySelector('.address').value
-        const postcode = document.querySelector('.postcode').value
-        const city = document.querySelector('.city').value
-        const note = document.querySelector('.note').value
+        const {
+            billing_first_name: first_name = '',
+            billing_last_name: last_name = '',
+            company_name: company_name = '',
+            email: email_address = '',
+            phone_number: phone_number = '',
+            country: country = '',
+            address: address = '',
+            postcode: postcode = '',
+            city: city = '',
+            note: note = '',
+            payment_method: hidden_payment,
+            products = []
+        } = o
 
-        const bank = document.querySelector('#customRadio1').value
-        const paypal = document.querySelector('#customRadio2').value
-        const hidden_payment = document.querySelector('.hidden_payment_method').value
+        console.log(o)
 
 
-        const package = {
-            first_name: first_name,
-            last_name: last_name,
-            company_name: company_name,
-            email_address: email_address,
-            phone_number: phone_number,
-            country: country,
-            address: address,
-            postcode: postcode,
-            city: city,
-            note: note,
-            hidden_payment: hidden_payment
+        document.querySelector('.first_name').value = first_name
+        document.querySelector('.last_name').value = last_name
+        document.querySelector('.company_name').value = company_name
+        document.querySelector('.email_address').value = email_address
+        document.querySelector('.phone_number').value = phone_number
+        document.querySelector('.country').value = country
+        document.querySelector('.address').value = address
+        document.querySelector('.postcode').value = postcode
+        document.querySelector('.city').value = city
+        document.querySelector('.note').value = note
+
+        if (hidden_payment === 'bank') {
+            document.querySelector('#customRadio1').checked = true
+        } else {
+            document.querySelector('#customRadio2').checked = true
         }
-
-        const isValid = Object.keys(package).reduce((acc, cur) => {
-            if (cur !== 'note') {
-                return acc && !!package[cur]
-            } else {
-                return acc
-            }
-        }, true)
-
-        if (!isValid) {
-            alert('Please fill in all fields')
-            return;
-        }
-
-        // TODO: add fetch
-
-        fetch('/buy', {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${token}`
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify(package)
-        }).then(x => {
-            if (x.status >= 400) {
-                throw new Error(x.statusText)
-            }
-            document.location.href = '/order_success.html'
-        }).catch(err => {
-            alert(err.toString())
-        })
-    }
-
-
-    async function getCurrentCart() {
-        return fetch('/get_cart_id', {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${token}`
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        }).then(x => {
-            if (x.status >= 400) {
-                if (x.status == 401) {
-                    //unauthorized. Maybe out of session
-                    document.cookie = "token="
-                }
-                throw new Error(x.statusText)
-            }
-            console.log(x)
-            return x.json()
-        }).catch(err => {
-            alert(err.toString())
-            return null
-        })
-    }
-
-    async function start() {
-        const structuredCookie = parseCookie(document.cookie)
-
-        if (!structuredCookie['token']) {
-            alert('You must login')
-            setTimeout(() => document.location.replace('/login.html'), 200)
-            return;
-        }
-
-        let cart_id = null
-        const cart = await getCurrentCart()
-        if (!cart) {
-            return
-        }
-        console.log(cart)
-        cartData = cart
 
         const p = document.querySelector('.table-order > tbody')
 
-        const close_cart = cart.reduce((acc, cur) => {
+        const close_cart = products.reduce((acc, cur) => {
             if (!acc[cur.product_id]) {
                 acc[cur.product_id] = {
                     name: cur.product_name,
@@ -424,6 +346,62 @@
         const total = Object.values(close_cart).reduce((acc, cur) => acc + cur.price, 0)
         document.querySelector('.total_amount').innerText = `$${total.toFixed(2)}`
 
+    }
+
+
+    async function getOrderDetails(id) {
+        return fetch(`/order/${id}`, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    document.cookie = "token="
+                }
+                if (x.status == 404) {
+                    document.location.replace('./404.html')
+                }
+                throw new Error(x.statusText)
+            }
+            console.log(x)
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start() {
+        const structuredCookie = parseCookie(document.cookie)
+
+        if (!structuredCookie['token']) {
+            alert('You must login')
+            setTimeout(() => document.location.replace('/login.html'), 200)
+            return;
+        }
+
+        const id = 1
+        const receipt = await getOrderDetails(id)
+
+        console.log(receipt)
+        if (!receipt) {
+            return
+        }
+        receiptData = receipt.length > 0 ? receipt[0] : null
+
+        if (!receiptData) {
+            return
+        }
+        fillData(receiptData)
     }
 
     start()
