@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/home/main.css">
     <link rel="stylesheet" href="./assets/css/men/men.css">
@@ -167,7 +169,7 @@
     const url = new URL(window.location)
 
     const getCategory = async () => {
-        const category_id = url.searchParams.get('category_id')
+        const category_id = url.searchParams.get('category_id') || 1
         if (category_id) {
             return fetch(`/category/${category_id}`, {
                 mode: 'same-origin', // no-cors, *cors, same-origin
@@ -317,7 +319,7 @@
     const isLogin = !!structuredCookie['token']
 
 
-function handleLogout() {
+    function handleLogout() {
         document.cookie = "token="
         document.location.replace(window.location.href)
     }

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
     <link rel="stylesheet" href="./assets/css/cart/cart.css">
+    <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+
 
     <title>View Orders</title>
 
@@ -129,7 +131,7 @@
     <div class="cart_page_area">
         <div class="cart_page_container">
 
-            <div class="board-space">
+            <div class="board-space" style="width:100%">
                 <table class="styled-table">
                     <thead>
                     <tr>
@@ -271,7 +273,6 @@
     }
 
     function handleView(id) {
-        console.log(id)
         window.location.href = `./order_detail.html?receipt_id=${id}`
     }
 
@@ -286,15 +287,13 @@
         if (!orders) {
             return
         }
-        console.log(orders)
 
         const injectSpace = document.querySelector('.injectable-space')
         const space = document.querySelector('.board-space')
 
-
         if (orders.length === 0) {
             space.innerHTML = (`
-                <h4>Your history is empty</h4>
+                <h4 style="font-size: 20px">Your history is empty</h4>
             `)
         } else {
             injectSpace.innerHTML = (`
