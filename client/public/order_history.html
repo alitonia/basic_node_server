@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home/main.css">
+    <link rel="stylesheet" href="./assets/css/transaction/transaction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/home/footer.css">
+    <link rel="stylesheet" href="./assets/css/cart/cart.css">
+
+    <title>View Orders</title>
+
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 900px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #33d286;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table thead tr th {
+            text-align: center;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #33d286;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #33d286;
+        }
+
+    </style>
+    <script src="./assets/js/cart.js">
+    </script>
+</head>
+<body>
+<div class="shop">
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <a href="./home.html">
+                    <div class="logo">
+                        <img src="./assets/images/logo/logo.png" alt="logo">
+                    </div>
+                </a>
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item">
+                                <a href="./home.html">HOME</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./men.html">MEN</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="#">WOMEN</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./contact.html">CONTACT</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="aboutus" href="./aboutus.html">ABOUT US</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./cart_page.html">CART</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="transaction_title_area">
+        <div class="transaction_container">
+            <div class="col_left">
+                <h2>Your Orders</h2>
+            </div>
+            <div class="col_right">
+                <ul class="list_nav">
+                    <li><a href="./home.html">Home</a></li>
+                    <li><span>View Cart </span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart_page_area">
+        <div class="cart_page_container">
+
+<!--            <div id="board">-->
+<!--                <h3 style="font-size: 20px;">No orders yet</h3>-->
+<!--            </div>-->
+
+            <div>
+                <table class="styled-table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Dom</td>
+                        <td>6000</td>
+                        <td>Dom</td>
+                        <td>6000</td>
+                    </tr>
+<!--                    FOR pending-->
+                    <tr class="active-row">
+                        <td>Melissa</td>
+                        <td>5150</td>
+                        <td>Melissa</td>
+                        <td>5150</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="cart_continue">
+                <!-- Choose next action  -->
+                <div class="continue_shopping home_button" style="cursor:pointer;"
+                     onclick="(()=>{window.location.href = './home.html'})()"
+                >
+                    <a href="./home.html" style="text-decoration: none;color: #ffffff;">Continue Shopping</a>
+                </div>
+                <div class="continue_shopping transaction_button"
+                     style="float: right;position: relative;cursor:pointer;"
+                     onclick="(()=>{window.location.href = './transaction.html'})()"
+                >
+                    <a href="./transaction.html" style="text-decoration: none;color: #ffffff;">Check Out</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer_container_info">
+                <div class="single_footer">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li>4060 Reppert Coal Road, MS</li>
+                        <li>39201 USA</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
+                </div>
+                <div class="single_footer">
+                    <h4>INFORMATION</h4>
+                    <ul>
+                        <li>About us</li>
+                        <li>Delivery Information</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms & Conditions</li>
+                        <li>Contact us</li>
+                    </ul>
+                </div>
+                <div class="single_footer">
+                    <h4>Service</h4>
+                    <ul>
+                        <li>My Account</li>
+                        <li>Return</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_btm_area">
+                <div class="footer_social_icon">
+                    <ul class="footer_social_icon_list">
+                        <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href=""><i class="fab fa-google"></i></a></li>
+                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fas fa-rss"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer_copyright">
+                    <p class="copyright_text">© 2021 All Rights Reserved FancyShop</p>
+                </div>
+                <div class="footer_payment_icon">
+                    <ul class="footer_payment_icon_list">
+                        <li><a href=""><i class="fab fa-cc-paypal"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-visa"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-discover"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-mastercard"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-amex"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+<script>
+    const parseCookie = str => {
+        if (str === '') {
+            return {}
+        }
+        return str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+    }
+
+    const structuredCookie = parseCookie(document.cookie)
+    const token = structuredCookie['token']
+
+    const handleRemove = (product_id, receipt_id, color, size) => {
+        console.log(product_id, receipt_id, color, size)
+
+        return fetch('/order', {
+            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                product_id: product_id, receipt_id: receipt_id, color: color, size: size
+            })
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    document.cookie = "token="
+                }
+                throw new Error(x.statusText)
+            }
+            console.log(x)
+            document.location.replace(document.location.href)
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function getCurrentCart() {
+        return fetch('/get_cart_id', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    document.cookie = "token="
+                    alert('Your session has ended. Please log in again')
+                    document.location.replace('/home.html')
+                }
+                throw new Error(x.statusText)
+            }
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start() {
+        if (!structuredCookie['token']) {
+            alert('You must login')
+            setTimeout(() => document.location.replace('/login.html'), 200)
+            return;
+        }
+
+        const cart = await getCurrentCart()
+        if (!cart) {
+            return
+        }
+        console.log(cart)
+
+        const b = document.querySelector('#board')
+
+
+        if (cart.length === 0) {
+            b.style.border = 'none'
+            b.style['background-color'] = '#ffffff'
+            document.querySelector('.home_button').style['margin-left'] = '27%'
+            document.querySelector(`.transaction_button`).remove()
+        } else {
+            b.innerHTML = (`
+            ${cart.reduce((acc, cur) => {
+                return acc + `
+                <div class="a_product">
+                    <div class='product_infor'>
+                        <img class='product_img' src='${cur.big_image_link}'>
+                        <div class='product_detail'>
+                            <h2 class='product_title' style="line-height: 23px">${cur.product_name}</h2>
+                            <p>Color: <span class='color_product'>${cur.color}</span></p>
+                            <p>Size: <span class='size_product'>${cur.size}</span></p>
+                        </div>
+                    </div>
+                    <div class='product_price'>
+                        <h2>Price($)</h2>
+                        <p class='price'>$${cur.price.toFixed(2)}</p>
+                    </div>
+                    <div class='product_quantity'>
+                        <h2>Quantity</h2>
+                        <p class='quantity'>${cur.quantity}</p>
+                    </div>
+                    <div class='btn_delete'>
+                        <button class='remove' onclick="handleRemove(${cur.product_id}, ${cur.receipt_id}, '${cur.color}', '${cur.size}')">Remove</button>
+                    </div>
+                </div>
+                `
+            }, '')}
+
+            `)
+        }
+    }
+
+    // start()
+</script>
+</body>
+</html>

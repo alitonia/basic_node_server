@@ -89,7 +89,7 @@ create table receipts
     id                 serial PRIMARY key,
     order_date         TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP,
     customer_id        integer NOT NULL,
-    status             varchar(60)              DEFAULT 'created' CHECK (status in ('created', 'pending', 'cancelled', 'delivered')),
+    status             varchar(60)              DEFAULT 'created' CHECK (status in ('created', 'pending', 'cancelled', 'confirmed', 'delivered')),
     billing_first_name varchar(60),
     billing_last_name  varchar(60),
     company_name       varchar(60),

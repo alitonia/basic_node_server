@@ -61,6 +61,9 @@ app.get('/doc', (req, res) => {
 
 app.use(express.static(path.join(__dirname, public_asset_path)));
 
+app.get('/*', (req, res)=>{
+    res.sendFile(path.join(__dirname, public_asset_path, '404.html'))
+})
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
