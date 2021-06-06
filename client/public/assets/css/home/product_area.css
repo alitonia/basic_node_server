@@ -95,6 +95,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     flex-wrap: wrap;
 }
 .naviagte-buttons{
