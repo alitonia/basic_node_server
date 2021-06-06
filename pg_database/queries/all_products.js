@@ -38,7 +38,7 @@ const sql_select_all = (query) => {
             `INNER JOIN categories on products.category_id = categories.id
             WHERE categories.id = ${category_id}`
             : '')
-        + ((category_id === null) ? `${!!search ? ` where products.name  SIMILAR TO '%${search}%' ` : ''}` : '')
+        + ((category_id === null) ? `${!!search ? ` where products.name ILIKE '%%${search}%' ` : ''}` : '')
             + '   ' + toOrderByString(sortby) + ' '
 
             + `LIMIT ${limit} OFFSET ${offset}`
