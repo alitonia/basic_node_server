@@ -179,7 +179,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col image_banner">
+            <div class="col image_banner women-category">
                 <div class="single_promo">
                     <a href="./category.html?category_id=2">
                         <img src="./assets/images/promo/promo_4.jpg" alt="">
@@ -390,6 +390,7 @@
                         </div>
                 `
             p.appendChild(pres)
+            handleChangeWith(document.documentElement.clientWidth)
         })
     }
 
@@ -425,6 +426,51 @@
     }
 
     start()
+
+    const changeVisibility = (classNames, value, all = false) => {
+        if (all === false) {
+            classNames.forEach(className => {
+                console.log(className)
+                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
+            })
+        } else {
+            classNames.forEach(className => {
+                document.querySelectorAll(`.${className}`).forEach(e => {
+                    e.style.display = value ? 'initial' : 'none'
+                })
+            })
+        }
+    }
+
+    const handleChangeWith = (width) => {
+        console.log(width)
+        if (width <= 760) {
+            changeVisibility(['women', 'men', 'contact', 'aboutus'], false)
+            document.querySelector('.product_item_list').style.width = 'auto'
+            document.querySelector('.promo_area').style.height = 'auto'
+
+            document.querySelectorAll('.box_content').forEach(e => {
+                e.style.display = 'none'
+            })
+        } else {
+            changeVisibility(['women', 'men', 'contact', 'aboutus'], true)
+            document.querySelector('.product_item_list').style.width = '1160px'
+            document.querySelector('.promo_area').style.height = '450px'
+
+            document.querySelectorAll('.box_content').forEach(e => {
+                e.style.display = 'flex'
+            })
+        }
+    }
+
+    window.addEventListener('resize', (window) => {
+        const {clientWidth: width} = document.documentElement
+        handleChangeWith(width)
+    })
+
+    console.log(document.documentElement.clientWidth)
+    handleChangeWith(document.documentElement.clientWidth)
+
 </script>
 
 

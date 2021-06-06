@@ -124,3 +124,7 @@ root {
         transform: translateZ(0)
     }
 }
+
+.aboutus {
+    white-space: nowrap;
+}
