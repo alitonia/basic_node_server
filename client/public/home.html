@@ -445,7 +445,7 @@
     const handleChangeWith = (width) => {
         console.log(width)
         if (width <= 760) {
-            changeVisibility(['women', 'men'], false)
+            changeVisibility(['home', 'women', 'men'], false)
             document.querySelector('.product_item_list').style.width = 'auto'
             document.querySelector('.promo_area').style.height = 'auto'
 
@@ -471,7 +471,7 @@
                 e.style.display = 'none'
             })
         } else {
-            changeVisibility(['women', 'men'], true)
+            changeVisibility(['home', 'women', 'men'], true)
             // product list
             document.querySelector('.product_item_list').style.width = '1160px'
 
