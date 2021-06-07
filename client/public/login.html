@@ -99,5 +99,41 @@
         }
     }
 </script>
+
+<script>
+    // z-index: 2;
+    // border: 1px solid;
+    // padding: 12px 5px;
+
+    const handleChangeWith = (width) => {
+        console.log(width)
+        if (width <= 760) {
+            const btnn = document.querySelector('.btn-home')
+            btnn.style['width'] = 'auto'
+            btnn.style['height'] = 'auto'
+            btnn.style['padding-top'] = '0px'
+            btnn.style['z-index'] = '2'
+            btnn.style['border'] = '1px solid'
+            btnn.style['padding'] = '12px 5px'
+        } else {
+            const btnn = document.querySelector('.btn-home')
+            btnn.style['padding'] = 'none'
+            btnn.style['height'] = '40px'
+            btnn.style['padding-top'] = '15px'
+            btnn.style['z-index'] = '2'
+            btnn.style['border'] = 'none'
+
+        }
+    }
+
+    window.addEventListener('resize', (window) => {
+        const {clientWidth: width} = document.documentElement
+        handleChangeWith(width)
+    })
+
+    console.log(document.documentElement.clientWidth)
+    handleChangeWith(document.documentElement.clientWidth)
+
+</script>
 </body>
 </html>
