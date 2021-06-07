@@ -17,22 +17,23 @@
     <!-- Login Title -->
     <div class="t-tag">
         <div class="text">
-            <p><br>Sign In</p>
+            <p><br class="extra-line"/><span>Sign In</span></p>
         </div>
     </div>
 
     <!-- login box -->
     <div class="login">
-        <input type="text" placeholder="Email address" id="email" class="tb"/><br>
-        <input type="password" placeholder="Password" id="password" class="tb"/>
-        <input type="submit" value="SIGN IN" onclick="login()" class="btn" style="margin-top:30px;"/><br>
+        <input type="text" placeholder="Email address" id="email" class="tb email_f"/><br>
+        <input type="password" placeholder="Password" id="password" class="tb password_f"/>
+        <input type="submit" value="SIGN IN" onclick="login()" class="btn submit-btn" style="margin-top:30px;"/><br>
         <!-- End of login box -->
     </div>
     <br>
     <div class="footer-content">
-        <span style="font-size: 2ch;">Don't have account?</span>
+        <span style="font-size: 2ch;" class="dont-have">Don't have account?</span>
         <p><b><a href="signup.html"
-                 style="color: rgb(57, 167, 62);text-decoration: none; font-weight: 500;font-size: 2.5ch;">SIGN UP
+                 style="color: rgb(57, 167, 62);text-decoration: none; font-weight: 500;font-size: 2.5ch;"
+                 class="sign-up-red">SIGN UP
             NOW</a></b></p>
     </div>
 
@@ -136,4 +137,38 @@
 
 </script>
 </body>
+
+<style>
+    @media only screen and (max-width: 360px) {
+
+        .email_f, .password_f, .t-tag, #main, #main .btn, #main .tb {
+            width: auto;
+        }
+
+        #main {
+            height: auto;
+        }
+
+        .btn-home {
+            margin-top: auto;
+        }
+
+        .text > p > span {
+            font-size: 0.75ch;
+        }
+
+        .extra-line {
+            display: none;
+        }
+
+        .submit-btn {
+            padding: 12px 29px;
+        }
+
+        .login {
+            margin: 20px auto 20px auto;
+        }
+    }
+
+</style>
 </html>
