@@ -1,4 +1,5 @@
 const pool = require('../connect_database.js');
+const {body, validationResult, query, param} = require('express-validator');
 
 const select_product_id = (id) => {
     return (
@@ -83,6 +84,11 @@ const add_to_existing_order = (receipt_id, product_id, quantity, color, size) =>
 
 
 module.exports.addToCart = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+    }
+
     const body = req.body
     const product_id = body && body.product_id ? body.product_id : null
     const quantity = body && body.quantity ? Number.parseInt(body.quantity) : null

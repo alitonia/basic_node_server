@@ -1,4 +1,5 @@
 const pool = require('../connect_database.js');
+const {validationResult} = require("express-validator");
 
 const get = (query) => {
     const {product_id, receipt_id, color, size} = query ?? {}
@@ -33,6 +34,10 @@ const remove = (target_id, product_id, quantity) => {
 };
 
 module.exports.removeOrder = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+    }
     console.log(req.body)
     pool.query(get(req.body), (err, response) => {
         if (err || !response) {

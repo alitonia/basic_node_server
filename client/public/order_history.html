@@ -303,7 +303,7 @@
                 const canView = true;
 
                 if (id !== null) {
-                    return `
+                    return acc + `
                     <tr class="${highlight ? 'active-row' : 'normal-row'}">
                         <td>${id}</td>
                         <td>${order_date}</td>
@@ -314,7 +314,7 @@
                             </div>
                         </td>
                     </tr>
-                ` + acc;
+                `;
                 } else {
                     return acc
                 }

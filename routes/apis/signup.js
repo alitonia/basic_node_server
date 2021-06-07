@@ -3,9 +3,18 @@ const route = express.Router();
 const {findUser} = require('../../pg_database/queries/find_user')
 const {createUser} = require('../../pg_database/mutation/create_user')
 
+const {body, validationResult, query, param} = require('express-validator');
+
 
 route.post('/signup',
+    body('username').isString(),
+    body('name').isString(),
+    body('password').isString(),
     ((req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({errors: errors.array()});
+        }
         if (!req.body) {
             res.status(401)
             res.send("Invalid request")

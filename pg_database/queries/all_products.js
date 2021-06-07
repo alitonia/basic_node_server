@@ -1,4 +1,5 @@
 const pool = require('../connect_database.js');
+const {validationResult} = require("express-validator");
 
 const tryParse = (x, fallback = null) => {
     try {
@@ -34,19 +35,16 @@ const sql_select_all = (query) => {
 
         const x = `SELECT products.*
                    FROM products `
-        + (category_id !== null ?
-            `INNER JOIN categories on products.category_id = categories.id
+            + (category_id !== null ?
+                `INNER JOIN categories on products.category_id = categories.id
             WHERE categories.id = ${category_id}`
-            : '')
-        + ((category_id === null) ? `${!!search ? ` where products.name ILIKE '%%${search}%' ` : ''}` : '')
+                : '')
+            + ((category_id === null) ? `${!!search ? ` where products.name ILIKE '%%${search}%' ` : ''}` : '')
             + '   ' + toOrderByString(sortby) + ' '
 
             + `LIMIT ${limit} OFFSET ${offset}`
             + ' ;'
 
-        console.log(x)
-
-        // const
         return (
             x
         )
@@ -54,6 +52,10 @@ const sql_select_all = (query) => {
 ;
 
 module.exports.findAll = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+    }
     pool.query(sql_select_all(req.query),
         (err, response) => res.send(response?.rows)
     );
