@@ -78,7 +78,7 @@
             }
             productData = product
             console.log(product)
-            document.querySelector('.product_page_name').innerText = product.name
+            // document.querySelector('.product_page_name').innerText = product.name
             document.querySelector('.product_img').innerHTML = (`
                             <img class="p_image" src="${product.big_image_link}" alt="">
             `)
@@ -331,8 +331,8 @@
 
             </div>
 
-            <div class="product_btn add_to_cart_btn" style="margin-top: -20px;"  onclick="handleAddToCart()">
-                <a >Add To Cart</a>
+            <div class="product_btn add_to_cart_btn" style="margin-top: -20px;" onclick="handleAddToCart()">
+                <a>Add To Cart</a>
             </div>
         </div>
     </div>
@@ -362,7 +362,7 @@
                     <li>Contact us</li>
                 </ul>
             </div>
-            <div class="single_footer">
+            <div class="single_footer service">
                 <h4>Service</h4>
                 <ul>
                     <li>My Account</li>
@@ -448,7 +448,64 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 760) {
+        if (width <= 360) {
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'block'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'flex-start'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['margin'] = '0px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 10px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'block'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '16px'
+            })
+            document.querySelectorAll('.product_item_list').forEach(e => {
+                e.style['width'] = 'auto'
+            })
+            changeVisibility(['women', 'men'], false)
+
+            changeVisibility(['service'], false)
+        } else if (width <= 760) {
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'space-around'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['line-height'] = '80px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 20px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '0px'
+            })
+
+            changeVisibility(['service'], true)
             changeVisibility(['women', 'men'], false)
             if (document.querySelector('.sign_up')) {
                 document.querySelector('.sign_up').style['margin-left'] = '0px'
@@ -531,5 +588,57 @@
     handleChangeWith(document.documentElement.clientWidth)
 
 </script>
+
+<style>
+    @media only screen and (max-width: 360px) {
+
+        .sign_in_up {
+            float: none;
+            padding-left: 53px;
+        }
+
+        .sign_in a h3, .sign_up a h3, .log_out a h3 {
+            margin-top: 0;
+        }
+
+        .col_right {
+            display: none
+        }
+
+        .contact_container {
+            width: auto
+        }
+
+        .product_page_name {
+            line-height: 25px;
+        }
+
+        .product_details_container {
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .product_details {
+            padding: 0;
+            margin: 0;
+            width: auto;
+        }
+
+        .p_image {
+            width: 100%;
+            height: auto;
+        }
+
+        .product_details_info {
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-top: 20px;
+        }
+
+        .product_details {
+            height: auto;
+        }
+    }
+</style>
 </body>
 </html>

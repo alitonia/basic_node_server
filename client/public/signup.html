@@ -79,13 +79,13 @@
     <!-- <br><br><br> -->
     <div class="login" style="padding-top: 20px;">
 
-        <input type="text" placeholder="Full name" id="name" class="tb"/><br>
+        <input type="text" placeholder="Full name" id="name" class="tb fname_k"/><br>
         <!-- <input type="radio" id="male">Male <input type="radio" id="female">Female<br>  -->
         <!-- <form action=""> -->
-        <input type="text" placeholder="Email address" id="email" class="tb"/><br>
-        <input type="password" placeholder="Create Password" id="password" class="tb"/><br>
-        <input type="password" placeholder="Confirm Password" id="con_password" class="tb"/><br>
-        <input type="submit" value="Create account" onclick="checkValid()" class="btn"/><br>
+        <input type="text" placeholder="Email address" id="email" class="tb email_k"/><br>
+        <input type="password" placeholder="Create Password" id="password" class="tb passwd_k"/><br>
+        <input type="password" placeholder="Confirm Password" id="con_password" class="tb cfpasswd_k"/><br>
+        <input type="submit" value="Create account" onclick="checkValid()" class="btn sbmit_k"/><br>
         <!-- </table> -->
         <!-- </form> -->
     </div>
@@ -128,4 +128,45 @@
     handleChangeWith(document.documentElement.clientWidth)
 
 </script>
+
+<style>
+    @media only screen and (max-width: 360px) {
+        #main {
+            width: auto;
+            height: auto;
+        }
+
+        .t-tag {
+            width: auto;
+            height: auto;
+        }
+
+        #main .tb {
+            width: auto;
+        }
+
+        .btn-home {
+            margin-top: 0;
+        }
+
+        .text > p {
+            font-size: 2ch;
+        }
+
+        .login {
+            padding-top: 0;
+            margin-top: 10px;
+        }
+
+        #main .btn {
+            width: auto;
+        }
+
+        .sbmit_k {
+            padding: 10px 15px;
+        }
+
+
+    }
+</style>
 </html>
