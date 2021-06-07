@@ -132,7 +132,7 @@ p{
 }
 
 .continue_shopping{
-    width: 15%;
+    /*width: 15%;*/
     float: left;
     position: absolute;
     /* background-color: green; */
