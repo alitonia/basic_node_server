@@ -294,7 +294,7 @@
 
 <script>
 
-    const limit = 12;
+    const limit = document.documentElement.clientWidth > 360 ? 12 : 6;
 
 
     const parseCookie = str => {
