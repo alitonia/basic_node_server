@@ -525,7 +525,8 @@ label {
     font-family: sans-serif;
     font-weight: lighter;
     font-size: 60px;
-    color: #33d286
+    color: #33d286;
+    white-space: nowrap;
 }
 
 .failed-message {
