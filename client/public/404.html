@@ -29,10 +29,10 @@
                             <li class="menu_item">
                                 <a href="./home.html">HOME</a>
                             </li>
-                            <li class="menu_item">
+                            <li class="menu_item men">
                                 <a href="./category.html?category_id=1">MEN</a>
                             </li>
-                            <li class="menu_item">
+                            <li class="menu_item women">
                                 <a href="./category.html?category_id=2">WOMEN</a>
                             </li>
                             <li class="menu_item">
@@ -50,12 +50,12 @@
     <div class="transaction_title_area">
         <div class="transaction_container">
             <div class="col_left">
-                <h2>Shop Details</h2>
+                <h2>Page ?</h2>
             </div>
             <div class="col_right">
                 <ul class="list_nav">
                     <li><a href="./home.html">Home</a></li>
-                    <li><span>CHECK OUT</span></li>
+                    <li><span>?</span></li>
                 </ul>
             </div>
         </div>
@@ -135,5 +135,48 @@
         </div>
     </footer>
 </div>
+
+<script>
+    const changeVisibility = (classNames, value, all = false) => {
+        if (all === false) {
+            classNames.forEach(className => {
+                console.log(className)
+                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
+            })
+        } else {
+            classNames.forEach(className => {
+                document.querySelectorAll(`.${className}`).forEach(e => {
+                    e.style.display = value ? 'initial' : 'none'
+                })
+            })
+        }
+    }
+
+    const handleChangeWith = (width) => {
+        console.log(width)
+        if (width <= 760) {
+            changeVisibility(['women', 'men'], false)
+            changeVisibility(['icon-404'], false)
+            document.querySelector('.failed-message').style.width = 'auto'
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+
+        } else {
+            changeVisibility(['women', 'men'], true)
+            changeVisibility(['icon-404'], true)
+            document.querySelector('.failed-message').style.width = '70%'
+            document.querySelector('.col_left').style['padding-left'] = '0px'
+
+        }
+    }
+
+    window.addEventListener('resize', (window) => {
+        const {clientWidth: width} = document.documentElement
+        handleChangeWith(width)
+    })
+
+    console.log(document.documentElement.clientWidth)
+    handleChangeWith(document.documentElement.clientWidth)
+</script>
 </body>
 </html>

@@ -128,3 +128,7 @@ root {
 .aboutus {
     white-space: nowrap;
 }
+
+.sign_up > a, .sign_in > a {
+    white-space: nowrap;
+}
