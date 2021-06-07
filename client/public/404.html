@@ -98,7 +98,7 @@
                         <li>Contact us</li>
                     </ul>
                 </div>
-                <div class="single_footer">
+                <div class="single_footer service">
                     <h4>Service</h4>
                     <ul>
                         <li>My Account</li>
@@ -137,6 +137,20 @@
 </div>
 
 <script>
+
+    const selectChange = (selectors, styleObj) => {
+        document.querySelectorAll(selectors).forEach(e => {
+            Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
+        })
+    }
+
+    const compactChange = (classNames, styleObj) => {
+        classNames.forEach(className => {
+            document.querySelectorAll(`.${className}`).forEach(e => {
+                Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
+            })
+        })
+    }
     const changeVisibility = (classNames, value, all = false) => {
         if (all === false) {
             classNames.forEach(className => {
@@ -154,7 +168,82 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 760) {
+        if (width <= 360) {
+
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'block'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'flex-start'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['margin'] = '0px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 10px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'block'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '16px'
+            })
+            document.querySelectorAll('.product_item_list').forEach(e => {
+                e.style['width'] = 'auto'
+            })
+            changeVisibility(['service'], false)
+
+            compactChange(['failed-message'], {
+                'padding-left': '0px',
+                'width': 'auto',
+                'padding-top': '0px',
+                'margin-bottom': '50px'
+            })
+            changeVisibility(['icon-404'], false)
+            selectChange('.failed-message > h2', {'font-size': '33px'})
+        } else if (width <= 760) {
+
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'space-around'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['margin'] = '80px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 20px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '0px'
+            })
+
+            changeVisibility(['service'], true)
+
+            compactChange(['failed-message'], {
+                'padding-left': '20px',
+                'width': 'auto',
+                'padding-top': '40px',
+                'margin-bottom': '100px'
+            })
+            selectChange('.failed-message > h2', {'font-size': '60px'})
+
             changeVisibility(['women', 'men'], false)
             changeVisibility(['icon-404'], false)
             document.querySelector('.failed-message').style.width = 'auto'
@@ -162,6 +251,34 @@
 
 
         } else {
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'space-around'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['margin'] = '80px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 20px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '0px'
+            })
+
+            changeVisibility(['service'], true)
+
+
             changeVisibility(['women', 'men'], true)
             changeVisibility(['icon-404'], true)
             document.querySelector('.failed-message').style.width = '70%'

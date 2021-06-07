@@ -427,6 +427,20 @@
 
     start()
 
+    const selectChange = (selectors, styleObj) => {
+        document.querySelectorAll(selectors).forEach(e => {
+            Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
+        })
+    }
+
+    const compactChange = (classNames, styleObj) => {
+        classNames.forEach(className => {
+            document.querySelectorAll(`.${className}`).forEach(e => {
+                Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
+            })
+        })
+    }
+
     const changeVisibility = (classNames, value, all = false) => {
         if (all === false) {
             classNames.forEach(className => {
