@@ -104,8 +104,8 @@ VALUES
         total_rated = randint(1, RATED_NUMBER_UPPER_BOUND)
         address = f"{fake.address()}"
 
-        color_options = [gen_color() for i in range(randint(0, 5))]
-        size_possible_options = sample(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL'], randint(0, 5))
+        color_options = [gen_color() for i in range(randint(1, 5))]
+        size_possible_options = sample(['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL'], randint(1, 5))
 
         if i < 8:  # for men category
             category_id = 1

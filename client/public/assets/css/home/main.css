@@ -67,6 +67,7 @@
 .log_out a h3 {
     border: 1px solid #962d2d;
     background: #4a1c40;
+    white-space: nowrap;
 }
 
 .sign_up {
