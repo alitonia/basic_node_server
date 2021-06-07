@@ -33,20 +33,20 @@
                             <li class="menu_item">
                                 <a href="./home.html">HOME</a>
                             </li>
-                            <li class="menu_item">
+                            <li class="menu_item men">
                                 <a href="./men.html">MEN</a>
                             </li>
                             <li class="menu_item women">
                                 <a href="./women.html">WOMEN</a>
                             </li>
-                            <li class="menu_item men">
+                            <li class="menu_item contact">
                                 <a href="./contact.html">CONTACT</a>
                             </li>
                             <li class="menu_item">
                                 <a class="aboutus" href="./aboutus.html">ABOUT US</a>
                             </li>
                             <li class="menu_item">
-                                <a href="./order_history.html">ORDER HISTORY</a>
+                                <a href="./order_history.html" style="white-space: nowrap;">ORDER HISTORY</a>
                             </li>
                         </ul>
                     </div>
@@ -121,7 +121,7 @@
                         <li>Contact us</li>
                     </ul>
                 </div>
-                <div class="single_footer">
+                <div class="single_footer service">
                     <h4>Service</h4>
                     <ul>
                         <li>My Account</li>
@@ -316,7 +316,66 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 760) {
+        if (width <= 360) {
+
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'block'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'flex-start'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['margin'] = '0px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 10px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'block'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '16px'
+            })
+            document.querySelectorAll('.product_item_list').forEach(e => {
+                e.style['width'] = 'auto'
+            })
+            changeVisibility(['women', 'men'], false)
+
+            changeVisibility(['service'], false)
+        } else if (width <= 760) {
+            document.querySelectorAll('.header_navbar').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.menu_list').forEach(e => {
+                e.style.overflow = 'scroll'
+                e.style.justifyContent = 'space-around'
+            })
+
+            document.querySelectorAll('.menu_item').forEach(e => {
+                e.style['line-height'] = '80px'
+            })
+
+            document.querySelectorAll('.menu_item > a').forEach(e => {
+                e.style['margin'] = '0px 20px';
+            })
+
+            document.querySelector('.col_left').style['padding-left'] = '10px'
+
+            document.querySelectorAll('.footer_btm_area').forEach(e => {
+                e.style.display = 'flex'
+            })
+            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
+                e.style['margin-top'] = '0px'
+            })
+
+            changeVisibility(['service'], true)
+
             changeVisibility(['women', 'men'], false)
             document.querySelector('.col_left').style['padding-left'] = '10px'
 
@@ -421,5 +480,31 @@
     handleChangeWith(document.documentElement.clientWidth)
 
 </script>
+
+<style>
+    @media only screen and (max-width: 360px) {
+        .cart_page_area {
+            padding-left: 0;
+            padding-right: 0;
+            width: auto;
+        }
+
+        .color_display, .size_display, .product_quantity, .product_price {
+            display: none;
+        }
+
+        .product_title {
+            font-size: 16px;
+        }
+
+        .product_infor {
+            width: 75%;
+        }
+
+        .remove {
+            margin-left: 10px;
+        }
+    }
+</style>
 </body>
 </html>
