@@ -448,7 +448,7 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 360) {
+        if (width <= 500) {
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'block'
             })
@@ -590,7 +590,7 @@
 </script>
 
 <style>
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 500px) {
 
         .sign_in_up {
             float: none;
@@ -637,6 +637,26 @@
 
         .product_details {
             height: auto;
+        }
+
+        .home, .men, .women {
+            display: block !important;
+        }
+
+        .product_img {
+            margin: 0 auto !important;
+        }
+
+        .product_size, .product_color {
+            flex-wrap: wrap;
+        }
+
+        .product_size .pd_size {
+            min-width: 38px;
+        }
+
+        .product_size .pd_size, .product_color .pd_color {
+            margin-bottom: 8px;
         }
     }
 </style>

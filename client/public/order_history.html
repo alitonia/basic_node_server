@@ -135,10 +135,10 @@
                 <table class="styled-table">
                     <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th rowspan="3">Actions</th>
+                        <th class="t_id">Id</th>
+                        <th class="date">Date</th>
+                        <th class="status">Status</th>
+                        <th rowspan="3" class="action">Actions</th>
                     </tr>
                     </thead>
 
@@ -185,7 +185,7 @@
                         <li>Contact us</li>
                     </ul>
                 </div>
-                <div class="single_footer">
+                <div class="single_footer service">
                     <h4>Service</h4>
                     <ul>
                         <li>My Account</li>
@@ -412,4 +412,57 @@
 
 </script>
 </body>
+<style>
+    @media only screen and (max-width: 676px) {
+        .header_navbar {
+            display: block !important;
+        }
+
+        .menu_list {
+            overflow: scroll !important;
+            justify-content: flex-start !important;
+        }
+
+        .menu_item {
+            margin: 0 !important;
+        }
+
+        .menu_item > a {
+            margin: 0px 10px !important;
+        }
+
+        .col_left {
+            padding-left: 10px !important;
+        }
+
+        .footer_btm_area {
+            display: block !important;
+        }
+
+        .footer_copyright, .footer_payment_icon {
+            width: auto !important;
+        }
+
+        .service {
+            display: none !important;
+        }
+
+        .men, .women, .home {
+            display: block !important
+        }
+
+        .cart_page_area {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        .styled-table th, .styled-table td {
+            /*padding: 5px 0px !important;*/
+        }
+
+        .styled-table {
+            min-width: auto;
+        }
+    }
+</style>
 </html>

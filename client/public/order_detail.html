@@ -430,7 +430,7 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 360) {
+        if (width <= 635) {
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'block'
             })
@@ -568,7 +568,7 @@
 </body>
 
 <style>
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 635px) {
         .billing_details, .your_order {
             width: auto;
         }
@@ -576,6 +576,10 @@
         .radio_value {
             margin-left: 10px;
             margin-top: 10px;
+        }
+
+        .women, .men {
+            display: block
         }
     }
 

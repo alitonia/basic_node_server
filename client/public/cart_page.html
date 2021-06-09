@@ -316,7 +316,7 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 360) {
+        if (width <= 575) {
 
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'block'
@@ -348,7 +348,7 @@
             changeVisibility(['women', 'men'], false)
 
             changeVisibility(['service'], false)
-        } else if (width <= 760) {
+        } else if (width <= 1151) {
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'flex'
             })
@@ -482,7 +482,7 @@
 </script>
 
 <style>
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 575px) {
         .cart_page_area {
             padding-left: 0;
             padding-right: 0;
@@ -503,6 +503,10 @@
 
         .remove {
             margin-left: 10px;
+        }
+
+        .home, .men, .women {
+            display: block !important;
         }
     }
 </style>

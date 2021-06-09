@@ -413,7 +413,7 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 360) {
+        if (width <= 450) {
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'block'
             })
@@ -547,7 +547,7 @@
 </body>
 
 <style>
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 450px) {
         .sign_in_up {
             float: none;
             padding-left: 53px;
@@ -572,6 +572,10 @@
 
         .search_container {
             margin: 0 20px 20px 7px;
+        }
+
+        .home, .men, .women {
+            display: block !important;
         }
     }
 </style>

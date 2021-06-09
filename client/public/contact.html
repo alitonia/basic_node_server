@@ -278,7 +278,7 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 360) {
+        if (width <= 676) {
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'block'
             })
@@ -407,7 +407,7 @@
 </script>
 
 <style>
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 676px) {
         .sign_in_up {
             float: none;
             padding-left: 53px;
@@ -429,6 +429,14 @@
 
         .contact_info {
             margin-top: 40px;
+        }
+
+        .home, .men, .women {
+            display: block !important;
+        }
+
+        .contact_info, .contact_input {
+            width: 100% !important;
         }
     }
 </style>

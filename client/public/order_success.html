@@ -159,7 +159,7 @@
 
     const handleChangeWith = (width) => {
         console.log(width)
-        if (width <= 360) {
+        if (width <= 500) {
             document.querySelectorAll('.header_navbar').forEach(e => {
                 e.style.display = 'block'
             })
@@ -310,7 +310,7 @@
 </script>
 
 <style>
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 500px) {
         .icon-success {
             display: none;
         }
@@ -331,6 +331,14 @@
             margin-top: 0;
             padding-left: 0;
             padding-right: 0;
+        }
+
+        .success-message > h2 {
+            font-size: 30px !important;
+        }
+
+        .home, .men, .women {
+            display: block !important;
         }
     }
 </style>
