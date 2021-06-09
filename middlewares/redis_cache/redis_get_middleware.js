@@ -11,7 +11,12 @@ route.get('/*', ((req, res, next) => {
     const params = req.params
 
     console.log(req.url)
-    if (params[0].includes('meme')) {
+    if (!(
+        params[0].includes('product')
+        || params[0].includes('category')
+        || params[0].includes('categories')
+        || params[0].includes('meme')
+    )) {
         return next()
     }
 
@@ -26,7 +31,6 @@ route.get('/*', ((req, res, next) => {
                 console.log('cached')
                 res.status(200).send(sendData);
             } else {
-                console.log('not cached')
                 res.send = function (chunk) {
                     if (chunk !== undefined) {
                         redis.setAsync(key, JSON.stringify(chunk))
@@ -44,33 +48,33 @@ route.get('/*', ((req, res, next) => {
             res.status(500).send({message: err.message});
         })
 }))
-
-route.post('/*', ((req, res, next) => {
-    const big_key = req.params
-    const key = req.url
-    redis.setAsync(big_key, JSON.stringify(null))
-        .catch((err) => {
-            console.log(err)
-        })
-    return next()
-}))
-
-route.put('/*', ((req, res, next) => {
-    const key = req.params
-    redis.setAsync(key, JSON.stringify(null))
-        .catch((err) => {
-            console.log(err)
-        })
-    return next()
-}))
-
-route.delete('/*', ((req, res, next) => {
-    const key = req.params
-    redis.setAsync(key, JSON.stringify(null))
-        .catch((err) => {
-            console.log(err)
-        })
-    return next()
-}))
+//
+// route.post('/*', ((req, res, next) => {
+//     const big_key = req.params
+//     const key = req.url
+//     redis.setAsync(big_key, JSON.stringify(null))
+//         .catch((err) => {
+//             console.log(err)
+//         })
+//     return next()
+// }))
+//
+// route.put('/*', ((req, res, next) => {
+//     const key = req.params
+//     redis.setAsync(key, JSON.stringify(null))
+//         .catch((err) => {
+//             console.log(err)
+//         })
+//     return next()
+// }))
+//
+// route.delete('/*', ((req, res, next) => {
+//     const key = req.params
+//     redis.setAsync(key, JSON.stringify(null))
+//         .catch((err) => {
+//             console.log(err)
+//         })
+//     return next()
+// }))
 
 module.exports = route;
