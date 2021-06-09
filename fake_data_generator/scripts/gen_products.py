@@ -42,7 +42,7 @@ VALUES
 """
 
     for i in range(PRODUCT_LIMIT):
-        new_name = ' '.join(fake.words(nb=randint(3, 7))).capitalize()
+        new_name = ' '.join(fake.words(nb=randint(2, 5))).capitalize()
         description = fake.paragraph(nb_sentences=randint(7, 12))
         full_description = fake.paragraph(nb_sentences=randint(12, 20))
         price = (random() + MIN_PRICE_BASE) * randint(MIN_PRICE_SCALING, MAX_PRICE_SCALING)

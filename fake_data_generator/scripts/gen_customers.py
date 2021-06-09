@@ -12,8 +12,18 @@ fake.add_provider(address)
 
 test_salt = bcrypt.gensalt()
 
-test_account = (
-    'test_first', 'test_last', 'test@ggg.cc',
+test_account_1 = (
+    'test_first2', 'test_last2', 'test@ggg.cc',
+    bcrypt.hashpw('123456'.encode('utf-8'), test_salt).decode("utf-8"), test_salt.decode("utf-8"),
+    'other', 'active')
+
+test_account_2 = (
+    'test_first2', 'test_last2', 'test1@ggg.cc',
+    bcrypt.hashpw('123456'.encode('utf-8'), test_salt).decode("utf-8"), test_salt.decode("utf-8"),
+    'other', 'active')
+
+test_account_3 = (
+    'test_first2', 'test_last2', 'test2@ggg.cc',
     bcrypt.hashpw('123456'.encode('utf-8'), test_salt).decode("utf-8"), test_salt.decode("utf-8"),
     'other', 'active')
 
@@ -25,7 +35,9 @@ def gen_customers():
     
     INSERT INTO customers(first_name, last_name, email, password_hash, salt, gender, status)
     VALUES 
-    {test_account},
+    {test_account_1},
+    {test_account_2},
+    {test_account_3},
     """
     gender_list = ['male', 'female', 'other']
     status_list = ['active', 'inactive', 'pending']

@@ -115,13 +115,13 @@ module.exports.addToCart = (req, res) => {
                     return res.send('Out of stock')
                 } else {
                     // res.send('ok')
-                    pool.query(check_existing_cart(user_id), (err1, response1) => {
+                    pool.query(check_existing_cart(user_id), async (err1, response1) => {
                         if (err1) {
                             res.status(403)
                             return res.send('Error checking cart')
                         }
                         if (!response1 || response1.rows.length === 0) {
-                            pool.query(create_cart(user_id), (err2, response2) => {
+                            await pool.query(create_cart(user_id), (err2, response2) => {
                                     if (err2) {
                                         res.status(403)
                                         return res.send('Error create new cart')
@@ -130,8 +130,8 @@ module.exports.addToCart = (req, res) => {
                                 }
                             )
                         } else {
+                            //have cart
                         }
-
 
                         pool.query(check_existing_cart(user_id), (err, response) => {
                             if (err || response.rows.length === 0) {
