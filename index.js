@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 // configSession(app)
 passportConfig(app)
 
-app.use(require('./middlewares/redis_cache/redis_get_middleware'))
+// app.use(require('./middlewares/redis_cache/redis_get_middleware'))
 app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
 
 // api

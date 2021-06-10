@@ -16,13 +16,16 @@ const get = (query) => {
         `
     )
 }
-const remove = (target_id, product_id, quantity) => {
+const remove = (target_id, product_id, quantity, color, size) => {
     return (
         `
         START TRANSACTION;
         DELETE
          FROM orders
          where receipt_id = '${target_id}'
+         and product_id = '${product_id}'
+         and color='${color}'
+         and size='${size}'
         ;
         UPDATE products
         SET current_stock = current_stock + ${quantity},
@@ -48,8 +51,11 @@ module.exports.removeOrder = (req, res) => {
             const target_id = response.rows[0].id
             const quantity = response.rows[0].quantity
             const product_id = response.rows[0].product_id
+            const color = req.body.color
+            const size = req.body.size
 
-            pool.query(remove(target_id, product_id, quantity),
+
+            pool.query(remove(target_id, product_id, quantity, color, size),
                 (err, response) => {
                     if (err) {
                         res.status(403)
