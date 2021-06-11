@@ -391,7 +391,9 @@
             return;
         }
 
-        const id = 1
+        const current_url = new URL(window.location.href)
+
+        const id = current_url.searchParams.get('receipt_id')
         const receipt = await getOrderDetails(id)
 
         console.log(receipt)

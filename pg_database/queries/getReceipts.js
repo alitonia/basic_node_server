@@ -12,6 +12,7 @@ const get_receipts_by_userID = (id) => {
 
 module.exports.getReceipts = (req, res) => {
     const user_id = req.user.id
+    console.log(user_id)
 
     pool.query(get_receipts_by_userID(user_id),
         (err, response) => {
