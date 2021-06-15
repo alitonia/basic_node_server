@@ -21,7 +21,30 @@ exports.passportConfig = (app) => {
             },
             async (token, done) => {
                 try {
-                    return done(null, token.user);
+                    if (token.user && token.user.id) {
+                        return done(null, token.user);
+                    }
+                    return done('invalid username or password')
+                } catch (error) {
+                    done(error);
+                }
+            }
+        )
+    );
+
+    passport.use(
+        'jwt_admin',
+        new JWTstrategy(
+            {
+                secretOrKey: TOKEN_SECRET,
+                jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
+            },
+            async (token, done) => {
+                try {
+                    if (token.user && token.user.admin_id) {
+                        return done(null, token.user);
+                    }
+                    return done('invalid username or password')
                 } catch (error) {
                     done(error);
                 }

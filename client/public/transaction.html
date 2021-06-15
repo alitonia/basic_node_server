@@ -353,6 +353,9 @@
         })
     }
 
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
 
     async function getCurrentCart() {
         return fetch('/get_cart_id', {
@@ -370,7 +373,7 @@
             if (x.status >= 400) {
                 if (x.status == 401) {
                     //unauthorized. Maybe out of session
-                    document.cookie = "token="
+                    deleteCookie()
                 }
                 throw new Error(x.statusText)
             }

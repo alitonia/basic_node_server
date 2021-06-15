@@ -11,9 +11,9 @@ ENABLE_ADMIN = True
 
 SEED = 1337
 CATEGORY_LIMIT = 20
-PRODUCT_LIMIT = 10
+PRODUCT_LIMIT = 300
 CUSTOMER_LIMIT = 20
-REVIEW_LIMIT = 10
+REVIEW_LIMIT = 500
 
 insert_file_path = 'fake_data_generator/results/new_data.sql'
 category_images_storage_path = 'client/public/gen_images/category'

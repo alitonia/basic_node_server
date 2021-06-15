@@ -6,25 +6,77 @@
 <link rel="stylesheet" href="./assets/css/admin_login/admin_login.css">
 
 <head>
-    <title>Admin</title>
+    <title>Admin Login</title>
 </head>
 
 <body>
 <div class="all">
     <div class="login">
         <h1>Admin Login</h1>
-        <div>
-            <input type="text" placeholder="Username" id="username"/>
-        </div>
+        <form id="login_form">
+            <div>
+                <input name="email" type="text" placeholder="Username" id="username"/>
+            </div>
 
-        <div>
-            <input type="password" placeholder="Password" id="password"/>
-        </div>
-        <div>
-            <input type="submit" value="Sign In">
-        </div>
+            <div>
+                <input name="password" type="password" placeholder="Password" id="password" minlength="6"/>
+            </div>
+            <div>
+                <input type="submit" value="Sign In">
+            </div>
+        </form>
     </div>
 </div>
+
+<script>
+    const target_route = '/admin/login'
+
+    function processForm(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        const formData = new FormData(e.target)
+
+        fetch(target_route, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                email: formData.get('email'),
+                password: formData.get('password')
+            })
+        }).then(data => {
+            if (data.status >= 400) {
+                throw new Error(data.statusText)
+            }
+            data.json().then(x => {
+                if (x.token) {
+                    window.location.href = "./home.html"
+                } else {
+                    alert('Invalid username or password')
+                }
+            })
+        }).catch(err => {
+            alert('Invalid username or password');
+        })
+        return false;
+    }
+
+    const form = document.getElementById('login_form');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
+
+</script>
+
 </body>
 </html>
 

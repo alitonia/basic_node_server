@@ -350,6 +350,9 @@
 
     }
 
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
 
     async function getOrderDetails(id) {
         return fetch(`/order/${id}`, {
@@ -367,7 +370,7 @@
             if (x.status >= 400) {
                 if (x.status == 401) {
                     //unauthorized. Maybe out of session
-                    document.cookie = "token="
+                    deleteCookie()
                 }
                 if (x.status == 404) {
                     document.location.replace('./404.html')

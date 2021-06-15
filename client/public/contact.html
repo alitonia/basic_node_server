@@ -218,11 +218,44 @@
     }
 
     const structuredCookie = parseCookie(document.cookie)
-    const isLogin = !!structuredCookie['token']
 
+    function parseJwt(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        } catch (e) {
+            return null
+        }
+    }
+
+    const checkLogin = (type = 'customer') => {
+        if (!structuredCookie || !structuredCookie.token) {
+            return false
+        }
+
+        const neededField = (type === 'customer') ? 'id' : 'admin_id'
+        const token = structuredCookie['token']
+        const tokens = token instanceof Array ? token : [token]
+
+        return tokens.reduce((acc, cur) => {
+            const parsedJWT = parseJwt(cur)
+            return acc || (parsedJWT && parsedJWT.user && parsedJWT.user[neededField])
+        }, false)
+    }
+
+    const isLogin = checkLogin()
+
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
 
     function handleLogout() {
-        document.cookie = "token="
+        deleteCookie()
         document.location.replace(window.location.href)
     }
 

@@ -12,7 +12,7 @@ route.post('/admin/login', function (req, res, next) {
         if (err) {
             return next(err);
         }
-        console.log(user)
+
         if (!user) {
             res.status(403)
             return res.send(({
@@ -20,9 +20,10 @@ route.post('/admin/login', function (req, res, next) {
             }))
         }
 
-        const body = {id: user.id, email: user.username};
+        const body = {admin_id: user.id, name: user.name};
+
         const token = generateAccessToken({user: body});
-        res.header('Set-Cookie', `token=${token}; SameSite=Strict;`)
+        res.header('Set-Cookie', `admin_token=${token}; SameSite=Strict;`)
         return res.send(({
             token: token
         }))

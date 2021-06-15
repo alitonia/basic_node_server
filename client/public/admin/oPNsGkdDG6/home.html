@@ -1,0 +1,127 @@
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+<link rel="stylesheet" href="./assets/css/admin_login/admin_login.css">
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/home/main.css">
+<link rel="stylesheet" href="./assets/css/home/slider.css">
+<link rel="stylesheet" href="./assets/css/home/promo.css">
+<link rel="stylesheet" href="./assets/css/home/product_area.css">
+<link rel="stylesheet" href="./assets/css/home/footer.css">
+<link rel="stylesheet" href="./assets/css/about_us/about_us.css">
+
+<script>
+    const parseCookie = str => {
+        if (str === '') {
+            return {}
+        }
+        return str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                const key = decodeURIComponent(v[0].trim())
+                acc[key] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+    }
+
+    const structuredCookie = parseCookie(document.cookie)
+    const isLogin = !!structuredCookie['admin_token']
+
+    function parseJwt(token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    }
+
+    function deleteCookie1(path) {
+        document.cookie = `admin_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/admin`;
+    }
+
+    if (!isLogin) {
+        alert('not admin')
+        window.location.href = '/'
+    }
+</script>
+
+<head>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+
+<div class="shop">
+    <!-- Header -->
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <a href="./home.html">
+                    <div class="logo">
+                        <img src="./assets/images/logo/logo.png" alt="logo">
+                    </div>
+                </a>
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item">
+                                <a class="home" href="#">HOME</a>
+                            </li>
+                            <li class="menu_item men">
+                                <a class="" href="./category.html?category_id=1">MEN</a>
+                                <ul class="menu_men_item">
+                                    <li><a href="#">SHIRT</a></li>
+                                    <li><a href="#">T-SHIRT</a></li>
+                                    <li><a href="#">JEANS</a></li>
+                                    <li><a href="#">SUIT</a></li>
+                                    <li><a href="#">SHORT</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="menu_item women">
+                                <a class="" href="./category.html?category_id=2">WOMEN</a>
+                                <ul class="menu_women_item">
+                                    <li><a href="#">SHIRT</a></li>
+                                    <li><a href="#">T-SHIRT</a></li>
+                                    <li><a href="#">DRESS</a></li>
+                                    <li><a href="#">SKIRT</a></li>
+                                    <li><a href="#">JEANS</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu_item">
+                                <a class="contact" href="./contact.html">CONTACT</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="aboutus" href="./aboutus.html">ABOUT US</a>
+                            </li>
+                            <li class="menu_item cart_button">
+                                <a href="./cart_page.html">CART</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sign_in_up">
+                    <div class="sign_up">
+                        <a href="./signup.html">
+                            <h3>SIGN UP</h3>
+                        </a>
+                    </div>
+                    <div class="sign_in">
+                        <a href="./login.html">
+                            <h3>SIGN IN</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<h1>HELLO</h1>
+</body>
+
+</html>

@@ -404,9 +404,12 @@
     const structuredCookie = parseCookie(document.cookie)
     const isLogin = !!structuredCookie['token']
 
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
 
     function handleLogout() {
-        document.cookie = "token="
+        deleteCookie()
         document.location.replace(window.location.href)
     }
 

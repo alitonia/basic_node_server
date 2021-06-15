@@ -177,6 +177,10 @@
     const structuredCookie = parseCookie(document.cookie)
     const token = structuredCookie['token']
 
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
+
     const handleRemove = (product_id, receipt_id, color, size) => {
         console.log(product_id, receipt_id, color, size)
 
@@ -198,7 +202,7 @@
             if (x.status >= 400) {
                 if (x.status == 401) {
                     //unauthorized. Maybe out of session
-                    document.cookie = "token="
+                    deleteCookie()
                 }
                 throw new Error(x.statusText)
             }
@@ -226,7 +230,7 @@
             if (x.status >= 400) {
                 if (x.status == 401) {
                     //unauthorized. Maybe out of session
-                    document.cookie = "token="
+                    deleteCookie()
                     alert('Your session has ended. Please log in again')
                     document.location.replace('/home.html')
                 }

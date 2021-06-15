@@ -1,6 +1,6 @@
 const pool = require('../connect_database.js');
 
-const query = (value, field, table = 'customer') => {
+const query = (value, field, table = 'customers') => {
     return (
         `SELECT *
          FROM ${table} `
