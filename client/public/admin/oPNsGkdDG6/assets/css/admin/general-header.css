@@ -6,6 +6,10 @@
     white-space: nowrap;
 }
 
-.logout-link > a:hover {
-    color: #C67ACE;
+.logout-link {
+    color: #558776 !important;
+}
+
+.logout-link:hover {
+    color: #C67ACE !important;
 }
