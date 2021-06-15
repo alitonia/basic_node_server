@@ -14,12 +14,12 @@
 
 
 <link rel="stylesheet" href="./assets/css/admin/general-header.css">
+<link rel="stylesheet" href="./assets/css/admin/big-table.css">
 <script src="./assets/js/admin/tokenManipulation.js"></script>
 <script src="./assets/js/admin/immediateRedirect.js"></script>
 
-
 <head>
-    <title>Admin - Home</title>
+    <title>Admin - Orders</title>
 </head>
 
 <body>
@@ -39,10 +39,10 @@
                     <div class="main_menu">
                         <ul class="menu_list">
                             <li class="menu_item">
-                                <a class="admin-panel-link link link-active" href="./home.html">ADMIN PANEL</a>
+                                <a class="admin-panel-link link" href="./home.html">ADMIN PANEL</a>
                             </li>
                             <li class="menu_item men">
-                                <a class="orders-link link" href="./orders.html">ORDERS</a>
+                                <a class="orders-link link link-active" href="./orders.html">ORDERS</a>
                             </li>
                             <li class="menu_item women">
                                 <a class="products-link link" href="./products.html">PRODUCTS</a>
@@ -60,7 +60,9 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </header>
@@ -71,31 +73,6 @@
 </div>
 
 
-<script>
-    const info = parseJwt(structuredCookie['admin_token'])
-    const name = info.user.name
-    console.log(info, name)
-
-    document.querySelectorAll('.welcome').forEach(e => {
-        e.innerText = `Welcome ${name}` || 'Welcome admin'
-    })
-</script>
 </body>
-
-
-<style>
-    .main-config {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .welcome {
-        font-size: 30px;
-        margin-top: -20%;
-    }
-
-</style>
 
 </html>
