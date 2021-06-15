@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const passport = require('passport');
+const {findAdmin} = require("../../pg_database/queries/find_user");
 const {TOKEN_SECRET} = require("../../config");
 const LocalStrategy = require('passport-local').Strategy;
 const {findUser} = require('../../pg_database/queries/find_user')
@@ -35,6 +36,31 @@ exports.passportConfig = (app) => {
         },
         async function (username, password, cb) {
             findUser({username: username}, function (err, user) {
+                if (err) {
+                    return cb(err, false, {message: 'Incorrect username or password'});
+                }
+                if (!user) {
+                    return cb(null, false, {message: 'Incorrect username or password'});
+                }
+                getHash(password, user.salt).then((hash) => {
+                    if (hash !== user.password_hash) {
+                        return cb(null, false, {message: 'Incorrect username or password'});
+                    } else {
+                        return cb(null, user);
+                    }
+                }).catch(err => {
+                    return cb(err, false, {message: 'Incorrect username or password'});
+                })
+            });
+        }));
+
+    passport.use('local_admin', new LocalStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password'
+        },
+        async function (username, password, cb) {
+            findAdmin({username: username}, function (err, user) {
                 if (err) {
                     return cb(err, false, {message: 'Incorrect username or password'});
                 }

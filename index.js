@@ -48,6 +48,10 @@ app.use(require('./routes/etc/author.js'));
 app.use(require('./routes/etc/teapot.js'));
 app.use(require('./routes/etc/meme.js'));
 
+//admin
+app.use(require('./routes/admins/login.js'))
+
+
 app.get('/test', (req, res) => {
     res.send("Test route")
 })

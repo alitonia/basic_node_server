@@ -6,14 +6,14 @@ ENABLE_CATEGORY = True
 ENABLE_PRODUCT = True
 ENABLE_CUSTOMER = True
 ENABLE_REVIEW = True
-ENABLE_REVIEW = True
 ENABLE_SHIPPING = True
+ENABLE_ADMIN = True
 
 SEED = 1337
 CATEGORY_LIMIT = 20
-PRODUCT_LIMIT = 1000
+PRODUCT_LIMIT = 10
 CUSTOMER_LIMIT = 20
-REVIEW_LIMIT = 3000
+REVIEW_LIMIT = 10
 
 insert_file_path = 'fake_data_generator/results/new_data.sql'
 category_images_storage_path = 'client/public/gen_images/category'

@@ -49,7 +49,7 @@ def gen_reviews():
 
     with open('fake_data_generator/results/reviews.sql', 'w', encoding='utf-8') as f:
         f.write(data)
-        print('review ok')
+        print('reviews ok')
 
     if WRITE_ON_INSERT_DATA:
         with open(insert_file_path, 'a', encoding='utf-8') as f:

@@ -6,6 +6,8 @@ Drop TABLE if EXISTS receipts CASCADE;
 Drop Table if EXISTS customers CASCADE;
 Drop TABLE if EXISTS products CASCADE;
 Drop TABLE if EXISTS categories CASCADE;
+Drop TABLE if EXISTS admins CASCADE;
+
 
 -- New tables
 
@@ -22,9 +24,19 @@ create TABLE customers
     status     varchar(32) CHECK (status in ('active', 'inactive', 'pending')),
     created_date TIMESTAMP WITH time zone default current_timestamp
 );
-
 CREATE
 UNIQUE INDEX on customers(email);
+
+
+create table admins
+(
+    id            serial PRIMARY key,
+    email         varchar(128) UNIQUE NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'),
+    name          varchar(128),
+    password_hash varchar(256),
+    salt          varchar(256) CHECK ((password_hash is not null and salt is null) = FALSE)
+);
+
 
 create table shipping_methods
 (
