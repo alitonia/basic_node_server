@@ -50,6 +50,9 @@ app.use(require('./routes/etc/meme.js'));
 
 //admin
 app.use(require('./routes/admins/login.js'))
+app.use(require('./routes/admins/viewOrders'))
+app.use(require('./routes/admins/updateOrder'))
+
 
 
 app.get('/test', (req, res) => {

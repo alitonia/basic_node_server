@@ -13,7 +13,9 @@ const parseCookie = str => {
 }
 
 const structuredCookie = parseCookie(document.cookie)
-const isLogin = !!structuredCookie['admin_token']
+const token = structuredCookie['admin_token']
+
+const isLogin = !!token
 
 function parseJwt(token) {
     const base64Url = token.split('.')[1];

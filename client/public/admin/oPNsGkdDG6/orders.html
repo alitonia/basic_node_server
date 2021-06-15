@@ -12,11 +12,16 @@
 <link rel="stylesheet" href="./assets/css/home/footer.css">
 <link rel="stylesheet" href="./assets/css/about_us/about_us.css">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
 <link rel="stylesheet" href="./assets/css/admin/general-header.css">
 <link rel="stylesheet" href="./assets/css/admin/big-table.css">
+
 <script src="./assets/js/admin/tokenManipulation.js"></script>
 <script src="./assets/js/admin/immediateRedirect.js"></script>
+<script src="./assets/js/admin/utils.js"></script>
+
 
 <head>
     <title>Admin - Orders</title>
@@ -72,12 +77,18 @@
     <div class="cart_page_area">
         <div class="cart_page_container">
             <div class="board-space" style="width:100%">
+
                 <table class="styled-table">
                     <thead>
                     <tr>
-                        <th class="t_id">Id</th>
-                        <th class="date">Date</th>
-                        <th class="status">Status</th>
+                        <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
+                        <th class="t_customer_id" onclick="openPopup('customer_id')">Customer ID <i
+                                class="fas fa-sort"></i></th>
+                        <th class="t_send_email" onclick="openPopup('email')">Send Email <i
+                                class="fas fa-sort"></i></th>
+                        <th class="date" onclick="openPopup('order_date')">Order Date <i class="fas fa-sort"></i>
+                        </th>
+                        <th class="status" onclick="openPopup('status')">Status <i class="fas fa-sort"></i></th>
                         <th rowspan="3" class="action">Actions</th>
                     </tr>
                     </thead>
@@ -90,8 +101,218 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="popopen" onclick="closePopup()">
+    <div class="popopen-content no-prop">
+        <form class="popopen-form">
+            <input type="hidden" name="field" class="target-field"/>
+            <label for="sort-value" class="sort-label">Sort By</label>
+            <select name="sort-value" class="sort-choice">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <div class="popup-buttons">
+                <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
+                <button type="submit" class="action-button view-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    async function getOrders(sortby = 'order_date', order = 'desc') {
+        return fetch(`/admin/orders?sortby=${sortby}&order=${order}`, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    deleteCookie1()
+                    alert('Your session has ended. Please log in again')
+                    document.location.replace('./login.html')
+                }
+                throw new Error(x.statusText)
+            }
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start(sortby = 'order_date', order = 'desc') {
+        if (!isLogin) {
+            return;
+        }
+
+        const orders = await getOrders(sortby, order)
+        if (!orders) {
+            return;
+        }
+        const injectSpace = document.querySelector('.injectable-space')
+        const space = document.querySelector('.board-space')
+
+        if (orders.length === 0) {
+            // space.innerHTML = (`
+            //     <h4 style="font-size: 20px">Orders are empty</h4>
+            // `)
+        } else {
+            injectSpace.innerHTML = (`
+            ${orders.reduce((acc, cur) => {
+                const {id = null, order_date = '', status, customer_id, email} = cur
+                const highlight = status === 'pending'
+                const lowlight = status === 'cancelled'
+                const goodlight = status === 'delivered'
+
+                const canView = true;
+                const canAccept = status === 'pending'
+                const canCancel = status === 'pending' || status === 'confirmed'
+                const canSetDelivered = status === 'confirmed'
+                const canBackPending = status !== 'pending'
+
+                if (id !== null) {
+                    return acc + `
+                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''}">
+                        <td>${id}</td>
+                        <td>${customer_id}</td>
+                        <td>${email}</td>
+                        <td>${order_date}</td>
+                        <td>${capitalize(status)}</td>
+                        <td>
+                            <div class="button-holder">
+                                ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
+                                ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View</button>` : ''}
+                                ${canAccept ? `<button class="action-button accept-button" onclick="handleAccept(${id})">Accept</button>` : ''}
+                                ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
+                                ${canCancel ? `<button class="action-button cancel-button" onclick="handleCancel(${id})">Cancel</button>` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                } else {
+                    return acc
+                }
+            }, '')}
+
+            `)
+        }
+    }
+
+    start();
+</script>
+
+<script>
+    async function updateStatus(id, status) {
+        return fetch('/admin/orders', {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                id: id,
+                status: status
+            })
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status == 401) {
+                    //unauthorized. Maybe out of session
+                    deleteCookie()
+                    alert('Your session has ended. Please log in again')
+                    document.location.replace('./login.html')
+                }
+                throw new Error(x.statusText)
+            }
+            // reload()
+            return x.json()
+        })
+            .then(() => reload())
+            .catch(err => {
+                alert(err.toString())
+                return null
+            })
+    }
+
+    const handleRevert = (id) => {
+        //set status = pending
+        updateStatus(id, 'pending')
+    }
+    const handleAccept = (id) => {
+        // confirmed
+        updateStatus(id, 'confirmed')
+
+    }
+    const handleDelivered = (id) => {
+        //delivered
+        updateStatus(id, 'delivered')
+
+    }
+    const handleCancel = (id) => {
+        //cancel
+        updateStatus(id, 'cancelled')
+
+    }
+    const handleView = (id) => {
+        // order details simplified
+    }
+</script>
+
+<script>
+    function openPopup(id) {
+        document.querySelectorAll('.popopen').forEach(e => {
+            e.classList.add('active')
+        })
+        if (id) {
+            document.querySelectorAll('.popopen .target-field').forEach(e => {
+                e.value = id
+            })
+        }
+    }
+
+    function closePopup() {
+        document.querySelectorAll('.popopen').forEach(e => {
+            e.classList.remove('active')
+        })
+    }
+
+    function processForm(e) {
+        console.log('here')
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        const formData = new FormData(e.target)
+        const sortby = formData.get('field')
+        const value = formData.get('sort-value')
 
 
+        start(sortby, value).then(() => closePopup()).catch(e => closePopup())
+        return false
+    }
+
+    const form = document.querySelector('.popopen-form');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
+</script>
+
+<script src="./assets/js/admin/popupProp.js"></script>
 </body>
 
 </html>
