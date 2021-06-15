@@ -1,0 +1,142 @@
+/* HEADER MENU */
+
+.header_navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu_list {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 6px;
+}
+
+.menu_item {
+    margin: 0 5px;
+    font-family: serif;
+    line-height: 80px;
+    text-align: center;
+    display: flex;
+}
+.menu_item a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    margin: 0 20px;
+    font-size: 1.8rem;
+    font-weight: 550;
+    transition: linear 0.2s;
+    position: relative;
+}
+
+.menu_item > a:hover {
+    color: #33d286;
+}
+
+.menu_item > a:hover .menu_men_item {
+    opacity: 1;
+    display: block;
+    visibility: visible;
+    z-index: 999;
+}
+
+.sign_in_up {
+    display: flex;
+    float: right;
+    font-family: sans-serif;
+}
+
+.sign_in a h3, .sign_up a h3, .log_out a h3 {
+    padding: 8px 20px;
+    border-radius: 16px;
+    margin-top: 28px;
+    color: #eee;
+}
+
+.sign_in a h3 {
+    border: 1px solid #0c7a0c;
+    background: #0c7a0c;
+}
+
+.sign_up a h3 {
+    border: 1px solid #06327a;
+    background: #06327a;
+}
+
+.log_out a h3 {
+    border: 1px solid #962d2d;
+    background: #4a1c40;
+    white-space: nowrap;
+}
+
+.sign_up {
+    margin-right: 20px;
+    margin-left: 50px;
+}
+
+.sign_up a,
+.sign_in a,
+.log_out a{
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: serif;
+    font-weight: 550;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.sign_up:hover a h3 {
+    border: 1px solid #129ef0;
+    background: #129ef0;
+    color: black;
+}
+
+.sign_in:hover a h3 {
+    border: 1px solid #12fa12;
+    background: #12fa12;
+    color: black;
+}
+
+.log_out:hover a h3 {
+    border: 1px solid #f9dfdc;
+    background: #0a81ab;
+    color: white;
+}
+
+/* SUB MENU */
+
+.menu_men_item,
+.menu_women_item {
+    list-style: none;
+    background: #33d286;
+    box-shadow: 0 0px 7px rgb(0 0 0 / 5%);
+    width: 170px;
+    position: absolute;
+    opacity: 0;
+    z-index: -999;
+}
+
+.menu_men_item li a,
+.menu_women_item li a {
+    display: block;
+    text-decoration: none;
+    height: 30px;
+    text-transform: uppercase;
+    line-height: 30px;
+    font-size: 12px;
+    margin-left: 20px;
+    transition: 0.4s;
+}
+
+.menu_men_item li a:hover,
+.menu_women_item li a:hover {
+    cursor: pointer;
+    color: #fff;
+    margin-left: 25px;
+}
+
+
+
+
+

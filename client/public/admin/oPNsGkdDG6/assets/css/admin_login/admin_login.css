@@ -1,0 +1,84 @@
+html {
+    height: 100%
+}
+
+::-moz-selection {
+    background: #fe57a1;
+    color: #fff;
+    text-shadow: none;
+}
+
+::selection {
+    background: #fe57a1;
+    color: #fff;
+    text-shadow: none;
+}
+
+
+.login {
+    background: #eceeee;
+    border: 1px solid #42464b5a;
+    border-radius: 6px;
+    display: inline-block;
+    padding: 37px 27px;
+    margin: -10% auto 0;
+}
+
+.login h1 {
+    margin: 4px;
+    box-sizing: border-box;
+    font: 600 21px/1 'Open Sans', sans-serif;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 #fff;
+    color: #E1701A;
+}
+
+input[type="password"], input[type="text"] {
+    border: 1px solid #a1a3a3;
+    border-radius: 4px;
+    box-shadow: 0 1px #fff;
+    box-sizing: border-box;
+    color: #696969;
+    height: 39px;
+    margin: 20px 0 0 0;
+    padding-left: 16px;
+    transition: box-shadow 0.3s;
+    width: 240px;
+    font-size: 16px;
+}
+
+input[type="password"]:focus, input[type="text"]:focus {
+    box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
+    outline: 0;
+}
+
+input[type="submit"] {
+    display: block;
+    font-family: Arial, "Helvetica", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 1px 1px 0 #37a69b;
+    margin: 29px 0 0 0;
+    padding: 9px 93px;
+    cursor: pointer;
+    border: none;
+    background-color: #F7A440;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 0 #F6DCBF, 0 2px 0 0 #E1701A80, 0 7px 5px #999999a0;
+}
+
+input[type="submit"]:active {
+    top: 3px;
+    box-shadow: inset 0 1px 0 #F6DCBF, 0 2px 0 0 #E1701A80, 0 6px 5px #999;
+}
+
+.all {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
