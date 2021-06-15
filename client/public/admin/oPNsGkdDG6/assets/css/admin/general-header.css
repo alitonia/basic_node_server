@@ -6,3 +6,6 @@
     white-space: nowrap;
 }
 
+.logout-link > a:hover {
+    color: #C67ACE;
+}

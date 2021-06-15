@@ -180,8 +180,7 @@
                 const canSetDelivered = status === 'confirmed'
                 const canBackPending = status !== 'pending'
 
-                if (id !== null) {
-                    return acc + `
+                return acc + `
                     <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''}">
                         <td>${id}</td>
                         <td>${customer_id}</td>
@@ -190,8 +189,8 @@
                         <td>${capitalize(status)}</td>
                         <td>
                             <div class="button-holder">
-                                ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
                                 ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View</button>` : ''}
+                                ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
                                 ${canAccept ? `<button class="action-button accept-button" onclick="handleAccept(${id})">Accept</button>` : ''}
                                 ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
                                 ${canCancel ? `<button class="action-button cancel-button" onclick="handleCancel(${id})">Cancel</button>` : ''}
@@ -199,6 +198,8 @@
                         </td>
                     </tr>
                 `;
+
+                if (id !== null) {
                 } else {
                     return acc
                 }
