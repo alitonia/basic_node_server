@@ -333,8 +333,6 @@
             return;
         }
 
-        // TODO: add fetch
-
         fetch('/buy', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
@@ -350,7 +348,7 @@
         }).then(res => {
             if (res.status === 401) {
                 deleteCookie()
-                alert('Your session has ended. Please login to continue the purchase.')
+                alert('Your session has ended. Please login to continue.')
                 document.location.href = '/login.html'
             } else {
                 return res.json()
@@ -363,7 +361,6 @@
                     console.log('No error')
                 }
                 document.location.href = '/order_success.html'
-
             }).catch(err => {
             console.warn(err.message)
             alert(err.message)
@@ -387,7 +384,7 @@
             if (x.status === 401) {
                 //unauthorized. Maybe out of session
                 deleteCookie()
-                alert('Your session has ended. Please login to continue the purchase.')
+                alert('Your session has ended. Please login to continue.')
                 document.location.href = '/login.html'
             }
             return x.json()
@@ -405,8 +402,8 @@
 
     async function start() {
         if (!token) {
-            alert('You session has expired. Please login to continue purchasing')
-            document.location.replace('/login.html')
+            alert('You session has expired. Please login to continue.')
+            document.location.href = '/login.html'
             return;
         }
 

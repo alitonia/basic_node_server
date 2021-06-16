@@ -260,18 +260,21 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }).then(x => {
-            if (x.status >= 400) {
-                if (x.status == 401) {
-                    //unauthorized. Maybe out of session
-                    deleteCookie()
-                    alert('Your session has ended. Please log in again')
-                    document.location.replace('/home.html')
-                }
-                throw new Error(x.statusText)
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie()
+                alert('Your session has ended. Please login to continue.')
+                document.location.href = '/login.html'
             }
             return x.json()
+        }).then(x => {
+            if (x && x.error) {
+                throw new Error(x.error)
+            }
+            return x
         }).catch(err => {
-            alert(err.toString())
+            console.warn(err)
+            alert(err.message)
             return null
         })
     }
@@ -282,8 +285,8 @@
 
     async function start() {
         if (!structuredCookie['token']) {
-            alert('You must login')
-            setTimeout(() => document.location.replace('/login.html'), 200)
+            alert('Your session has ended. Please login to continue.')
+            document.location.href = '/login.html'
             return;
         }
 

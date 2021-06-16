@@ -200,7 +200,7 @@
 }
 
 .member:hover {
-    border: 2px solid #33d286;
+    /*border: 2px solid #33d286;*/
     background-color: #33d286;
     -webkit-transition: 0.2s;
     -moz-transition: 0.1s;

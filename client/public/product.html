@@ -189,19 +189,22 @@
                         price: price
                     })
                 }).then(x => {
-                    if (x.status >= 400) {
-                        throw new Error(x.statusText);
+                    if (x.status === 401) {
+                        alert('You must login to add product to cart')
                     }
-                    cMessage.innerHTML = (`
-                    <h4 style="padding: 10px 10px 10px 0px; color: green;">${'Added to Cart'}</h4>
-                `)
+                    return x.json()
+                }).then(x => {
+                    if (x && x.error) {
+                        throw new Error(x.error)
+                    } else {
+                        cMessage.innerHTML = (`
+                            <h4 style="padding: 10px 10px 10px 0; color: green;">${'Added to Cart'}</h4>
+                        `)
+                        return x
+                    }
                 })
                     .catch(e => {
-                        let msg = e.toString()
-                        if (msg === 'Error: Unauthorized') {
-                            msg = 'Session expired. Please login again.option'
-                        }
-                        alert(msg)
+                        alert(e.message)
                     })
             } else {
                 alert('Something went wrong')

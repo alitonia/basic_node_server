@@ -27,10 +27,6 @@ const remove = (target_id, product_id, quantity, color, size) => {
          and color='${color}'
          and size='${size}'
         ;
-        UPDATE products
-        SET current_stock = current_stock + ${quantity},
-            bought        = bought - ${quantity}
-        where id = ${product_id};
         COMMIT;
         `
     )
@@ -39,9 +35,9 @@ const remove = (target_id, product_id, quantity, color, size) => {
 module.exports.removeOrder = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({error: errors.array()});
     }
-    console.log(req.body)
+
     pool.query(get(req.body), (err, response) => {
         if (err || !response) {
             res.status(403)
@@ -54,14 +50,13 @@ module.exports.removeOrder = (req, res) => {
             const color = req.body.color
             const size = req.body.size
 
-
             pool.query(remove(target_id, product_id, quantity, color, size),
                 (err, response) => {
                     if (err) {
                         res.status(403)
                         res.send({error: 'Error deleting'})
                     } else {
-                        res.send(response?.rows)
+                        res.send(response?.rows ?? [])
                     }
                 }
             );
