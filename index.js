@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 passportConfig(app)
 
 // app.use(require('./middlewares/redis_cache/redis_get_middleware'))
-app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
+// app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
 
 // api
 app.use(require('./routes/apis/product.js'))
@@ -52,7 +52,7 @@ app.use(require('./routes/etc/meme.js'));
 app.use(require('./routes/admins/login.js'))
 app.use(require('./routes/admins/viewOrders'))
 app.use(require('./routes/admins/updateOrder'))
-
+app.use(require('./routes/admins/viewProducts'))
 
 
 app.get('/test', (req, res) => {

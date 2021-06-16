@@ -17,10 +17,13 @@
 
 <link rel="stylesheet" href="./assets/css/admin/general-header.css">
 <link rel="stylesheet" href="./assets/css/admin/big-table.css">
+<link rel="stylesheet" href="./assets/css/admin/tooltip.css">
+
 
 <script src="./assets/js/admin/tokenManipulation.js"></script>
 <script src="./assets/js/admin/immediateRedirect.js"></script>
 <script src="./assets/js/admin/utils.js"></script>
+<script src="./assets/js/admin/pagination.js"></script>
 
 
 <head>
@@ -46,10 +49,10 @@
                             <li class="menu_item">
                                 <a class="admin-panel-link link" href="./home.html">ADMIN PANEL</a>
                             </li>
-                            <li class="menu_item men">
+                            <li class="menu_item">
                                 <a class="orders-link link" href="./orders.html">ORDERS</a>
                             </li>
-                            <li class="menu_item women">
+                            <li class="menu_item">
                                 <a class="products-link link link-active" href="./products.html">PRODUCTS</a>
                             </li>
                             <li class="menu_item">
@@ -60,7 +63,8 @@
                             </li>
 
                             <li class="menu_item">
-                                <a class="logout-link link" href="#" onclick="logout()">LOG OUT</a>
+                                <a class="logout-link link" href="#" onclick="logout()" style="color: #558776">LOG
+                                    OUT</a>
                             </li>
                         </ul>
                     </div>
@@ -77,25 +81,84 @@
         <div class="cart_page_container">
             <div class="board-space" style="width:100%">
 
+                <div class="hyper-values">
+                    <div class="display-box display-page-label">
+                        <span class="display-prefix">Page: </span> <span
+                            class="display-value display-page-label-value"></span>
+                        <i class="fas fa-times close" onclick="resetPage()"></i>
+                    </div>
+
+                    <div class="display-box display-target-label">
+                        <span class="display-prefix">Target: </span> <span
+                            class="display-value display-target-label-value"></span>
+                        <!--                        <i class="fas fa-times close"></i>-->
+                    </div>
+
+                    <div class="display-box display-sort-label">
+                        <span class="display-prefix">Sort: </span> <span
+                            class="display-value display-sort-label-value"></span>
+                        <!--                        <i class="fas fa-times close"></i>-->
+                    </div>
+
+                    <div class="display-box display-search-label">
+                        <span class="display-prefix">Search: </span> <span
+                            class="display-value display-sort-label-value"></span> <i
+                            class="fas fa-times close" onclick="resetSearch()"></i>
+                    </div>
+                </div>
+
                 <table class="styled-table">
                     <thead>
                     <tr>
                         <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
-                        <th class="t_customer_id" onclick="openPopup('customer_id')">Customer ID <i
+                        <th class="t_customer_id" onclick="openPopup('name')">Product Name <i
                                 class="fas fa-sort"></i></th>
-                        <th class="t_send_email" onclick="openPopup('email')">Send Email <i
+
+                        <th class="t_customer_id" onclick="openPopup('description')">Description <i
                                 class="fas fa-sort"></i></th>
-                        <th class="date" onclick="openPopup('order_date')">Order Date <i class="fas fa-sort"></i>
+
+                        <th class="t_send_email" onclick="openPopup('price')">Price <i
+                                class="fas fa-sort"></i></th>
+                        <th class="date" onclick="openPopup('current_stock')">Current Stock <i class="fas fa-sort"></i>
                         </th>
-                        <th class="status" onclick="openPopup('status')">Status <i class="fas fa-sort"></i></th>
+                        <th class="status" onclick="openPopup('bought')">Bought <i class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('big_image_link')">Big Image Link <i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('category_id')">Category ID<i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('available')">Available <i
+                                class="fas fa-sort"></i></th>
+                        <th class="t_customer_id" onclick="openPopup('rating')">Rating <i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('total_rated')">Total Rated <i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('color_options')">Color Options <i
+                                class="fas fa-sort"></i></th>
+                        <th class="t_customer_id" onclick="openPopup('size_options')">Size Options <i
+                                class="fas fa-sort"></i></th>
+
+
                         <th rowspan="3" class="action">Actions</th>
                     </tr>
                     </thead>
 
                     <tbody class="injectable-space">
                     </tbody>
-
                 </table>
+
+                <div class="naviagte-buttons">
+                    <div class="navigate-left">
+                        <button class="control-button cb-left" onclick="toLastPage()"> <</button>
+                    </div>
+                    <div class="navigate-right">
+                        <button class="control-button cb-right" onclick="toNextPage()"> ></button>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -106,11 +169,20 @@
     <div class="popopen-content no-prop">
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
-            <label for="sort-value" class="sort-label">Sort By</label>
-            <select name="sort-value" class="sort-choice">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-            </select>
+
+            <div>
+                <label for="sort-value" class="sort-label">Sort By</label>
+                <select name="sort-value" class="sort-choice">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="search-value" class="search-label">Search For</label>
+                <input type="text" name="search-value"/>
+            </div>
+
             <div class="popup-buttons">
                 <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
                 <button type="submit" class="action-button view-button">Submit</button>
@@ -120,8 +192,11 @@
 </div>
 
 <script>
-    async function getOrders(sortby = 'order_date', order = 'desc') {
-        return fetch(`/admin/orders?sortby=${sortby}&order=${order}`, {
+    const PAGE_SIZE = 30
+    const path = '/admin/products'
+
+    async function getProducts(sortby = 'name', order = 'asc', page = 0, searchby = '') {
+        return fetch(`${path}?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -149,17 +224,24 @@
         })
     }
 
-    async function start(sortby = 'order_date', order = 'desc') {
+    async function start(sortby = 'name', order = 'asc', page = 0, searchby = '') {
         if (!isLogin) {
             return;
         }
+        if (getParam('page', 0) == 0) {
+            document.querySelector('.cb-left').style.display = 'none'
+        }
 
-        const orders = await getOrders(sortby, order)
+        const orders = await getProducts(sortby, order, page, searchby)
         if (!orders) {
             return;
         }
         const injectSpace = document.querySelector('.injectable-space')
         const space = document.querySelector('.board-space')
+
+        if (orders.length < PAGE_SIZE) {
+            document.querySelector('.cb-right').style.display = 'none'
+        }
 
         if (orders.length === 0) {
             // space.innerHTML = (`
@@ -168,27 +250,71 @@
         } else {
             injectSpace.innerHTML = (`
             ${orders.reduce((acc, cur) => {
-                const {id = null, order_date = '', status, customer_id, email} = cur
-                const highlight = status === 'pending'
-                const lowlight = status === 'cancelled'
-                const goodlight = status === 'delivered'
+                const {
+                    id,
+                    name,
+                    description,
+                    full_description,
+                    price,
+                    bought,
+                    current_stock,
+                    big_image_link,
+                    image_links = '',
+                    category_id,
+                    created_date,
+                    available,
+                    rating,
+                    total_rated,
+                    address,
+                    color_options,
+                    size_options,
+                    status = ''
+                } = cur
+                const highlight = false
+                const lowlight = available === 'false'
+                const goodlight = false
+                const queerlight = false
 
                 const canView = true;
-                const canAccept = status === 'pending'
-                const canCancel = status === 'pending' || status === 'confirmed'
-                const canSetDelivered = status === 'confirmed'
-                const canBackPending = status !== 'pending'
+                const canAccept = false
+                const canCancel = false
+                const canSetDelivered = false
+                const canBackPending = false
+
+                const imgLink = `${window.location.origin}/${big_image_link}`
+                const product_link = `${window.location.origin}/product.html?product_id=${id}`
 
                 return acc + `
-                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''}">
-                        <td>${id}</td>
-                        <td>${customer_id}</td>
-                        <td>${email}</td>
-                        <td>${order_date}</td>
-                        <td>${capitalize(status)}</td>
-                        <td>
+                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
+                    <td><a href="${product_link}">${id}</a></td>
+                    <td>${name}</td>
+
+                    <td>
+                    <span class=" tooltip">
+                    <p class="description-text">${description}
+                    </p>
+                     <span class="tooltiptext">${description}</span>
+                    </span>
+                    </td>
+
+                    <td>${price.toFixed(3)}</td>
+                    <td>${current_stock}</td>
+                    <td>${bought}</td>
+                    
+                    <td><span class=" tooltip">
+                    <a href="${imgLink}" target="_blank">${big_image_link}</a>
+                    <span class="tooltiptext freedom-img"><img src="${imgLink}" alt="big link"></span>
+                    </span></td>
+                    
+                    <td>${category_id}</td>
+                    <td>${available}</td>
+                    <td>${Number.parseFloat(rating).toFixed(3)}</td>
+                    <td>${total_rated}</td>
+                    <td>${color_options}</td>
+                    <td>${size_options}</td>
+                    <td>
                             <div class="button-holder">
-                                ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View</button>` : ''}
+                                ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
                                 ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
                                 ${canAccept ? `<button class="action-button accept-button" onclick="handleAccept(${id})">Accept</button>` : ''}
                                 ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
@@ -198,17 +324,32 @@
                     </tr>
                 `;
 
-                if (id !== null) {
-                } else {
-                    return acc
-                }
             }, '')}
-
             `)
         }
     }
 
-    start();
+    function displayOrRemove(field, value) {
+        if (!value || value === "0") {
+            document.querySelector(`.${field}`).style.display = 'none'
+        } else {
+            document.querySelector(`.${field} .display-value`).innerText = value
+        }
+    }
+
+    const current_url = new URL(window.location.href)
+    const sortby = current_url.searchParams.get('sortby') || 'name'
+    const order = current_url.searchParams.get('order') || 'asc'
+    const page = current_url.searchParams.get('page') || 0
+    const searchby = current_url.searchParams.get('searchValue') || 0
+
+    displayOrRemove('display-page-label', page)
+    displayOrRemove('display-target-label', sortby)
+    displayOrRemove('display-sort-label', order)
+    displayOrRemove('display-search-label', searchby)
+
+    start(sortby, order, page, searchby);
+
 </script>
 
 <script>
@@ -268,6 +409,7 @@
 
     }
     const handleView = (id) => {
+        changePage(`${window.location.origin}/product/${id}`)
         // order details simplified
     }
 </script>
@@ -297,10 +439,10 @@
         }
         const formData = new FormData(e.target)
         const sortby = formData.get('field')
-        const value = formData.get('sort-value')
+        const sortValue = formData.get('sort-value')
+        const searchValue = formData.get('search-value') || ""
 
-
-        start(sortby, value).then(() => closePopup()).catch(e => closePopup())
+        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue}))
         return false
     }
 
@@ -312,7 +454,31 @@
     }
 </script>
 
+<script>
+    function resetPage() {
+        changePage(removeParam('page', window.location.href))
+    }
+
+    function resetSearch() {
+        console.log('abc', removeParam('searchValue', window.location.href))
+        changePage(removeParam('searchValue', window.location.href))
+    }
+</script>
+
 <script src="./assets/js/admin/popupProp.js"></script>
 </body>
+
+<style>
+    .styled-table th, .styled-table td {
+        padding: 12px 5px;
+    }
+
+    .description-text {
+        max-width: 50px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
 
 </html>

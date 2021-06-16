@@ -222,3 +222,7 @@ th:hover {
 .close:hover {
     color: #FFF5EB;
 }
+
+.naviagte-buttons {
+    margin-bottom: 20px;
+}

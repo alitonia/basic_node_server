@@ -30,8 +30,9 @@ UNIQUE INDEX on customers(email);
 
 create table admins
 (
-    id            serial PRIMARY key,
-    email         varchar(128) UNIQUE NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'),
+    id    serial PRIMARY key,
+    email varchar(128) UNIQUE NOT NULL CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[A-Za-z]+$'
+) ,
     name          varchar(128),
     password_hash varchar(256),
     salt          varchar(256) CHECK ((password_hash is not null and salt is null) = FALSE)
