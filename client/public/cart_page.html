@@ -260,7 +260,6 @@
 
         const b = document.querySelector('#board')
 
-
         if (cart.length === 0) {
             b.style.border = 'none'
             b.style['background-color'] = '#ffffff'
@@ -268,9 +267,27 @@
             document.querySelector(`.transaction_button`).remove()
         } else {
 
+            let total_object = {}
+
             b.innerHTML = (`
             ${cart.reduce((acc, cur) => {
-                const isNotAvailable = !cur.available
+
+                const id = cur.product_id
+                const current_stock = cur.current_stock
+                const quantity = cur.quantity
+
+                if (!total_object[id]) {
+                    total_object[id] = {
+                        current: quantity,
+                        max: current_stock
+                    }
+                } else {
+                    total_object[id].current += quantity
+                }
+                const isTotalSafe = total_object[id].current <= total_object[id].max
+                //add to total object
+
+                const isNotAvailable = !cur.available || cur.quantity > cur.current_stock || !isTotalSafe
                 if (isNotAvailable) {
                     canMoveOnFlag = false
                 }
