@@ -21,6 +21,7 @@
 <script src="./assets/js/admin/tokenManipulation.js"></script>
 <script src="./assets/js/admin/immediateRedirect.js"></script>
 <script src="./assets/js/admin/utils.js"></script>
+<script src="./assets/js/admin/pagination.js"></script>
 
 
 <head>
@@ -95,8 +96,16 @@
 
                     <tbody class="injectable-space">
                     </tbody>
-
                 </table>
+
+                <div class="naviagte-buttons">
+                    <div class="navigate-left">
+                        <button class="control-button cb-left" onclick="toLastPage()"> <</button>
+                    </div>
+                    <div class="navigate-right">
+                        <button class="control-button cb-right" onclick="toNextPage()"> ></button>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -124,7 +133,7 @@
     const PAGE_SIZE = 30
 
     async function getOrders(sortby = 'order_date', order = 'desc', page = 0) {
-        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}`, {
+        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -156,6 +165,9 @@
         if (!isLogin) {
             return;
         }
+        if (getParam('page', 0) == 0) {
+            document.querySelector('.cb-left').style.display = 'none'
+        }
 
         const orders = await getOrders(sortby, order, page)
         if (!orders) {
@@ -163,6 +175,10 @@
         }
         const injectSpace = document.querySelector('.injectable-space')
         const space = document.querySelector('.board-space')
+
+        if (orders.length < PAGE_SIZE) {
+            document.querySelector('.cb-right').style.display = 'none'
+        }
 
         if (orders.length === 0) {
             // space.innerHTML = (`
@@ -308,8 +324,7 @@
         const sortby = formData.get('field')
         const value = formData.get('sort-value')
 
-
-        start(sortby, value).then(() => closePopup()).catch(e => closePopup())
+        changePage(url_mutation({sortby: sortby, order: value, page: 0}))
         return false
     }
 
@@ -323,5 +338,11 @@
 
 <script src="./assets/js/admin/popupProp.js"></script>
 </body>
+
+<style>
+    .naviagte-buttons {
+        margin-bottom: 20px;
+    }
+</style>
 
 </html>
