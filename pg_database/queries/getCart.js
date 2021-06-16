@@ -9,7 +9,8 @@ const get_products_in_cart = (cart_id) => {
                 orders.size             as size,
                 products.price          as price,
                 products.name           as product_name,
-                products.big_image_link as big_image_link
+                products.big_image_link as big_image_link,
+                products.available      as available
          FROM orders,
               products
          where orders.receipt_id = ${cart_id}

@@ -88,9 +88,9 @@
                 </div>
                 <div class="continue_shopping transaction_button"
                      style="float: right;position: relative;cursor:pointer;"
-                     onclick="(()=>{window.location.href = './transaction.html'})()"
+                     onclick="handleMoving()"
                 >
-                    <a href="./transaction.html" style="text-decoration: none;color: #ffffff;">Check Out</a>
+                    <a style="text-decoration: none;color: #ffffff;">Check Out</a>
                 </div>
             </div>
         </div>
@@ -243,6 +243,8 @@
         })
     }
 
+    let canMoveOnFlag = true
+
     async function start() {
         if (!structuredCookie['token']) {
             alert('You must login')
@@ -265,10 +267,16 @@
             document.querySelector('.home_button').style['margin-left'] = '27%'
             document.querySelector(`.transaction_button`).remove()
         } else {
+
             b.innerHTML = (`
             ${cart.reduce((acc, cur) => {
+                const isNotAvailable = !cur.available
+                if (isNotAvailable) {
+                    canMoveOnFlag = false
+                }
+
                 return acc + `
-                <div class="a_product">
+                <div class="a_product ${isNotAvailable ? 'expired' : ''}">
                     <div class='product_infor'>
                         <img class='product_img' src='${cur.big_image_link}'>
                         <div class='product_detail'>
@@ -283,7 +291,7 @@
                     </div>
                     <div class='product_quantity'>
                         <h2 class="quantity_tag">Quantity</h2>
-                        <p class='quantity'>${cur.quantity}</p>
+                        <p class='quantity'>${!isNotAvailable ? cur.quantity : '<span class="warning-sight">This product is out of stock. Please remove it before you continue.</span>'}</p>
                     </div>
                     <div class='btn_delete'>
                         <button class='remove' style="padding: 5px;" onclick="handleRemove(${cur.product_id}, ${cur.receipt_id}, '${cur.color}', '${cur.size}')">Remove</button>
@@ -293,11 +301,22 @@
             }, '')}
 
             `)
+            if (!canMoveOnFlag) {
+                document.querySelector('.transaction_button').classList.add('no-go-button')
+            }
             handleChangeWith(document.documentElement.clientWidth)
         }
     }
 
     start()
+
+    function handleMoving() {
+        if (canMoveOnFlag) {
+            window.location.href = './transaction.html'
+        } else {
+            alert('Your cart contains out of stock products. Please remove them before continue.')
+        }
+    }
 </script>
 
 
@@ -485,7 +504,24 @@
 
 </script>
 
+</body>
+
 <style>
+    .expired {
+        background: #F54748;
+    }
+
+    .no-go-button {
+        background: black !important;
+        opacity: 60%;
+    }
+
+    .warning-sight {
+        font-size: 14px;
+        color: wheat;
+        font-weight: 600;
+    }
+
     @media only screen and (max-width: 575px) {
         .cart_page_area {
             padding-left: 0;
@@ -514,5 +550,4 @@
         }
     }
 </style>
-</body>
 </html>

@@ -1,7 +1,4 @@
 const pool = require('../connect_database.js');
-const {getHash} = require('../../middlewares/passport/passport')
-const bcrypt = require("bcrypt");
-
 
 const purchaseCurrentCart = (id, body) => {
     const {
