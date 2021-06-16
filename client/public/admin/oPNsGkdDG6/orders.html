@@ -226,6 +226,7 @@
                 const highlight = status === 'pending'
                 const lowlight = status === 'cancelled'
                 const goodlight = status === 'delivered'
+                const queerlight = status === 'confirmed'
 
                 const canView = true;
                 const canAccept = status === 'pending'
@@ -234,7 +235,7 @@
                 const canBackPending = status !== 'pending'
 
                 return acc + `
-                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''}">
+                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
                         <td>${id}</td>
                         <td>${customer_id}</td>
                         <td>${email}</td>
