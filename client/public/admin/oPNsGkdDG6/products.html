@@ -270,14 +270,15 @@
                     size_options,
                     status = ''
                 } = cur
+                const lowlight = (available === false || current_stock === 0)
                 const highlight = false
-                const lowlight = available === 'false'
+
                 const goodlight = false
                 const queerlight = false
 
                 const canView = true;
-                const canAccept = false
-                const canCancel = false
+                const canDelete = available === true
+                const canRestore = !canDelete
                 const canSetDelivered = false
                 const canBackPending = false
 
@@ -286,7 +287,7 @@
 
                 return acc + `
                     <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
-                    <td><a href="${product_link}">${id}</a></td>
+                    <td><a href="${product_link}" style="font-weight: 500;">${id}</a></td>
                     <td>${name}</td>
 
                     <td>
@@ -300,12 +301,12 @@
                     <td>${price.toFixed(3)}</td>
                     <td>${current_stock}</td>
                     <td>${bought}</td>
-                    
+
                     <td><span class=" tooltip">
-                    <a href="${imgLink}" target="_blank">${big_image_link}</a>
+                    <a href="${imgLink}" target="_blank" style="font-weight: 500;">${big_image_link}</a>
                     <span class="tooltiptext freedom-img"><img src="${imgLink}" alt="big link"></span>
                     </span></td>
-                    
+
                     <td>${category_id}</td>
                     <td>${available}</td>
                     <td>${Number.parseFloat(rating).toFixed(3)}</td>
@@ -313,15 +314,15 @@
                     <td>${color_options}</td>
                     <td>${size_options}</td>
                     <td>
-                            <div class="button-holder">
-                                ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
-                                ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
-                                ${canAccept ? `<button class="action-button accept-button" onclick="handleAccept(${id})">Accept</button>` : ''}
-                                ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
-                                ${canCancel ? `<button class="action-button cancel-button" onclick="handleCancel(${id})">Cancel</button>` : ''}
-                            </div>
-                        </td>
-                    </tr>
+                        <div class="button-holder">
+                            ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
+                            ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
+                            ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
+                            ${canBackPending ? `<button class="action-button accept-button" onclick="handlePending(${id})">Pending</button>` : ''}
+                            ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
+                        </div>
+                    </td>
+                </tr>
                 `;
 
             }, '')}
@@ -353,8 +354,8 @@
 </script>
 
 <script>
-    async function updateStatus(id, status) {
-        return fetch('/admin/orders', {
+    async function updateProduct(id, field, value) {
+        return fetch('/admin/products', {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -367,7 +368,8 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify({
                 id: id,
-                status: status
+                field: field,
+                value: value
             })
         }).then(x => {
             if (x.status >= 400) {
@@ -389,28 +391,22 @@
             })
     }
 
-    const handleRevert = (id) => {
-        //set status = pending
-        updateStatus(id, 'pending')
+    const handlePending = (id) => {
+        updateProduct(id, 'pending')
     }
-    const handleAccept = (id) => {
-        // confirmed
-        updateStatus(id, 'confirmed')
+    const handleDelete = (id) => {
+        updateProduct(id, 'available', false)
 
     }
     const handleDelivered = (id) => {
-        //delivered
-        updateStatus(id, 'delivered')
+        updateProduct(id, 'delivered')
 
     }
-    const handleCancel = (id) => {
-        //cancel
-        updateStatus(id, 'cancelled')
-
+    const handleRestore = (id) => {
+        updateProduct(id, 'available', true)
     }
     const handleView = (id) => {
         changePage(`${window.location.origin}/product/${id}`)
-        // order details simplified
     }
 </script>
 
