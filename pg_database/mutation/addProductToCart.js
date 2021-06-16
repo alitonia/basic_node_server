@@ -5,7 +5,8 @@ const select_product_id = (id) => {
     return (
         `SELECT *
          FROM products
-         where id = ${id} and available = true;`
+         where id = ${id}
+           and available = true;`
     )
 };
 
@@ -54,11 +55,6 @@ const create_new_order = (receipt_id, product_id, quantity, color, size) => {
         `INSERT INTO orders(receipt_id, product_id, quantity, color, size)
          values (${receipt_id}, ${product_id}, ${quantity},
                  ${color ? "'" + color + "'" : 'NULL'}, ${size ? "'" + size + "'" : 'NULL'});
-
-        UPDATE products
-        SET current_stock= current_stock - ${quantity},
-            bought=bought + ${quantity}
-        where id = ${product_id};
         `
     )
 }
@@ -73,11 +69,6 @@ const add_to_existing_order = (receipt_id, product_id, quantity, color, size) =>
            and color = ${color ? "'" + color + "'" : 'NULL'}
            and size = ${size ? "'" + size + "'" : 'NULL'}
         ;
-
-        UPDATE products
-        SET current_stock = current_stock - ${quantity},
-            bought=bought + ${quantity}
-        where id = ${product_id};
         `
     )
 }
