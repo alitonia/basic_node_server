@@ -5,7 +5,7 @@ const select_product_id = (id) => {
     return (
         `SELECT *
          FROM products
-         where id = ${id};`
+         where id = ${id} and available = true;`
     )
 };
 

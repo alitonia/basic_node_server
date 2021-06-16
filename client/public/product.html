@@ -74,6 +74,7 @@
                 window.location.replace('404.html')
             }
             if (product === null) {
+                window.location.replace('404.html')
                 return;
             }
             productData = product
@@ -163,8 +164,6 @@
             const product_id = url.searchParams.get('product_id')
             const token = parseCookie(document.cookie)['token']
             const price = productData.price
-
-            console.log(size, color, quantity, product_id, token, price)
 
             if (!token) {
                 alert('Please login to add product to cart');

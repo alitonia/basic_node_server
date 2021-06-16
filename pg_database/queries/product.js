@@ -5,11 +5,12 @@ const sql_select_all = (query) => {
     const {id} = query ?? {}
     return `SELECT *
             FROM products
-            WHERE id = ${id};`
+            WHERE id = ${id} and available != false;`
 };
 
 module.exports.find = (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }

@@ -280,7 +280,7 @@
                 const canDelete = available === true
                 const canRestore = !canDelete
                 const canSetDelivered = false
-                const canBackPending = false
+                const canEdit = true
 
                 const imgLink = `${window.location.origin}/${big_image_link}`
                 const product_link = `${window.location.origin}/product.html?product_id=${id}`
@@ -318,7 +318,7 @@
                             ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
                             ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
                             ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
-                            ${canBackPending ? `<button class="action-button accept-button" onclick="handlePending(${id})">Pending</button>` : ''}
+                            ${canEdit ? `<button class="action-button accept-button" onclick="handleEdit(${id})">Edit</button>` : ''}
                             ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
                         </div>
                     </td>
@@ -391,8 +391,8 @@
             })
     }
 
-    const handlePending = (id) => {
-        updateProduct(id, 'pending')
+    const handleEdit = (id) => {
+        // updateProduct(id, 'pending')
     }
     const handleDelete = (id) => {
         updateProduct(id, 'available', false)
@@ -466,7 +466,7 @@
 
 <style>
     .styled-table th, .styled-table td {
-        padding: 12px 5px;
+        padding: 12px 3px;
     }
 
     .description-text {

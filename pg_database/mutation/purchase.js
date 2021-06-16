@@ -3,7 +3,7 @@ const {getHash} = require('../../middlewares/passport/passport')
 const bcrypt = require("bcrypt");
 
 
-const puchaseCurrentCart = (id, body) => {
+const purchaseCurrentCart = (id, body) => {
     const {
         first_name,
         last_name,
@@ -42,7 +42,7 @@ exports.purchase = (req, res) => {
     const user_id = req.user.id
     const body = req.body || {};
 
-    pool.query(puchaseCurrentCart(user_id, body),
+    pool.query(purchaseCurrentCart(user_id, body),
         (err, response) => {
             console.log(err, response)
             if (err || !response || response.rowCount === 0) {
