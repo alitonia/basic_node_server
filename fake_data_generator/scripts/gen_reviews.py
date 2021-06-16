@@ -40,10 +40,10 @@ def gen_reviews():
         created_date = get_random_timestamp()
 
         data += f"({customer_id}, {product_id}, '{value}', '{created_date}')"
-        if i != REVIEW_LIMIT - 1:
-            data += ','
+        data += ','
         data += '\n'
 
+    data = data[:-2]
     data += """;
         """
 

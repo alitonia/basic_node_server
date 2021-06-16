@@ -8,12 +8,16 @@ ENABLE_CUSTOMER = True
 ENABLE_REVIEW = True
 ENABLE_SHIPPING = True
 ENABLE_ADMIN = True
+ENABLE_ORDER = True
+ENABLE_RECEIPT = True
 
 SEED = 1337
 CATEGORY_LIMIT = 20
 PRODUCT_LIMIT = 300
 CUSTOMER_LIMIT = 20
 REVIEW_LIMIT = 500
+ORDER_LIMIT = 204
+RECEIPT_LIMIT = 63
 
 insert_file_path = 'fake_data_generator/results/new_data.sql'
 category_images_storage_path = 'client/public/gen_images/category'

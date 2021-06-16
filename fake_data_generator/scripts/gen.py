@@ -1,7 +1,9 @@
 # This will override fake_data_generator/results/
 
 from control import ENABLE_CATEGORY, ENABLE_PRODUCT, ENABLE_CUSTOMER, ENABLE_REVIEW, WRITE_ON_INSERT_DATA, \
-    insert_file_path, ENABLE_SHIPPING, ENABLE_ADMIN
+    insert_file_path, ENABLE_SHIPPING, ENABLE_ADMIN, ENABLE_ORDER, ENABLE_RECEIPT
+from gen_receipts import gen_receipts
+from gen_orders import gen_orders
 from gen_admin import gen_admins
 from gen_shippings import gen_shippings
 from gen_categories import gen_categories
@@ -43,6 +45,12 @@ if ENABLE_SHIPPING:
 
 if ENABLE_ADMIN:
     gen_admins()
+
+if ENABLE_RECEIPT:
+    gen_receipts()
+
+if ENABLE_ORDER:
+    gen_orders()
 
 data = " COMMIT;"
 if WRITE_ON_INSERT_DATA:

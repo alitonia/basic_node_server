@@ -121,8 +121,10 @@
 </div>
 
 <script>
-    async function getOrders(sortby = 'order_date', order = 'desc') {
-        return fetch(`/admin/orders?sortby=${sortby}&order=${order}`, {
+    const PAGE_SIZE = 30
+
+    async function getOrders(sortby = 'order_date', order = 'desc', page = 0) {
+        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -150,12 +152,12 @@
         })
     }
 
-    async function start(sortby = 'order_date', order = 'desc') {
+    async function start(sortby = 'order_date', order = 'desc', page = 0) {
         if (!isLogin) {
             return;
         }
 
-        const orders = await getOrders(sortby, order)
+        const orders = await getOrders(sortby, order, page)
         if (!orders) {
             return;
         }
@@ -209,7 +211,13 @@
         }
     }
 
-    start();
+    const current_url = new URL(window.location.href)
+    const sortby = current_url.searchParams.get('sortby') || 'order_date'
+    const order = current_url.searchParams.get('order') || 'desc'
+    const page = current_url.searchParams.get('page') || 0
+
+
+    start(sortby, order, page);
 </script>
 
 <script>
