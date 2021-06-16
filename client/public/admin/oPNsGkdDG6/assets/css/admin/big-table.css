@@ -238,3 +238,8 @@ th:hover {
 .t-ara {
     padding: 5px;
 }
+
+.popopen .popopen-content.long{
+    overflow-y: scroll;
+    max-height: 500px;
+}

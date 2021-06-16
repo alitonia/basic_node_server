@@ -193,7 +193,7 @@
 
 
 <div class="popopen addpop" onclick="closePopup()">
-    <div class="popopen-content no-prop">
+    <div class="popopen-content no-prop long">
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
 
@@ -218,6 +218,11 @@
             <div class="with-area">
                 <label for="p-description" class="search-label align-label">Description</label>
                 <textarea cols="40" rows="5" name="p-description" class="p-description t-ara"></textarea>
+            </div>
+
+            <div>
+                <label for="p-price" class="search-label align-label">Price</label>
+                <input type="text" name="p-price" class="p-price"/>
             </div>
 
             <div class="popup-buttons">
@@ -461,6 +466,7 @@
         injectProductPopup('p-id', id)
         injectProductPopup('p-name', name)
         injectProductPopup('p-description', description)
+        injectProductPopup('p-price', price)
 
 
         openAddPop(id, target)
