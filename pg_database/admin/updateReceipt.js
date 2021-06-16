@@ -20,7 +20,7 @@ module.exports.updateReceipt = (req, res) => {
     pool.query(updateReceipts(id, status),
         (err, response) => {
             if (err || !response) {
-                res.status = 501
+                res.status(501)
                 return res.send({error: 'Something went wrong'})
             }
             return res.send({status: 'OK'})

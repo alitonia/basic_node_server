@@ -28,7 +28,7 @@ module.exports.updateProduct = (req, res) => {
     pool.query(updateProductQuery(id, field, value),
         (err, response) => {
             if (err || !response) {
-                res.status = 501
+                res.status(501)
                 return res.send({error: 'Something went wrong'})
             }
             return res.send({status: 'OK'})

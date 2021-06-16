@@ -35,7 +35,7 @@ module.exports.getCart = (req, res) => {
     pool.query(get_existing_cart(user_id),
         (err, response) => {
             if (err || !response) {
-                res.status = 501
+                res.status(501)
                 return res.send({error: 'Something went wrong'})
             }
             if (response.rows === 0 || !response.rows[0]) {
@@ -46,7 +46,7 @@ module.exports.getCart = (req, res) => {
             pool.query(get_products_in_cart(cart_id),
                 (err, response) => {
                     if (err || !response) {
-                        res.status = 501
+                        res.status(501)
                         return res.send({error: 'Something went wrong'})
                     }
                     return res.send(response?.rows)

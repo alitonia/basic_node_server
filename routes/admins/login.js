@@ -16,9 +16,9 @@ route.post('/admin/login', function (req, res, next) {
 
         if (!user) {
             res.status(403)
-            return res.send(({
+            return res.send({
                 error: 'Invalid arguments'
-            }))
+            })
         }
 
         const body = {admin_id: user.id, name: user.name};

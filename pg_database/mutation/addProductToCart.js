@@ -94,28 +94,28 @@ module.exports.addToCart = (req, res) => {
         pool.query(select_product_id(product_id),
             (err, response) => {
                 if (err) {
-                    res.status(403)
-                    return res.send('Connection error')
+                    res.status(501)
+                    return res.send({error: 'Connection error'})
                 }
                 const check_avail = response.rows.length > 0
                 if (check_avail <= 0) {
                     res.status(403)
-                    return res.send('Product doesn\'t exist')
+                    return res.send({error: 'Product doesn\'t exist'})
                 } else if (response.rows[0].current_stock < quantity) {
                     res.status(403)
-                    return res.send('Out of stock')
+                    return res.send({error: 'Out of stock'})
                 } else {
                     // res.send('ok')
                     pool.query(check_existing_cart(user_id), async (err1, response1) => {
                         if (err1) {
                             res.status(403)
-                            return res.send('Error checking cart')
+                            return res.send({error: 'Error checking cart'})
                         }
                         if (!response1 || response1.rows.length === 0) {
                             await pool.query(create_cart(user_id), (err2, response2) => {
                                     if (err2) {
                                         res.status(403)
-                                        return res.send('Error create new cart')
+                                        return res.send({error: 'Error create new cart'})
                                     } else {
                                     }
                                 }
@@ -127,31 +127,31 @@ module.exports.addToCart = (req, res) => {
                         pool.query(check_existing_cart(user_id), (err, response) => {
                             if (err || response.rows.length === 0) {
                                 res.status(403)
-                                return res.send('Error create new cart')
+                                return res.send({error: 'Error create new cart'})
                             } else {
                                 const receipt_id = response.rows[0].id
                                 // if product already exist => add more, else create new order
                                 pool.query(check_existing_orders(receipt_id, product_id, color, size), (err, response) => {
                                     if (err) {
-                                        res.status(403)
-                                        return res.send('Internal error')
+                                        res.status(501)
+                                        return res.send({error: 'Internal error'})
                                     } else if (response.rows.length === 0) {
                                         pool.query(create_new_order(receipt_id, product_id, quantity, color, size), (err, response) => {
                                                 if (err) {
-                                                    res.status(403)
-                                                    return res.send('Internal error')
+                                                    res.status(501)
+                                                    return res.send({error: 'Internal error'})
                                                 } else {
-                                                    res.send('OK')
+                                                    res.send({status: 'OK'})
                                                 }
                                             }
                                         )
                                     } else {
                                         pool.query(add_to_existing_order(receipt_id, product_id, quantity, color, size), (err, response) => {
                                                 if (err) {
-                                                    res.status(403)
-                                                    return res.send('Internal error')
+                                                    res.status(501)
+                                                    return res.send({error: 'Internal error'})
                                                 } else {
-                                                    res.send('OK')
+                                                    res.send({status: 'OK'})
                                                 }
                                             }
                                         )
@@ -163,8 +163,8 @@ module.exports.addToCart = (req, res) => {
                 }
             });
     } else {
-        res.status(401)
-        return res.send("Invalid request")
+        res.status(402)
+        return res.send({error: "Bad request"})
     }
 
 };

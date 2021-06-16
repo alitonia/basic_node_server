@@ -280,6 +280,10 @@
         }
     }
 
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
+
     async function purchase() {
         // if (cartData === null || cartData.length === 0) {
         //     alert('Nothing to purchase')
@@ -344,7 +348,8 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(package)
         }).then(res => {
-            if (res.status === 403) {
+            if (res.status === 401) {
+                deleteCookie()
                 alert('Your session has ended. Please login to continue the purchase.')
                 document.location.href = '/login.html'
             } else {
@@ -357,17 +362,14 @@
                 } else {
                     console.log('No error')
                 }
-
                 document.location.href = '/order_success.html'
+
             }).catch(err => {
             console.warn(err.message)
             alert(err.message)
         })
     }
 
-    function deleteCookie(path) {
-        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
-    }
 
     async function getCurrentCart() {
         return fetch('/get_cart_id', {
@@ -382,24 +384,26 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }).then(x => {
-            if (x.status >= 400) {
-                if (x.status == 401) {
-                    //unauthorized. Maybe out of session
-                    deleteCookie()
-                }
-                throw new Error(x.statusText)
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie()
+                alert('Your session has ended. Please login to continue the purchase.')
+                document.location.href = '/login.html'
             }
-            console.log(x)
             return x.json()
+        }).then(x => {
+            if (x && x.error) {
+                throw new Error(x.error)
+            }
+            return x
         }).catch(err => {
-            alert(err.toString())
+            console.warn(err.message)
+            alert(err.message)
             return null
         })
     }
 
     async function start() {
-        const structuredCookie = parseCookie(document.cookie)
-
         if (!token) {
             alert('You session has expired. Please login to continue purchasing')
             document.location.replace('/login.html')
