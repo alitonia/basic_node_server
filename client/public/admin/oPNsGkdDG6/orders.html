@@ -79,6 +79,32 @@
         <div class="cart_page_container">
             <div class="board-space" style="width:100%">
 
+                <div class="hyper-values">
+                    <div class="display-box display-page-label">
+                        <span class="display-prefix">Page: </span> <span
+                            class="display-value display-page-label-value"></span>
+                        <i class="fas fa-times close" onclick="resetPage()"></i>
+                    </div>
+
+                    <div class="display-box display-target-label">
+                        <span class="display-prefix">Target: </span> <span
+                            class="display-value display-target-label-value"></span>
+                        <!--                        <i class="fas fa-times close"></i>-->
+                    </div>
+
+                    <div class="display-box display-sort-label">
+                        <span class="display-prefix">Sort: </span> <span
+                            class="display-value display-sort-label-value"></span>
+                        <!--                        <i class="fas fa-times close"></i>-->
+                    </div>
+
+                    <div class="display-box display-search-label">
+                        <span class="display-prefix">Search: </span> <span
+                            class="display-value display-sort-label-value" onclick="resetSearch()"></span> <i
+                            class="fas fa-times close"></i>
+                    </div>
+                </div>
+
                 <table class="styled-table">
                     <thead>
                     <tr>
@@ -116,11 +142,20 @@
     <div class="popopen-content no-prop">
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
-            <label for="sort-value" class="sort-label">Sort By</label>
-            <select name="sort-value" class="sort-choice">
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
-            </select>
+
+            <div>
+                <label for="sort-value" class="sort-label">Sort By</label>
+                <select name="sort-value" class="sort-choice">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="search-value" class="search-label">Search For</label>
+                <input type="text" name="search-value"/>
+            </div>
+
             <div class="popup-buttons">
                 <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
                 <button type="submit" class="action-button view-button">Submit</button>
@@ -132,8 +167,8 @@
 <script>
     const PAGE_SIZE = 30
 
-    async function getOrders(sortby = 'order_date', order = 'desc', page = 0) {
-        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}`, {
+    async function getOrders(sortby = 'order_date', order = 'desc', page = 0, searchby = '') {
+        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -161,7 +196,7 @@
         })
     }
 
-    async function start(sortby = 'order_date', order = 'desc', page = 0) {
+    async function start(sortby = 'order_date', order = 'desc', page = 0, searchby = '') {
         if (!isLogin) {
             return;
         }
@@ -169,7 +204,7 @@
             document.querySelector('.cb-left').style.display = 'none'
         }
 
-        const orders = await getOrders(sortby, order, page)
+        const orders = await getOrders(sortby, order, page, searchby)
         if (!orders) {
             return;
         }
@@ -227,13 +262,26 @@
         }
     }
 
+    function displayOrRemove(field, value) {
+        if (!value || value === "0") {
+            document.querySelector(`.${field}`).style.display = 'none'
+        } else {
+            document.querySelector(`.${field} .display-value`).innerText = value
+        }
+    }
+
     const current_url = new URL(window.location.href)
     const sortby = current_url.searchParams.get('sortby') || 'order_date'
     const order = current_url.searchParams.get('order') || 'desc'
     const page = current_url.searchParams.get('page') || 0
+    const searchby = current_url.searchParams.get('searchValue') || 0
 
+    displayOrRemove('display-page-label', page)
+    displayOrRemove('display-target-label', sortby)
+    displayOrRemove('display-sort-label', order)
+    displayOrRemove('display-search-label', searchby)
 
-    start(sortby, order, page);
+    start(sortby, order, page, searchby);
 </script>
 
 <script>
@@ -322,9 +370,10 @@
         }
         const formData = new FormData(e.target)
         const sortby = formData.get('field')
-        const value = formData.get('sort-value')
+        const sortValue = formData.get('sort-value')
+        const searchValue = formData.get('search-value') || ""
 
-        changePage(url_mutation({sortby: sortby, order: value, page: 0}))
+        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue}))
         return false
     }
 
@@ -333,6 +382,17 @@
         form.attachEvent("submit", processForm);
     } else {
         form.addEventListener("submit", processForm);
+    }
+</script>
+
+<script>
+    function resetPage() {
+        changePage(removeParam('page', window.location.href))
+    }
+
+    function resetSearch() {
+        console.log('abc', removeParam('searchValue', window.location.href))
+        changePage(removeParam('searchValue', window.location.href))
     }
 </script>
 
