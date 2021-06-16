@@ -281,10 +281,10 @@
     }
 
     async function purchase() {
-        if (cartData === null || cartData.length === 0) {
-            alert('Nothing to purchase')
-            return;
-        }
+        // if (cartData === null || cartData.length === 0) {
+        //     alert('Nothing to purchase')
+        //     return;
+        // }
 
         const first_name = document.querySelector('.first_name').value
         const last_name = document.querySelector('.last_name').value
@@ -343,13 +343,25 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify(package)
-        }).then(x => {
-            if (x.status >= 400) {
-                throw new Error(x.statusText)
+        }).then(res => {
+            if (res.status === 403) {
+                alert('Your session has ended. Please login to continue the purchase.')
+                document.location.href = '/login.html'
+            } else {
+                return res.json()
             }
-            document.location.href = '/order_success.html'
-        }).catch(err => {
-            alert(err.toString())
+        })
+            .then(x => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                } else {
+                    console.log('No error')
+                }
+
+                document.location.href = '/order_success.html'
+            }).catch(err => {
+            console.warn(err.message)
+            alert(err.message)
         })
     }
 
@@ -388,9 +400,9 @@
     async function start() {
         const structuredCookie = parseCookie(document.cookie)
 
-        if (!structuredCookie['token']) {
-            alert('You must login')
-            setTimeout(() => document.location.replace('/login.html'), 200)
+        if (!token) {
+            alert('You session has expired. Please login to continue purchasing')
+            document.location.replace('/login.html')
             return;
         }
 
