@@ -165,7 +165,7 @@
     </div>
 </div>
 
-<div class="popopen" onclick="closePopup()">
+<div class="popopen sortpop" onclick="closePopup()">
     <div class="popopen-content no-prop">
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
@@ -191,9 +191,48 @@
     </div>
 </div>
 
+
+<div class="popopen addpop" onclick="closePopup()">
+    <div class="popopen-content no-prop">
+        <form class="popopen-form">
+            <input type="hidden" name="field" class="target-field"/>
+
+            <!--            <div>-->
+            <!--                <label for="sort-value" class="sort-label">Sort By</label>-->
+            <!--                <select name="sort-value" class="sort-choice">-->
+            <!--                    <option value="asc">Ascending</option>-->
+            <!--                    <option value="desc">Descending</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
+
+            <div>
+                <label for="p-id" class="search-label align-label">Product ID</label>
+                <input type="text" name="p-id" disabled class="p-id"/>
+            </div>
+
+            <div>
+                <label for="p-name" class="search-label align-label">Name</label>
+                <input type="text" name="p-name" class="p-name"/>
+            </div>
+
+            <div class="with-area">
+                <label for="p-description" class="search-label align-label">Description</label>
+                <textarea cols="40" rows="5" name="p-description" class="p-description t-ara"></textarea>
+            </div>
+
+            <div class="popup-buttons">
+                <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
+                <button type="submit" class="action-button view-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     const PAGE_SIZE = 30
     const path = '/admin/products'
+
+    let savedProducts = null
 
     async function getProducts(sortby = 'name', order = 'asc', page = 0, searchby = '') {
         return fetch(`${path}?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
@@ -232,24 +271,26 @@
             document.querySelector('.cb-left').style.display = 'none'
         }
 
-        const orders = await getProducts(sortby, order, page, searchby)
-        if (!orders) {
+        const products = await getProducts(sortby, order, page, searchby)
+        if (!products) {
             return;
         }
+        savedProducts = products
+
         const injectSpace = document.querySelector('.injectable-space')
         const space = document.querySelector('.board-space')
 
-        if (orders.length < PAGE_SIZE) {
+        if (products.length < PAGE_SIZE) {
             document.querySelector('.cb-right').style.display = 'none'
         }
 
-        if (orders.length === 0) {
+        if (products.length === 0) {
             // space.innerHTML = (`
             //     <h4 style="font-size: 20px">Orders are empty</h4>
             // `)
         } else {
             injectSpace.innerHTML = (`
-            ${orders.reduce((acc, cur) => {
+            ${products.reduce((acc, cur) => {
                 const {
                     id,
                     name,
@@ -276,11 +317,11 @@
                 const goodlight = false
                 const queerlight = false
 
-                const canView = true;
+                const canView = available === true;
                 const canDelete = available === true
                 const canRestore = !canDelete
+                const canEdit = available === true
                 const canSetDelivered = false
-                const canEdit = true
 
                 const imgLink = `${window.location.origin}/${big_image_link}`
                 const product_link = `${window.location.origin}/product.html?product_id=${id}`
@@ -391,8 +432,38 @@
             })
     }
 
+    function injectProductPopup(className, value) {
+        document.querySelector(`.popopen.addpop .${className}`).value = value
+    }
+
+
     const handleEdit = (id) => {
-        // updateProduct(id, 'pending')
+        const target = savedProducts.find(p => p.id === id)
+        const {
+            name,
+            description,
+            full_description,
+            price,
+            bought,
+            current_stock,
+            big_image_link,
+            image_links = '',
+            category_id,
+            created_date,
+            available,
+            rating,
+            total_rated,
+            address,
+            color_options,
+            size_options,
+            status = ''
+        } = target
+        injectProductPopup('p-id', id)
+        injectProductPopup('p-name', name)
+        injectProductPopup('p-description', description)
+
+
+        openAddPop(id, target)
     }
     const handleDelete = (id) => {
         updateProduct(id, 'available', false)
@@ -411,22 +482,33 @@
 </script>
 
 <script>
-    function openPopup(id) {
-        document.querySelectorAll('.popopen').forEach(e => {
-            e.classList.add('active')
-        })
-        if (id) {
-            document.querySelectorAll('.popopen .target-field').forEach(e => {
-                e.value = id
-            })
-        }
-    }
-
     function closePopup() {
         document.querySelectorAll('.popopen').forEach(e => {
             e.classList.remove('active')
         })
     }
+
+    function openPopup(id, specific = 'sortpop') {
+        closePopup()
+        document.querySelectorAll(`.popopen.${specific}`).forEach(e => {
+            e.classList.add('active')
+        })
+        if (id) {
+            document.querySelectorAll(`.popopen.${specific} .target-field`).forEach(e => {
+                e.value = id
+            })
+        }
+    }
+
+    function openAddPop(id, target_data) {
+        if (!target_data) {
+            alert('Something wnt wong')
+            return
+        }
+
+        openPopup(id, 'addpop')
+    }
+
 
     function processForm(e) {
         console.log('here')
@@ -442,7 +524,7 @@
         return false
     }
 
-    const form = document.querySelector('.popopen-form');
+    const form = document.querySelector('.popopen.sortpop .popopen-form');
     if (form.attachEvent) {
         form.attachEvent("submit", processForm);
     } else {
