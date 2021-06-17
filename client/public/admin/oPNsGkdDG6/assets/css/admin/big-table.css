@@ -228,6 +228,7 @@ th:hover {
 }
 
 .align-label {
+    height: 100%;
 }
 
 .with-area {
@@ -239,7 +240,30 @@ th:hover {
     padding: 5px;
 }
 
-.popopen .popopen-content.long{
+.popopen .popopen-content.long {
     overflow-y: scroll;
-    max-height: 500px;
+    max-height: 75%;
+    margin-top: -10%;
+}
+
+.popopen .entry {
+    display: flex;
+    align-items: last baseline;
+    justify-content: space-between;
+}
+
+.popopen .popopen-title {
+    font-size: 22px;
+    text-align: center;
+    font-weight: 700;
+    color: #29BB89;
+    margin: 0 0 11px 0;
+}
+
+.custom-choice {
+    width: 64%;
+    margin-top: 20px;
+    background: white;
+    border: 1px solid gray;
+    border-radius: 5px;
 }

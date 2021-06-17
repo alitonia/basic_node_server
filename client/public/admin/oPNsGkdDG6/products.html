@@ -131,11 +131,11 @@
 
                         <th class="t_customer_id" onclick="openPopup('available')">Available <i
                                 class="fas fa-sort"></i></th>
-<!--                        <th class="t_customer_id" onclick="openPopup('rating')">Rating <i-->
-<!--                                class="fas fa-sort"></i></th>-->
+                        <!--                        <th class="t_customer_id" onclick="openPopup('rating')">Rating <i-->
+                        <!--                                class="fas fa-sort"></i></th>-->
 
-<!--                        <th class="t_customer_id" onclick="openPopup('total_rated')">Total Rated <i-->
-<!--                                class="fas fa-sort"></i></th>-->
+                        <!--                        <th class="t_customer_id" onclick="openPopup('total_rated')">Total Rated <i-->
+                        <!--                                class="fas fa-sort"></i></th>-->
 
                         <th class="t_customer_id" onclick="openPopup('color_options')">Color Options <i
                                 class="fas fa-sort"></i></th>
@@ -194,6 +194,7 @@
 
 <div class="popopen addpop" onclick="closePopup()">
     <div class="popopen-content no-prop long">
+        <h4 class="popopen-title"><span class="pop-action">Edit</span> <span class="pop-target">product</span></h4>
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
 
@@ -205,24 +206,64 @@
             <!--                </select>-->
             <!--            </div>-->
 
-            <div>
-                <label for="p-id" class="search-label align-label">Product ID</label>
-                <input type="text" name="p-id" disabled class="p-id"/>
+            <div class="entry">
+                <label for="id" class="search-label align-label">Product ID</label>
+                <input type="text" name="id" disabled class="p-id"/>
             </div>
 
-            <div>
-                <label for="p-name" class="search-label align-label">Name</label>
-                <input type="text" name="p-name" class="p-name"/>
+            <div class="entry">
+                <label for="name" class="search-label align-label">Name</label>
+                <input type="text" name="name" class="p-name"/>
             </div>
 
-            <div class="with-area">
-                <label for="p-description" class="search-label align-label">Description</label>
-                <textarea cols="40" rows="5" name="p-description" class="p-description t-ara"></textarea>
+            <div class="with-area entry">
+                <label for="description" class="search-label align-label">Description</label>
+                <textarea cols="30" rows="5" name="description" class="p-description t-ara"></textarea>
             </div>
 
-            <div>
-                <label for="p-price" class="search-label align-label">Price</label>
-                <input type="text" name="p-price" class="p-price"/>
+            <div class="entry">
+                <label for="price" class="search-label align-label">Price</label>
+                <input type="text" name="price" class="p-price"/>
+            </div>
+
+            <div class="entry">
+                <label for="bought" class="search-label align-label">Bought</label>
+                <input type="text" name="bought" class="p-bought"/>
+            </div>
+            <div class="entry">
+                <label for="current_stock" class="search-label align-label">Current Stock</label>
+                <input type="text" name="current_stock" class="p-current_stock"/>
+            </div>
+
+            <!--            pending img-->
+            <!--            <div>-->
+            <!--                <label for="current_stock" class="search-label align-label">Current Stock</label>-->
+            <!--                <input type="text" name="current_stock" class="p-current_stock"/>-->
+            <!--            </div>-->
+
+            <div class="entry">
+                <label for="category_id" class="search-label align-label">Category Id</label>
+                <input type="text" name="category_id" class="p-category_id"/>
+            </div>
+
+            <div class="entry">
+                <label for="created_date" class="search-label align-label">Created Date</label>
+                <input type="text" name="created_date" class="p-created_date" disabled/>
+            </div>
+
+            <div class="entry">
+                <label for="available" class="search-label align-label">Available</label>
+                <select type="text" name="available" class="p-available sort-choice custom-choice">
+                    <option value="true">True</option>
+                    <option value="False    ">False</option>
+                </select>
+            </div>
+
+
+            <div class="with-area entry">
+                <label for="address" class="search-label align-label">Address</label>
+                <textarea cols="30" rows="5" name="address" class="p-address t-ara"></textarea>
+                <!--                <input type="text" name="address" class="p-address" disabled/>-->
             </div>
 
             <div class="popup-buttons">
@@ -446,26 +487,31 @@
         const {
             name,
             description,
-            full_description,
             price,
             bought,
             current_stock,
             big_image_link,
-            image_links = '',
             category_id,
             created_date,
             available,
-            rating,
-            total_rated,
             address,
             color_options,
             size_options,
-            status = ''
         } = target
         injectProductPopup('p-id', id)
         injectProductPopup('p-name', name)
         injectProductPopup('p-description', description)
         injectProductPopup('p-price', price)
+        injectProductPopup('p-bought', bought)
+
+        injectProductPopup('p-current_stock', current_stock)
+
+        // injectProductPopup('p-big_image_link', current_stock)
+
+        injectProductPopup('p-category_id', category_id)
+        injectProductPopup('p-created_date', created_date)
+        injectProductPopup('p-address', address)
+        injectProductPopup('p-available', available)
 
 
         openAddPop(id, target)
