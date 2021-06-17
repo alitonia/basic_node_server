@@ -48,7 +48,7 @@ input[type="password"], input[type="text"] {
 }
 
 input[type="password"]:focus, input[type="text"]:focus {
-    box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.3);
+    box-shadow: 0 0 4px 1px rgba(55, 166, 155, 0.5);
     outline: 0;
 }
 

@@ -162,7 +162,7 @@
 
 .search-label {
     font-size: 18px;
-    padding-right: 14px;
+    padding-right: 25px;
 }
 
 .sort-choice {
@@ -261,7 +261,7 @@ th:hover {
 }
 
 .custom-choice {
-    width: 64%;
+    width: 62%;
     margin-top: 20px;
     background: white;
     border: 1px solid gray;
