@@ -1,15 +1,6 @@
 const pool = require('../connect_database.js');
 const {validationResult} = require("express-validator");
 
-const tryParse = (x, fallback = null) => {
-    try {
-        return JSON.parse(x)
-    } catch (e) {
-        console.log(e)
-        return fallback
-    }
-}
-
 const toOrderByString = (x) => {
     const allowedKey = ['sale', 'bestseller', 'feature']
     const element = x.split('+').filter(k => allowedKey.includes(k))

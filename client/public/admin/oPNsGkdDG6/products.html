@@ -273,6 +273,18 @@
                 <textarea cols="30" rows="5" name="address" class="p-address t-ara"></textarea>
             </div>
 
+            <div class="with-area entry">
+                <label for="color_options" class="search-label align-label">Color Option</label>
+                <input type="hidden" name="color_options" class="p-color_options"/>
+                <span class="color_zone consec-button-zone"></span>
+            </div>
+
+            <div class="with-area entry">
+                <label for="size_options" class="search-label align-label">Size Option</label>
+                <input type="hidden" name="size_options" class="p-size_options"/>
+                <span class="size_zone consec-button-zone"><button>Hello</button></span>
+            </div>
+
             <div class="popup-buttons">
                 <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
                 <button type="submit" class="action-button view-button">Submit</button>
@@ -300,8 +312,9 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }).then(x => {
+            //TODO: fix this
             if (x.status >= 400) {
-                if (x.status == 401) {
+                if (x.status === 401) {
                     //unauthorized. Maybe out of session
                     deleteCookie1()
                     alert('Your session has ended. Please log in again')
@@ -505,6 +518,7 @@
             color_options,
             size_options,
         } = target
+
         injectProductPopup('p-id', id)
         injectProductPopup('p-name', name)
         injectProductPopup('p-description', description)
@@ -521,6 +535,110 @@
         injectProductPopup('p-created_date', created_date)
         injectProductPopup('p-address', address)
         injectProductPopup('p-available', available)
+
+        // start size processing
+        const size_op = tryParse(size_options, [])
+
+        injectProductPopup('p-size_options', size_options)
+        clearChild('.size_zone')
+
+        size_op.forEach(s => {
+            const button = document.createElement('button')
+
+            const idButton = Math.random().toString()
+            button.classList.add(idButton)
+
+            const deleteSelfIcon = document.createElement('i')
+            deleteSelfIcon.classList.add('fas')
+            deleteSelfIcon.classList.add('close')
+            deleteSelfIcon.classList.add('fa-times')
+            deleteSelfIcon.classList.add('small-close')
+
+            deleteSelfIcon.onclick = () => {
+                if (window.confirm(`Are you sure you want to delete color ${s}?`)) {
+                    button.parentNode.removeChild(button)
+                    const newValue = tryParse(document.querySelector('.p-size_options').value, [])
+                        .filter(x => x !== s)
+
+                    document.querySelector('.p-size_options').value = JSON.stringify(newValue)
+                }
+            }
+
+            button.type = 'button'
+            button.innerText = s
+
+            button.classList.add('display-box')
+            button.classList.add('display-page-label')
+            button.classList.add('remove-able-button')
+            // button.style.background = s
+
+            button.onclick = () => {
+                console.log(s)
+            }
+            button.appendChild(deleteSelfIcon)
+
+            button.onmouseenter = () => {
+                // button.style.background = 'black'
+            }
+
+            button.onmouseleave = () => {
+                // button.style.background = s
+            }
+
+            document.querySelector('.size_zone').appendChild(button)
+        })
+
+        // start size processing
+        const color_op = tryParse(color_options, [])
+
+        injectProductPopup('p-color_options', color_options)
+        clearChild('.color_zone')
+
+        color_op.forEach(c => {
+            const button = document.createElement('button')
+
+            const idButton = Math.random().toString()
+            button.classList.add(idButton)
+
+            const deleteSelfIcon = document.createElement('i')
+            deleteSelfIcon.classList.add('fas')
+            deleteSelfIcon.classList.add('close')
+            deleteSelfIcon.classList.add('fa-times')
+            deleteSelfIcon.classList.add('small-close')
+
+            deleteSelfIcon.onclick = () => {
+                if (window.confirm(`Are you sure you want to delete color ${c}?`)) {
+                    button.parentNode.removeChild(button)
+                    const newValue = tryParse(document.querySelector('.p-color_options').value, [])
+                        .filter(x => x !== c)
+
+                    document.querySelector('.p-color_options').value = JSON.stringify(newValue)
+                }
+            }
+
+            button.type = 'button'
+            button.innerText = c
+
+            button.classList.add('display-box')
+            button.classList.add('display-page-label')
+            button.classList.add('remove-able-button')
+            button.style.background = c
+
+            button.onclick = () => {
+                console.log(c)
+            }
+            button.appendChild(deleteSelfIcon)
+
+            button.onmouseenter = () => {
+                button.style.background = 'black'
+            }
+
+            button.onmouseleave = () => {
+                button.style.background = c
+            }
+
+            document.querySelector('.color_zone').appendChild(button)
+        })
 
 
         openAddPop(id, target)
@@ -613,7 +731,7 @@
         const x = document.querySelector(selector)
         if (x) {
             while (x.firstChild) {
-                x.removeChild(upload_display_zone.firstChild);
+                x.removeChild(x.firstChild);
             }
         }
     }

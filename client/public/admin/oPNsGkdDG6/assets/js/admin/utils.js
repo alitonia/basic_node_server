@@ -59,3 +59,13 @@ function returnFileSizeString(number) {
 function returnFileSizeInKB(number) {
     return (number / 1048576).toFixed(1);
 }
+
+
+const tryParse = (x, fallback = null) => {
+    try {
+        return JSON.parse(x)
+    } catch (e) {
+        console.log(e)
+        return fallback
+    }
+}
