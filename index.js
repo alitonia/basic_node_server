@@ -9,8 +9,15 @@ const PORT = process.env.PORT || 8080;
 const public_asset_path = 'client/public'
 const app = express();
 
-
 app.use(bodyParser.urlencoded({extended: true}));
+
+//special path that need increase in upload capacity
+app.use('/admin/products',
+    bodyParser.json({
+        limit: '300kb',
+    })
+)
+
 app.use(bodyParser.json());
 
 
@@ -54,8 +61,8 @@ app.use(require('./routes/admins/viewOrders'))
 app.use(require('./routes/admins/updateOrder'))
 
 app.use(require('./routes/admins/viewProducts'))
-app.use(require('./routes/admins/updateProduct'))
 app.use(require('./routes/admins/viewCategories'))
+app.use(require('./routes/admins/updateProduct'))
 
 
 app.get('/test', (req, res) => {

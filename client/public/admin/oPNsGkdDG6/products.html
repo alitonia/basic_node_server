@@ -495,6 +495,13 @@
                 alert('Your session has ended. Please log in again')
                 document.location.replace('./login.html')
             }
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
+            }
+
             return x.json()
         })
             .then((x) => {
@@ -1046,10 +1053,13 @@
             return;
         }
         console.log(reqBody['big_image_link'])
+        const type = reqBody['big_image_link'].type
+        console.log(type)
 
         const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
         readFileContent(reqBody['big_image_link'], (file) => {
             if (!isImageNotChange) {
+                reqBody['big_image_link_type'] = type
                 reqBody['big_image_link'] = file
             } else {
                 reqBody['big_image_link'] = ''

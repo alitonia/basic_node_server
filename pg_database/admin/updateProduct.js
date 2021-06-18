@@ -24,13 +24,15 @@ const valueTree = {
 const saveImageRoute = path.join(__dirname, '../../client/public', 'images')
 fs.mkdirSync(saveImageRoute, {recursive: true, mode: 0o755});
 
-const makeRandomName = () => {
-    return `${uuid()}.png`
+const makeRandomName = (ext) => {
+    return `${uuid()}.${ext}`
 }
 
-const makeNewFileName = () => {
-    for (let i = 0; i < 15; i++) {
-        const aName = makeRandomName()
+const MAX_CREATE_NAME_ATTEMPT = 15
+
+const makeNewFileName = (ext) => {
+    for (let i = 0; i < MAX_CREATE_NAME_ATTEMPT; i++) {
+        const aName = makeRandomName(ext)
         if (!fs.existsSync(path.join(saveImageRoute, aName))) {
             return aName
         }
@@ -38,20 +40,43 @@ const makeNewFileName = () => {
     return null
 }
 
+const getExt = (str) => {
+    switch (str) {
+        case 'image/png':
+            return 'png'
+        case 'image/jpeg':
+            return 'jpeg'
+        case 'image/jpg':
+            return 'jpg'
+        default:
+            return null
+    }
+}
+
 module.exports.updateProduct = (req, res) => {
     const body = req.body
-    console.log(body)
+    // console.log(body)
     // not actually link. Currently base64
-    if (body['big_image_link']) {
-        const pendingName = makeNewFileName()
+    if (body['big_image_link'] && body['big_image_link_type']) {
+        const ext = getExt(body['big_image_link_type'])
+        console.log(body['big_image_link'].slice(0, 100))
+
+        if (!ext) {
+            res.status(501)
+            return res.send({error: "Can't upload your file"})
+        }
+
+        const pendingName = makeNewFileName(ext)
         if (!pendingName) {
             res.status(501)
             return res.send({error: "Can't upload your file"})
         }
-        const base64Data = body['big_image_link'].replace(/^data:image\/png;base64,/, "");
+        console.log(pendingName)
+        const base64Data = body['big_image_link'].replace(/^data:image\/(png|jpe?g);base64,/, "");
         fs.writeFile(path.join(saveImageRoute, pendingName), base64Data, 'base64', function (err) {
             console.log(err);
         });
+        return res.send({status: pendingName})
     }
     return res.send({status: 'OK'})
 
