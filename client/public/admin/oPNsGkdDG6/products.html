@@ -783,10 +783,15 @@
         } else {
             const file = curFiles[0]
             const para = document.createElement('p');
-
             if (validFileType(file)) {
+                const sizeInKB = returnFileSizeInKB(file.size)
+                console.log(sizeInKB)
+                const isTooBig = sizeInKB > maxUploadSize
+                if (isTooBig) {
+                    para.classList.add('danger-file-size')
+                }
                 para.classList.add('something-text')
-                para.textContent = `   ${returnFileSizeString(file.size)}`;
+                para.textContent = `   ${returnFileSizeString(file.size)} ${isTooBig ? `File too large. Max file size is ${maxUploadSize}KB.` : ''}`;
                 const image = document.createElement('img');
                 image.classList.add('upload-img-preview-holder')
                 image.src = URL.createObjectURL(file);
@@ -1043,7 +1048,7 @@
         console.log(fileSize)
 
         if (fileSize > maxUploadSize) {
-            alert('Your image is too large. Max upload file size is 200KB')
+            alert(`Your image is too large. Max upload file size is ${maxUploadSize}KB`)
             return false
         }
 
@@ -1054,7 +1059,13 @@
         }
         console.log(reqBody['big_image_link'])
         const type = reqBody['big_image_link'].type
+        const allowedType = /^image\/(png|jpe?g)$/
+
         console.log(type)
+        if (!allowedType.test(type)) {
+            alert('Invalid file type. Expect jpg/jpeg/png.')
+            return;
+        }
 
         const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
         readFileContent(reqBody['big_image_link'], (file) => {

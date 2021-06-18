@@ -57,7 +57,7 @@ function returnFileSizeString(number) {
 }
 
 function returnFileSizeInKB(number) {
-    return (number / 1048576).toFixed(1);
+    return (number / 1024).toFixed(1);
 }
 
 

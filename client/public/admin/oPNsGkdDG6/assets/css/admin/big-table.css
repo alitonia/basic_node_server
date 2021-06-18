@@ -330,3 +330,7 @@ th:hover {
 .grand-container {
     max-width: 242px;
 }
+
+.danger-file-size {
+    color: red
+}
