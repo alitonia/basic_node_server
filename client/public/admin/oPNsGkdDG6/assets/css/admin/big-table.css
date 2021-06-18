@@ -248,7 +248,7 @@ th:hover {
 
 .popopen .entry {
     display: flex;
-    align-items: last baseline;
+    align-items: baseline;
     justify-content: space-between;
 }
 
@@ -266,4 +266,21 @@ th:hover {
     background: white;
     border: 1px solid gray;
     border-radius: 5px;
+}
+
+.upload-input {
+    max-width: 240px;
+}
+
+.sentry-looker {
+    align-items: baseline;
+}
+
+.entry.sentry-looker {
+    margin-top: 20px;
+}
+
+.upload-img-preview-holder {
+    max-width: 239px;
+    margin: 7px 0;
 }

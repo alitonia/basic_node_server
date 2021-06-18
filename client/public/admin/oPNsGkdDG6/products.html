@@ -236,10 +236,18 @@
             </div>
 
             <!--            pending img-->
-            <!--            <div>-->
-            <!--                <label for="current_stock" class="search-label align-label">Current Stock</label>-->
-            <!--                <input type="text" name="current_stock" class="p-current_stock"/>-->
-            <!--            </div>-->
+            <div class="entry sentry-looker">
+                <label for="big_image_link" class="search-label align-label">Image</label>
+                <div class="img-container">
+                    <input type="file" name="big_image_link" class="p-big_image_link upload-zone-1 upload-input"
+                           accept=".jpg, .jpeg, .png"/>
+
+                    <div class="preview upload-zone-1 upload-preview">
+                        <p class="nothing-text"></p>
+                    </div>
+                </div>
+
+            </div>
 
             <div class="entry">
                 <label for="category_id" class="search-label align-label">Category Id</label>
@@ -263,7 +271,6 @@
             <div class="with-area entry">
                 <label for="address" class="search-label align-label">Address</label>
                 <textarea cols="30" rows="5" name="address" class="p-address t-ara"></textarea>
-                <!--                <input type="text" name="address" class="p-address" disabled/>-->
             </div>
 
             <div class="popup-buttons">
@@ -459,7 +466,7 @@
             })
         }).then(x => {
             if (x.status >= 400) {
-                if (x.status == 401) {
+                if (x.status === 401) {
                     //unauthorized. Maybe out of session
                     deleteCookie()
                     alert('Your session has ended. Please log in again')
@@ -506,7 +513,7 @@
 
         injectProductPopup('p-current_stock', current_stock)
 
-        // injectProductPopup('p-big_image_link', current_stock)
+        injectProductPopup('p-big_image_link', null)
 
         injectProductPopup('p-category_id', category_id)
         injectProductPopup('p-created_date', created_date)
@@ -595,6 +602,44 @@
 </script>
 
 <script src="./assets/js/admin/popupProp.js"></script>
+
+<script>
+    const upload_input = document.querySelector('.upload-zone-1.upload-input')
+    const upload_display_zone = document.querySelector('.upload-zone-1.upload-preview')
+
+    function updateImageDisplay() {
+        while (upload_display_zone.firstChild) {
+            upload_display_zone.removeChild(upload_display_zone.firstChild);
+        }
+
+        const curFiles = upload_input.files;
+
+        if (curFiles.length === 0) {
+            const para = document.createElement('p');
+            para.classList.add('nothing-text')
+            para.textContent = '';
+            upload_display_zone.appendChild(para);
+        } else {
+            const file = curFiles[0]
+            const para = document.createElement('p');
+
+            if (validFileType(file)) {
+                para.classList.add('something-text')
+                para.textContent = `   ${returnFileSizeString(file.size)}`;
+                const image = document.createElement('img');
+                image.classList.add('upload-img-preview-holder')
+                image.src = URL.createObjectURL(file);
+                upload_display_zone.appendChild(image);
+            } else {
+                para.classList.add('nothing-text')
+                para.textContent = '';
+            }
+            upload_display_zone.appendChild(para);
+        }
+    }
+
+    upload_input.addEventListener('change', updateImageDisplay);
+</script>
 </body>
 
 <style>

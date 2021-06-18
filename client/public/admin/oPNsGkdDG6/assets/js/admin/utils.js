@@ -35,3 +35,27 @@ function removeParam(key, sourceURL) {
     }
     return rtn;
 }
+
+const fileTypes = [
+    "image/jpeg",
+    "image/pjpeg",
+    "image/png",
+];
+
+function validFileType(file) {
+    return fileTypes.includes(file.type);
+}
+
+function returnFileSizeString(number) {
+    if (number < 1024) {
+        return number + 'bytes';
+    } else if (number >= 1024 && number < 1048576) {
+        return (number / 1024).toFixed(1) + 'KB';
+    } else if (number >= 1048576) {
+        return (number / 1048576).toFixed(1) + 'MB';
+    }
+}
+
+function returnFileSizeInKB(number) {
+    return (number / 1048576).toFixed(1);
+}
