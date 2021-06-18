@@ -69,3 +69,7 @@ const tryParse = (x, fallback = null) => {
         return fallback
     }
 }
+
+function isColor(value = '') {
+    return /^#[abcedfABCDEF0-9]{3,8}$/.test(value)
+}

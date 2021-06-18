@@ -306,3 +306,27 @@ th:hover {
     width: 30px;
     height: 30px;
 }
+
+.additional-adder {
+    margin-top: 5px !important;
+}
+
+.additional-adder::-webkit-input-placeholder {
+    font-size: 14px;
+}
+
+.additional-adder::-moz-placeholder {
+    font-size: 14px;
+}
+
+.additional-adder:-ms-input-placeholder {
+    font-size: 14px;
+}
+
+.additional-adder:-moz-placeholder {
+    font-size: 14px;
+}
+
+.grand-container {
+    max-width: 242px;
+}

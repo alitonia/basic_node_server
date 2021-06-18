@@ -195,7 +195,7 @@
 <div class="popopen addpop" onclick="closePopup()">
     <div class="popopen-content no-prop long">
         <h4 class="popopen-title"><span class="pop-action">Edit</span> <span class="pop-target">product</span></h4>
-        <form class="popopen-form">
+        <form class="popopen-form" onkeydown="return event.key != 'Enter';">
             <input type="hidden" name="field" class="target-field"/>
 
             <!--            <div>-->
@@ -275,14 +275,24 @@
 
             <div class="with-area entry">
                 <label for="color_options" class="search-label align-label">Color Option</label>
-                <input type="hidden" name="color_options" class="p-color_options"/>
-                <span class="color_zone consec-button-zone"></span>
+                <div class="grand-container">
+                    <input type="hidden" name="color_options" class="p-color_options"/>
+                    <span class="color_zone consec-button-zone"></span>
+                    <input type="text" name="color-adder"
+                           class="additional-add-color-input additional-adder"
+                           placeholder="Add new Color"/>
+                </div>
             </div>
 
             <div class="with-area entry">
                 <label for="size_options" class="search-label align-label">Size Option</label>
-                <input type="hidden" name="size_options" class="p-size_options"/>
-                <span class="size_zone consec-button-zone"><button>Hello</button></span>
+                <div class="grand-container">
+                    <input type="hidden" name="size_options" class="p-size_options"/>
+                    <span class="size_zone consec-button-zone"></span>
+                    <input type="text" name="color-adder"
+                           class="additional-add-size-input additional-adder"
+                           placeholder="Add new Size"/>
+                </div>
             </div>
 
             <div class="popup-buttons">
@@ -555,7 +565,7 @@
             deleteSelfIcon.classList.add('small-close')
 
             deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete color ${s}?`)) {
+                if (window.confirm(`Are you sure you want to delete size ${s}?`)) {
                     button.parentNode.removeChild(button)
                     const newValue = tryParse(document.querySelector('.p-size_options').value, [])
                         .filter(x => x !== s)
@@ -640,6 +650,9 @@
             document.querySelector('.color_zone').appendChild(button)
         })
 
+        document.querySelectorAll('.additional-adder').forEach(e => {
+            e.value = ''
+        })
 
         openAddPop(id, target)
     }
@@ -775,6 +788,149 @@
     }
 
     upload_input.addEventListener('change', updateImageDisplay);
+
+
+    function addToColors(e) {
+        const isSubmit = e.key === 'Enter'
+
+        if (isSubmit) {
+            const input = document.querySelector('.additional-add-color-input.additional-adder')
+            const value = input.value.toString().trim()
+
+            if (isColor(value)) {
+                const oldColorsInput = document.querySelector('.p-color_options')
+                const pOb = tryParse(oldColorsInput.value, [])
+
+                if (pOb.map(k => k.toLowerCase()).includes(value.toLowerCase())) {
+                    alert('Value already existed!')
+                    return;
+                }
+
+                const newValue = JSON.stringify(pOb.concat(value))
+                console.log(newValue)
+                oldColorsInput.value = newValue
+
+                const button = document.createElement('button')
+
+                const idButton = Math.random().toString()
+                button.classList.add(idButton)
+
+                const deleteSelfIcon = document.createElement('i')
+                deleteSelfIcon.classList.add('fas')
+                deleteSelfIcon.classList.add('close')
+                deleteSelfIcon.classList.add('fa-times')
+                deleteSelfIcon.classList.add('small-close')
+
+                deleteSelfIcon.onclick = () => {
+                    if (window.confirm(`Are you sure you want to delete color ${value}?`)) {
+                        button.parentNode.removeChild(button)
+                        const newValue = tryParse(document.querySelector('.p-color_options').value, [])
+                            .filter(x => x !== value)
+
+                        document.querySelector('.p-color_options').value = JSON.stringify(newValue)
+                    }
+                }
+
+                button.type = 'button'
+                button.innerText = value
+
+                button.classList.add('display-box')
+                button.classList.add('display-page-label')
+                button.classList.add('remove-able-button')
+                button.style.background = value
+
+                button.onclick = () => {
+                    console.log(value)
+                }
+                button.appendChild(deleteSelfIcon)
+
+                button.onmouseenter = () => {
+                    button.style.background = 'black'
+                }
+
+                button.onmouseleave = () => {
+                    console.log(value)
+                    button.style.background = value
+                }
+
+                document.querySelector('.color_zone').appendChild(button)
+                input.value = ''
+            } else {
+                alert('Not a valid color')
+            }
+        }
+    }
+
+    function addToSizes(e) {
+        const isSubmit = e.key === 'Enter'
+
+        if (isSubmit) {
+            const input = document.querySelector('.additional-add-size-input.additional-adder')
+            const value = input.value.toString().trim()
+
+            const oldSizesInput = document.querySelector('.p-size_options')
+            const pOb = tryParse(oldSizesInput.value, [])
+            if (pOb.map(k => k.toLowerCase()).includes(value.toLowerCase())) {
+                alert('Value already existed!')
+                return;
+            }
+
+            const newValue = JSON.stringify(pOb.concat(value))
+            console.log(newValue)
+            oldSizesInput.value = newValue
+
+            const button = document.createElement('button')
+
+            const idButton = Math.random().toString()
+            button.classList.add(idButton)
+
+            const deleteSelfIcon = document.createElement('i')
+            deleteSelfIcon.classList.add('fas')
+            deleteSelfIcon.classList.add('close')
+            deleteSelfIcon.classList.add('fa-times')
+            deleteSelfIcon.classList.add('small-close')
+
+            deleteSelfIcon.onclick = () => {
+                if (window.confirm(`Are you sure you want to delete size ${value}?`)) {
+                    button.parentNode.removeChild(button)
+                    const newValue = tryParse(document.querySelector('.p-size_options').value, [])
+                        .filter(x => x !== value)
+
+                    document.querySelector('.p-size_options').value = JSON.stringify(newValue)
+                }
+            }
+
+            button.type = 'button'
+            button.innerText = value
+
+            button.classList.add('display-box')
+            button.classList.add('display-page-label')
+            button.classList.add('remove-able-button')
+            // button.style.background = s
+
+            button.onclick = () => {
+                console.log(value)
+            }
+            button.appendChild(deleteSelfIcon)
+
+            button.onmouseenter = () => {
+                // button.style.background = 'black'
+            }
+
+            button.onmouseleave = () => {
+                // button.style.background = s
+            }
+
+            document.querySelector('.size_zone').appendChild(button)
+            input.value = ''
+
+        }
+    }
+
+    document.querySelector('.additional-add-color-input.additional-adder').addEventListener('keyup', addToColors)
+
+    document.querySelector('.additional-add-size-input.additional-adder').addEventListener('keyup', addToSizes)
+
 </script>
 </body>
 
