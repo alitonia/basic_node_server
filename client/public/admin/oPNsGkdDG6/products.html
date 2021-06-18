@@ -205,6 +205,7 @@
             <!--                    <option value="desc">Descending</option>-->
             <!--                </select>-->
             <!--            </div>-->
+            <input type="hidden" name="submit_type" class="p-submit_type" value="edit"/>
 
             <div class="entry">
                 <label for="id" class="search-label align-label">Product ID</label>
@@ -213,29 +214,28 @@
 
             <div class="entry">
                 <label for="name" class="search-label align-label">Name</label>
-                <input type="text" name="name" class="p-name"/>
+                <input type="text" name="name" class="p-name" required/>
             </div>
 
             <div class="with-area entry">
                 <label for="description" class="search-label align-label">Description</label>
-                <textarea cols="30" rows="5" name="description" class="p-description t-ara"></textarea>
+                <textarea cols="30" rows="5" name="description" class="p-description t-ara" required></textarea>
             </div>
 
             <div class="entry">
                 <label for="price" class="search-label align-label">Price</label>
-                <input type="text" name="price" class="p-price"/>
+                <input type="number" name="price" class="p-price" step="0.000001" min="0" required/>
             </div>
 
             <div class="entry">
                 <label for="bought" class="search-label align-label">Bought</label>
-                <input type="text" name="bought" class="p-bought"/>
+                <input type="number" name="bought" class="p-bought" min="0" required/>
             </div>
             <div class="entry">
                 <label for="current_stock" class="search-label align-label">Current Stock</label>
-                <input type="text" name="current_stock" class="p-current_stock"/>
+                <input type="number" name="current_stock" class="p-current_stock" min="0" required/>
             </div>
 
-            <!--            pending img-->
             <div class="entry sentry-looker">
                 <label for="big_image_link" class="search-label align-label">Image</label>
                 <div class="img-container">
@@ -251,7 +251,10 @@
 
             <div class="entry">
                 <label for="category_id" class="search-label align-label">Category Id</label>
-                <input type="text" name="category_id" class="p-category_id"/>
+                <!--                <input type="text" name="category_id" class="p-category_id"/>-->
+                <select class="p-category_id sort-choice custom-choice" name="category_id" required>
+
+                </select>
             </div>
 
             <div class="entry">
@@ -263,14 +266,14 @@
                 <label for="available" class="search-label align-label">Available</label>
                 <select type="text" name="available" class="p-available sort-choice custom-choice">
                     <option value="true">True</option>
-                    <option value="False    ">False</option>
+                    <option value="False">False</option>
                 </select>
             </div>
 
 
             <div class="with-area entry">
                 <label for="address" class="search-label align-label">Address</label>
-                <textarea cols="30" rows="5" name="address" class="p-address t-ara"></textarea>
+                <textarea cols="30" rows="5" name="address" class="p-address t-ara" required></textarea>
             </div>
 
             <div class="with-area entry">
@@ -435,7 +438,6 @@
                             ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
                             ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
                             ${canEdit ? `<button class="action-button accept-button" onclick="handleEdit(${id})">Edit</button>` : ''}
-                            ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
                         </div>
                     </td>
                 </tr>
@@ -470,7 +472,7 @@
 </script>
 
 <script>
-    async function updateProduct(id, field, value) {
+    async function updateProduct(id, fields) {
         return fetch('/admin/products', {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
@@ -484,25 +486,28 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
             body: JSON.stringify({
                 id: id,
-                field: field,
-                value: value
+                ...fields
             })
         }).then(x => {
-            if (x.status >= 400) {
-                if (x.status === 401) {
-                    //unauthorized. Maybe out of session
-                    deleteCookie()
-                    alert('Your session has ended. Please log in again')
-                    document.location.replace('./login.html')
-                }
-                throw new Error(x.statusText)
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
             }
-            // reload()
             return x.json()
         })
-            .then(() => reload())
+            .then((x) => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                } else {
+                    // TODO: uncomment this
+                    // reload()
+                }
+            })
             .catch(err => {
-                alert(err.toString())
+                alert(err.message)
+                console.warn(err)
                 return null
             })
     }
@@ -529,10 +534,12 @@
             size_options,
         } = target
 
+        injectProductPopup('p-submit_type', 'edit')
+
         injectProductPopup('p-id', id)
         injectProductPopup('p-name', name)
         injectProductPopup('p-description', description)
-        injectProductPopup('p-price', price)
+        injectProductPopup('p-price', price.toFixed(6))
         injectProductPopup('p-bought', bought)
 
         injectProductPopup('p-current_stock', current_stock)
@@ -657,16 +664,14 @@
         openAddPop(id, target)
     }
     const handleDelete = (id) => {
-        updateProduct(id, 'available', false)
+        updateProduct(id, {'available': false})
 
     }
-    const handleDelivered = (id) => {
-        updateProduct(id, 'delivered')
 
-    }
     const handleRestore = (id) => {
-        updateProduct(id, 'available', true)
+        updateProduct(id, {'available': true})
     }
+
     const handleView = (id) => {
         changePage(`${window.location.origin}/product/${id}`)
     }
@@ -931,6 +936,136 @@
 
     document.querySelector('.additional-add-size-input.additional-adder').addEventListener('keyup', addToSizes)
 
+</script>
+
+<script>
+    async function getAllCategories() {
+        return fetch('/admin/categories?is_short=true', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
+            }
+            // reload()
+            return x.json()
+        })
+            .then(x => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                }
+                return x
+            })
+            .catch(err => {
+                alert(err.message)
+                console.warn(err)
+                return null
+            })
+    }
+
+    async function completeFormCategoryChoice() {
+        const categories = await getAllCategories()
+        if (categories === null || categories.length === 0) {
+            return;
+        }
+
+        clearChild('.p-category_id')
+        const p = document.querySelector('.p-category_id')
+
+        categories.forEach(c => {
+            const entry = document.createElement('option')
+            entry.value = c.id;
+            entry.innerText = c.id
+            entry.classList.add('category-id-possible-value')
+            p.appendChild(entry)
+        })
+    }
+
+    completeFormCategoryChoice()
+</script>
+
+<script>
+    const maxUploadSize = 200 //KB
+
+
+    function readFileContent(file, callback) {
+        const fileReader = new FileReader();
+        fileReader.onloadend = function () {
+            callback(fileReader.result);
+        }
+        fileReader.readAsDataURL(file);
+    }
+
+    function handleSubmitProductForm(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+
+        const formData = new FormData(e.target)
+
+        const reqBody = {}
+
+        const allowedFields = [
+            'name', 'description',
+            'price', 'bought',
+            'current_stock',
+            'big_image_link',
+            'category_id', 'available', 'address',
+            'color_options', 'size_options'
+        ]
+
+        for (const pair of formData.entries()) {
+            if (allowedFields.includes(pair[0])) {
+                reqBody[pair[0]] = pair[1]
+            }
+        }
+
+        const uploadedFile = formData.get('big_image_link')
+        const fileSize = returnFileSizeInKB(uploadedFile.size)
+        console.log(fileSize)
+
+        if (fileSize > maxUploadSize) {
+            alert('Your image is too large. Max upload file size is 200KB')
+            return false
+        }
+
+        const id = formData.get('field')
+        if (!id) {
+            alert('Id is empty')
+            return;
+        }
+        console.log(reqBody['big_image_link'])
+
+        const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
+        readFileContent(reqBody['big_image_link'], (file) => {
+            if (!isImageNotChange) {
+                reqBody['big_image_link'] = file
+            } else {
+                reqBody['big_image_link'] = ''
+            }
+            updateProduct(id, reqBody)
+        })
+
+        return false
+    }
+
+    const productForm = document.querySelector('.popopen.addpop .popopen-form');
+    if (productForm.attachEvent) {
+        productForm.attachEvent("submit", handleSubmitProductForm);
+    } else {
+        productForm.addEventListener("submit", handleSubmitProductForm);
+    }
 </script>
 </body>
 
