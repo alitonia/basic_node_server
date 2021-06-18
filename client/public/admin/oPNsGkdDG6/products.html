@@ -240,7 +240,7 @@
                 <label for="big_image_link" class="search-label align-label">Image</label>
                 <div class="img-container">
                     <input type="file" name="big_image_link" class="p-big_image_link upload-zone-1 upload-input"
-                           accept=".jpg, .jpeg, .png"/>
+                           accept=".jpg, .jpeg, .png" title=""/>
 
                     <div class="preview upload-zone-1 upload-preview">
                         <p class="nothing-text"></p>
@@ -514,6 +514,8 @@
         injectProductPopup('p-current_stock', current_stock)
 
         injectProductPopup('p-big_image_link', null)
+        clearChild('.upload-zone-1.upload-preview')
+        injectImageToPreview(big_image_link)
 
         injectProductPopup('p-category_id', category_id)
         injectProductPopup('p-created_date', created_date)
@@ -606,6 +608,22 @@
 <script>
     const upload_input = document.querySelector('.upload-zone-1.upload-input')
     const upload_display_zone = document.querySelector('.upload-zone-1.upload-preview')
+
+    function clearChild(selector) {
+        const x = document.querySelector(selector)
+        if (x) {
+            while (x.firstChild) {
+                x.removeChild(upload_display_zone.firstChild);
+            }
+        }
+    }
+
+    function injectImageToPreview(src) {
+        const image = document.createElement('img');
+        image.classList.add('upload-img-preview-holder')
+        image.src = window.location.origin + '/' + src
+        upload_display_zone.appendChild(image);
+    }
 
     function updateImageDisplay() {
         while (upload_display_zone.firstChild) {
