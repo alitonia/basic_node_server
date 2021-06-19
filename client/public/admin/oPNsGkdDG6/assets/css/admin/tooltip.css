@@ -33,3 +33,15 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.tooltiptext.gentle-longness{
+    width: 350px;
+    font-size: inherit;
+    font-weight: normal;
+}
+
+
+.tooltiptext.sample-color-preview{
+    width: 40px;
+    height: 40px;
+}

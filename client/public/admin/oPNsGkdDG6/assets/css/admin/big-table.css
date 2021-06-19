@@ -334,3 +334,7 @@ th:hover {
 .danger-file-size {
     color: red
 }
+
+.color-entry, .size-entry{
+    line-height: 18px;
+}

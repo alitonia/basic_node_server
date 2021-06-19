@@ -405,16 +405,28 @@
                 const imgLink = `${window.location.origin}/${big_image_link}`
                 const product_link = `${window.location.origin}/product.html?product_id=${id}`
 
+                const colorSpans = tryParse(color_options, []).sort().reduce((acc, c) =>{
+                    return `${acc} <div class="small-entry tooltip">
+                            ${c}
+                            <span class="tooltiptext gentle-longness sample-color-preview"
+                                style="background: ${c}"></span>
+                    </div>`
+                }, '')
+
+                const sizeSpans = tryParse(size_options, []).sort().reduce((acc, c) =>{
+                    return `${acc} <div class="small-entry">${c}</div>`
+                }, '')
+
                 return acc + `
                     <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
                     <td><a href="${product_link}" style="font-weight: 500;">${id}</a></td>
                     <td>${name}</td>
 
                     <td>
-                    <span class=" tooltip">
+                    <span class="tooltip">
                     <p class="description-text">${description}
                     </p>
-                     <span class="tooltiptext">${description}</span>
+                     <span class="tooltiptext gentle-longness">${description}</span>
                     </span>
                     </td>
 
@@ -430,8 +442,9 @@
                     <td>${category_id}</td>
                     <td>${available}</td>
 
-                    <td>${color_options}</td>
-                    <td>${size_options}</td>
+                    <td class="color-entry">${colorSpans}</td>
+
+                    <td class="size-entry">${sizeSpans}</td>
                     <td>
                         <div class="button-holder">
                             ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
@@ -508,8 +521,7 @@
                 if (x && x.error) {
                     throw new Error(x.error)
                 } else {
-                    // TODO: uncomment this
-                    // reload()
+                    reload()
                 }
             })
             .catch(err => {
