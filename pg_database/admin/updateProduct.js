@@ -2,26 +2,36 @@ const pool = require('../connect_database.js');
 const path = require('path');
 const fs = require('fs')
 const {v4: uuid} = require('uuid');
+const util = require('util');
 
 
-const updateProductQuery = (id, field, value) => {
+const updateProductQuery = (id, fields) => {
+    const length = Object.keys(fields).length
+
+    const sets = Object.entries(fields).reduce((acc, [key, val], index) => {
+        return `${acc} ${key} = '${val}' ${(index === length - 1) ? '' : ','}`
+    }, 'set ')
+
     return (
         `UPDATE products
-         set ${field} = ${value}
+        ${sets}
+         where id = ${id}
+        ;`
+    )
+}
+
+const getProductWithId = (id) => {
+    return (
+        `SELECT *
+         FROM products
          where id = '${id}'
         ;`
     )
 }
 
-const valueTree = {
-    available: {
-        values: [true, false],
-        any: false
-    }
-}
-
 // note: careful when refactoring
 const saveImageRoute = path.join(__dirname, '../../client/public', 'images')
+
 fs.mkdirSync(saveImageRoute, {recursive: true, mode: 0o755});
 
 const makeRandomName = (ext) => {
@@ -53,47 +63,103 @@ const getExt = (str) => {
     }
 }
 
-module.exports.updateProduct = (req, res) => {
+const allowedFields = [
+    'name', 'description',
+    'price', 'bought',
+    'current_stock',
+    'big_image_link',
+    'category_id', 'available', 'address',
+    'color_options', 'size_options'
+]
+
+const wfile = util.promisify(fs.writeFile)
+const dfile = util.promisify(fs.unlink)
+
+
+const isUploadedPath = (p) => /^images\/.*$/.test(p)
+
+module.exports.updateProduct = async (req, res) => {
     const body = req.body
-    // console.log(body)
-    // not actually link. Currently base64
-    if (body['big_image_link'] && body['big_image_link_type']) {
+    const {id, ...rest} = body || {}
+
+    if (!id) {
+        res.status(501)
+        return res.send({error: 'Invalid request'})
+    }
+
+    const _matchingIdProduct = await pool.query(getProductWithId(id))
+
+    if (!_matchingIdProduct || _matchingIdProduct.rows.length === 0) {
+        res.status(501)
+        return res.send({error: 'Invalid request'})
+    }
+
+    const targetedProduct = _matchingIdProduct.rows[0]
+    const currentImagePath = targetedProduct.big_image_link
+
+    const reqOb = {}
+
+    //sanitize
+    Object.entries(body || {}).forEach(([key, val]) => {
+        if (allowedFields.includes(key) && !!val) {
+            reqOb[key] = val
+        }
+    })
+
+    //no modification
+    if (Object.keys(reqOb).length === 0) {
+        return res.send({status: 'OK'})
+    }
+
+    // upload image
+    if (body['big_image_link'] && !body['big_image_link_type']) {
+        res.status(501)
+        return res.send({error: 'Invalid request'})
+    }
+
+    const isModifyingImage = !!body['big_image_link']
+
+    if (body['big_image_link']) {
         const ext = getExt(body['big_image_link_type'])
-        console.log(body['big_image_link'].slice(0, 100))
 
         if (!ext) {
             res.status(501)
-            return res.send({error: "Can't upload your file"})
+            return res.send({error: "Invalid file type"})
         }
 
         const pendingName = makeNewFileName(ext)
+
         if (!pendingName) {
             res.status(501)
             return res.send({error: "Can't upload your file"})
         }
         console.log(pendingName)
+
         const base64Data = body['big_image_link'].replace(/^data:image\/(png|jpe?g);base64,/, "");
-        fs.writeFile(path.join(saveImageRoute, pendingName), base64Data, 'base64', function (err) {
-            console.log(err);
-        });
-        return res.send({status: pendingName})
+        await wfile(path.join(saveImageRoute, pendingName), base64Data, 'base64');
+
+        reqOb['big_image_link'] = path.join('images', pendingName)
     }
+    const modifyingQuery = updateProductQuery(id, reqOb)
+
+    console.log(modifyingQuery)
+
+    await pool.query(modifyingQuery)
+
+    // remove old image
+    const oldImagePath = path.join(__dirname, '../../client/public', currentImagePath)
+
+    if (
+        isModifyingImage
+        && currentImagePath
+        && isUploadedPath(currentImagePath)
+        && fs.existsSync(oldImagePath)
+    ) {
+        console.log('uploaded image: ', oldImagePath)
+        await dfile(oldImagePath)
+    }
+
     return res.send({status: 'OK'})
+    // TODO: handle error, delete image if error
 
-    const {id, field, value} = body || {}
-
-    const allowedFields = Object.keys(valueTree)
-    if (!id || !allowedFields.includes(field) || (!valueTree[field].values.includes(value) && !valueTree[field].any)) {
-        return res.send({error: 'Something went wrong'})
-    }
-
-    pool.query(updateProductQuery(id, field, value),
-        (err, response) => {
-            if (err || !response) {
-                res.status(501)
-                return res.send({error: 'Something went wrong'})
-            }
-            return res.send({status: 'OK'})
-        }
-    );
 };

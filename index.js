@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const helmet = require("helmet");
 
 const {passportConfig} = require('./middlewares/passport/passport.js')
 const {configSession} = require('./middlewares/session/express_session')
@@ -8,6 +9,8 @@ const {configSession} = require('./middlewares/session/express_session')
 const PORT = process.env.PORT || 8080;
 const public_asset_path = 'client/public'
 const app = express();
+
+// app.use(helmet());
 
 app.use(bodyParser.urlencoded({extended: true}));
 
