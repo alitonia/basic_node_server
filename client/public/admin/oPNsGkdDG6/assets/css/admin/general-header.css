@@ -13,3 +13,32 @@
 .logout-link:hover {
     color: #C67ACE !important;
 }
+
+.stickyness {
+    position: fixed;
+    bottom: 17px;
+    right: 35px;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    border: 1px solid #33333340;
+    background: #FF616D;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: -0.5px -0.5px 1px 0 black;
+}
+
+.stickyness:hover {
+    background: #66DE93;
+    box-shadow: -0.5px -0.5px 1px 0 white;
+    border: none;
+}
+
+.icon-up {
+    margin-top: -3px;
+}
+
+html {
+    scroll-behavior: smooth;
+}

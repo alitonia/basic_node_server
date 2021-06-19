@@ -81,29 +81,36 @@
         <div class="cart_page_container">
             <div class="board-space" style="width:100%">
 
-                <div class="hyper-values">
-                    <div class="display-box display-page-label">
-                        <span class="display-prefix">Page: </span> <span
-                            class="display-value display-page-label-value"></span>
-                        <i class="fas fa-times close" onclick="resetPage()"></i>
+                <div class="addon-before-main-dish">
+                    <div class="hyper-values">
+                        <div class="display-box display-page-label">
+                            <span class="display-prefix">Page: </span> <span
+                                class="display-value display-page-label-value"></span>
+                            <i class="fas fa-times close" onclick="resetPage()"></i>
+                        </div>
+
+                        <div class="display-box display-target-label">
+                            <span class="display-prefix">Target: </span> <span
+                                class="display-value display-target-label-value"></span>
+                            <!--                        <i class="fas fa-times close"></i>-->
+                        </div>
+
+                        <div class="display-box display-sort-label">
+                            <span class="display-prefix">Sort: </span> <span
+                                class="display-value display-sort-label-value"></span>
+                            <!--                        <i class="fas fa-times close"></i>-->
+                        </div>
+
+                        <div class="display-box display-search-label">
+                            <span class="display-prefix">Search: </span> <span
+                                class="display-value display-sort-label-value"></span> <i
+                                class="fas fa-times close" onclick="resetSearch()"></i>
+                        </div>
                     </div>
 
-                    <div class="display-box display-target-label">
-                        <span class="display-prefix">Target: </span> <span
-                            class="display-value display-target-label-value"></span>
-                        <!--                        <i class="fas fa-times close"></i>-->
-                    </div>
-
-                    <div class="display-box display-sort-label">
-                        <span class="display-prefix">Sort: </span> <span
-                            class="display-value display-sort-label-value"></span>
-                        <!--                        <i class="fas fa-times close"></i>-->
-                    </div>
-
-                    <div class="display-box display-search-label">
-                        <span class="display-prefix">Search: </span> <span
-                            class="display-value display-sort-label-value"></span> <i
-                            class="fas fa-times close" onclick="resetSearch()"></i>
+                    <div class="add-new-entry">
+                        <button class="add-new-button action-button" onclick="handleAddNew()">Add New <i
+                                class="fas fa-plus add-icon"></i></button>
                     </div>
                 </div>
 
@@ -131,11 +138,6 @@
 
                         <th class="t_customer_id" onclick="openPopup('available')">Available <i
                                 class="fas fa-sort"></i></th>
-                        <!--                        <th class="t_customer_id" onclick="openPopup('rating')">Rating <i-->
-                        <!--                                class="fas fa-sort"></i></th>-->
-
-                        <!--                        <th class="t_customer_id" onclick="openPopup('total_rated')">Total Rated <i-->
-                        <!--                                class="fas fa-sort"></i></th>-->
 
                         <th class="t_customer_id" onclick="openPopup('color_options')">Color Options <i
                                 class="fas fa-sort"></i></th>
@@ -151,6 +153,10 @@
                     </tbody>
                 </table>
 
+
+                <button class="stickyness" onclick="window.scrollTo(0,0);"><i class="fas fa-chevron-up icon-up"></i>
+                </button>
+
                 <div class="naviagte-buttons">
                     <div class="navigate-left">
                         <button class="control-button cb-left" onclick="toLastPage()"> <</button>
@@ -164,6 +170,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="popopen sortpop" onclick="closePopup()">
     <div class="popopen-content no-prop">
@@ -198,18 +205,11 @@
         <form class="popopen-form" onkeydown="return event.key != 'Enter';">
             <input type="hidden" name="field" class="target-field"/>
 
-            <!--            <div>-->
-            <!--                <label for="sort-value" class="sort-label">Sort By</label>-->
-            <!--                <select name="sort-value" class="sort-choice">-->
-            <!--                    <option value="asc">Ascending</option>-->
-            <!--                    <option value="desc">Descending</option>-->
-            <!--                </select>-->
-            <!--            </div>-->
             <input type="hidden" name="submit_type" class="p-submit_type" value="edit"/>
 
-            <div class="entry">
+            <div class="entry product-id-entry">
                 <label for="id" class="search-label align-label">Product ID</label>
-                <input type="text" name="id" disabled class="p-id"/>
+                <input type="text" name="id" readonly class="p-id readonly-input"/>
             </div>
 
             <div class="entry">
@@ -251,20 +251,19 @@
 
             <div class="entry">
                 <label for="category_id" class="search-label align-label">Category Id</label>
-                <!--                <input type="text" name="category_id" class="p-category_id"/>-->
                 <select class="p-category_id sort-choice custom-choice" name="category_id" required>
 
                 </select>
             </div>
 
-            <div class="entry">
+            <div class="entry created-date-entry">
                 <label for="created_date" class="search-label align-label">Created Date</label>
-                <input type="text" name="created_date" class="p-created_date" disabled/>
+                <input type="text" name="created_date" class="p-created_date readonly-input" readonly=""/>
             </div>
 
             <div class="entry">
                 <label for="available" class="search-label align-label">Available</label>
-                <select type="text" name="available" class="p-available sort-choice custom-choice">
+                <select type="text" name="available" class="p-available sort-choice custom-choice" required>
                     <option value="true">True</option>
                     <option value="False">False</option>
                 </select>
@@ -306,6 +305,7 @@
     </div>
 </div>
 
+
 <script>
     const PAGE_SIZE = 30
     const path = '/admin/products'
@@ -342,7 +342,7 @@
         })
     }
 
-    async function start(sortby = 'name', order = 'asc', page = 0, searchby = '') {
+    async function start(sortby = 'name', order = 'asc', page = 0, searchby = '', target) {
         if (!isLogin) {
             return;
         }
@@ -369,7 +369,7 @@
             // `)
         } else {
             injectSpace.innerHTML = (`
-            ${products.reduce((acc, cur) => {
+                ${products.reduce((acc, cur) => {
                 const {
                     id,
                     name,
@@ -390,7 +390,10 @@
                     size_options,
                     status = ''
                 } = cur
-                const lowlight = (available === false || current_stock === 0)
+
+                const notAvailable = (available === false || current_stock === 0)
+                const lowlight = notAvailable
+
                 const highlight = false
 
                 const goodlight = false
@@ -405,28 +408,28 @@
                 const imgLink = `${window.location.origin}/${big_image_link}`
                 const product_link = `${window.location.origin}/product.html?product_id=${id}`
 
-                const colorSpans = tryParse(color_options, []).sort().reduce((acc, c) =>{
+                const colorSpans = tryParse(color_options, []).sort().reduce((acc, c) => {
                     return `${acc} <div class="small-entry tooltip">
-                            ${c}
-                            <span class="tooltiptext gentle-longness sample-color-preview"
-                                style="background: ${c}"></span>
-                    </div>`
+                        ${c}
+                        <span class="tooltiptext gentle-longness sample-color-preview"
+                        style="background: ${c}"></span>
+                        </div>`
                 }, '')
 
-                const sizeSpans = tryParse(size_options, []).sort().reduce((acc, c) =>{
+                const sizeSpans = tryParse(size_options, []).sort().reduce((acc, c) => {
                     return `${acc} <div class="small-entry">${c}</div>`
                 }, '')
 
                 return acc + `
-                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
-                    <td><a href="${product_link}" style="font-weight: 500;">${id}</a></td>
+                    <tr class="${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
+                    <td>${!notAvailable ? `<a href="${product_link}" target="_blank" style="font-weight: 500;">${id}</a>` : `${id}`}</td>
                     <td>${name}</td>
 
                     <td>
                     <span class="tooltip">
                     <p class="description-text">${description}
                     </p>
-                     <span class="tooltiptext gentle-longness">${description}</span>
+                    <span class="tooltiptext gentle-longness">${description}</span>
                     </span>
                     </td>
 
@@ -446,18 +449,24 @@
 
                     <td class="size-entry">${sizeSpans}</td>
                     <td>
-                        <div class="button-holder">
-                            ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
-                            ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
-                            ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
-                            ${canEdit ? `<button class="action-button accept-button" onclick="handleEdit(${id})">Edit</button>` : ''}
-                        </div>
+                    <div class="button-holder">
+                    ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
+                    ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
+                    ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
+                    ${canEdit ? `<button class="action-button accept-button" onclick="handleEdit(${id})">Edit</button>` : ''}
+                    </div>
                     </td>
-                </tr>
-                `;
+                    </tr>
+                    `;
 
             }, '')}
-            `)
+`)
+            if (target) {
+                const mayScrollToElement = document.querySelector(`.entity-id-${target}`)
+                if (mayScrollToElement) {
+                    mayScrollToElement.scrollIntoView()
+                }
+            }
         }
     }
 
@@ -475,19 +484,22 @@
     const page = current_url.searchParams.get('page') || 0
     const searchby = current_url.searchParams.get('searchValue') || 0
 
+    const target = getParam('target', null)
+
+
     displayOrRemove('display-page-label', page)
     displayOrRemove('display-target-label', sortby)
     displayOrRemove('display-sort-label', order)
     displayOrRemove('display-search-label', searchby)
 
-    start(sortby, order, page, searchby);
+    start(sortby, order, page, searchby, target);
 
 </script>
 
 <script>
-    async function updateProduct(id, fields) {
+    async function productModificationRequest(id, fields, method = 'PUT') {
         return fetch('/admin/products', {
-            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            method: method, // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
@@ -521,7 +533,7 @@
                 if (x && x.error) {
                     throw new Error(x.error)
                 } else {
-                    reload()
+                    reload(x.id)
                 }
             })
             .catch(err => {
@@ -531,8 +543,49 @@
             })
     }
 
+    async function updateProduct(id, fields) {
+        return productModificationRequest(id, fields, 'PUT')
+    }
+
+    async function addAProduct(id, fields) {
+        return productModificationRequest(id, fields, 'POST')
+    }
+
     function injectProductPopup(className, value) {
         document.querySelector(`.popopen.addpop .${className}`).value = value
+    }
+
+    function injectProductPopupClass(className, value, remove = false) {
+        const classList = value.split(' ')
+        const target = document.querySelector(`.popopen.addpop .${className}`)
+
+        classList.forEach(c => {
+            if (remove) {
+                target.classList.remove(c)
+            } else {
+                target.classList.add(c)
+            }
+        })
+    }
+
+    function injectProductPopupProps(className, props) {
+        const propList = Object.entries(props)
+        const target = document.querySelector(`.popopen.addpop .${className}`)
+
+        propList.forEach(p => {
+            const [k, v] = p
+            target[k] = v
+        })
+    }
+
+    function injectProductPopupStyle(className, props) {
+        const propList = Object.entries(props)
+        const target = document.querySelector(`.popopen.addpop .${className}`)
+
+        propList.forEach(p => {
+            const [k, v] = p
+            target.style[k] = v
+        })
     }
 
 
@@ -554,8 +607,12 @@
         } = target
 
         injectProductPopup('p-submit_type', 'edit')
+        injectProductPopupProps('pop-action', {innerText: 'Edit'})
 
         injectProductPopup('p-id', id)
+        injectProductPopupStyle('product-id-entry', {display: 'flex'})
+
+
         injectProductPopup('p-name', name)
         injectProductPopup('p-description', description)
         injectProductPopup('p-price', price.toFixed(6))
@@ -564,11 +621,16 @@
         injectProductPopup('p-current_stock', current_stock)
 
         injectProductPopup('p-big_image_link', null)
+        injectProductPopupProps('p-big_image_link', {required: false})
         clearChild('.upload-zone-1.upload-preview')
         injectImageToPreview(big_image_link)
 
         injectProductPopup('p-category_id', category_id)
+
         injectProductPopup('p-created_date', created_date)
+        injectProductPopupStyle('created-date-entry', {display: 'flex'})
+
+
         injectProductPopup('p-address', address)
         injectProductPopup('p-available', available)
 
@@ -680,7 +742,7 @@
             e.value = ''
         })
 
-        openAddPop(id, target)
+        openAddPop('')
     }
     const handleDelete = (id) => {
         updateProduct(id, {'available': false})
@@ -692,7 +754,7 @@
     }
 
     const handleView = (id) => {
-        changePage(`${window.location.origin}/product/${id}`)
+        openNewTab(`${window.location.origin}/product/${id}`)
     }
 </script>
 
@@ -705,22 +767,17 @@
 
     function openPopup(id, specific = 'sortpop') {
         closePopup()
+
         document.querySelectorAll(`.popopen.${specific}`).forEach(e => {
             e.classList.add('active')
         })
-        if (id) {
-            document.querySelectorAll(`.popopen.${specific} .target-field`).forEach(e => {
-                e.value = id
-            })
-        }
+
+        document.querySelectorAll(`.popopen.${specific} .target-field`).forEach(e => {
+            e.value = id || ''
+        })
     }
 
-    function openAddPop(id, target_data) {
-        if (!target_data) {
-            alert('Something wnt wong')
-            return
-        }
-
+    function openAddPop(id) {
         openPopup(id, 'addpop')
     }
 
@@ -735,7 +792,7 @@
         const sortValue = formData.get('sort-value')
         const searchValue = formData.get('search-value') || ""
 
-        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue}))
+        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue, target: ''}))
         return false
     }
 
@@ -749,12 +806,11 @@
 
 <script>
     function resetPage() {
-        changePage(removeParam('page', window.location.href))
+        changePage(removeParam('target', removeParam('page', window.location.href)))
     }
 
     function resetSearch() {
-        console.log('abc', removeParam('searchValue', window.location.href))
-        changePage(removeParam('searchValue', window.location.href))
+        changePage(removeParam('target', removeParam('searchValue', window.location.href)))
     }
 </script>
 
@@ -982,7 +1038,6 @@
                 alert('Your session has ended. Please log in again')
                 document.location.replace('./login.html')
             }
-            // reload()
             return x.json()
         })
             .then(x => {
@@ -1038,6 +1093,12 @@
 
         const formData = new FormData(e.target)
 
+        const submit_type = formData.get('submit_type')
+        console.log(submit_type)
+
+        const isEdit = submit_type === 'edit'
+        const isAdd = !isEdit
+
         const reqBody = {}
 
         const allowedFields = [
@@ -1048,6 +1109,20 @@
             'category_id', 'available', 'address',
             'color_options', 'size_options'
         ]
+
+        const color_options = formData.get('color_options')
+        const size_options = formData.get('size_options')
+
+        if (tryParse(color_options, []).length === 0) {
+            alert('Product needs at least 1 color')
+            return false;
+        }
+
+        if (tryParse(size_options, []).length === 0) {
+            alert('Product needs at least 1 size')
+            return false;
+        }
+
 
         for (const pair of formData.entries()) {
             if (allowedFields.includes(pair[0])) {
@@ -1064,21 +1139,25 @@
             return false
         }
 
-        const id = formData.get('field')
-        if (!id) {
+        const id = formData.get('id')
+
+        if (!id && isEdit) {
             alert('Id is empty')
-            return;
+            return false;
         }
+
         const type = reqBody['big_image_link'].type
         const allowedType = /^image\/(png|jpe?g)$/
 
         console.log(type)
 
         const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
+
         if (!allowedType.test(type) && !isImageNotChange) {
             alert('Invalid file type. Expect jpg/jpeg/png.')
-            return;
+            return false;
         }
+
         readFileContent(reqBody['big_image_link'], (file) => {
             if (!isImageNotChange) {
                 reqBody['big_image_link_type'] = type
@@ -1086,7 +1165,11 @@
             } else {
                 reqBody['big_image_link'] = ''
             }
-            updateProduct(id, reqBody)
+            if (isEdit) {
+                updateProduct(id, reqBody)
+            } else {
+                addAProduct(id, reqBody)
+            }
         })
 
         return false
@@ -1099,6 +1182,57 @@
         productForm.addEventListener("submit", handleSubmitProductForm);
     }
 </script>
+
+<script type="text/javascript">
+
+    function handleAddNew() {
+
+        injectProductPopup('p-submit_type', 'add')
+        injectProductPopupProps('pop-action', {innerText: 'Add new'})
+
+
+        injectProductPopup('p-id', '')
+        injectProductPopupStyle('product-id-entry', {display: 'none'})
+
+
+        injectProductPopup('p-name', '')
+        injectProductPopup('p-description', '')
+        injectProductPopup('p-price', '')
+        injectProductPopup('p-bought', '')
+
+        injectProductPopup('p-current_stock', '')
+
+        injectProductPopup('p-big_image_link', null)
+        injectProductPopupProps('p-big_image_link', {required: true})
+
+        clearChild('.upload-zone-1.upload-preview')
+
+        injectProductPopup('p-category_id', '')
+
+        injectProductPopup('p-created_date', '')
+        injectProductPopupStyle('created-date-entry', {display: 'none'})
+
+
+        injectProductPopup('p-address', '')
+        injectProductPopup('p-available', true)
+
+        // start size processing
+        injectProductPopup('p-size_options', JSON.stringify([]))
+        clearChild('.size_zone')
+
+        // start size processing
+        injectProductPopup('p-color_options', JSON.stringify([]))
+        clearChild('.color_zone')
+
+
+        document.querySelectorAll('.additional-adder').forEach(e => {
+            e.value = ''
+        })
+
+        openAddPop('')
+    }
+</script>
+
 </body>
 
 <style>

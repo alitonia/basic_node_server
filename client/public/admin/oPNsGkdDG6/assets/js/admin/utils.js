@@ -1,5 +1,13 @@
 const capitalize = (str) => str && str.length > 0 ? str[0].toUpperCase() + str.slice(1,) : ''
-const reload = () => window.location.reload()
+
+const reload = (scrollToClass) => {
+    if (!scrollToClass) {
+        window.location.reload()
+    } else{
+        window.location.href = url_mutation({target: scrollToClass})
+    }
+}
+
 const preventPropagation = (e) => e.stopPropagation()
 
 const current_url_object = new URL(window.location.href)
@@ -17,6 +25,8 @@ const url_mutation = (newParams = {}) => {
 }
 
 const changePage = (link) => window.location.href = link
+
+const openNewTab = (link) => window.open(link, '_blank')
 
 function removeParam(key, sourceURL) {
     let rtn = sourceURL.split("?")[0],

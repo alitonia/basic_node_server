@@ -338,3 +338,31 @@ th:hover {
 .color-entry, .size-entry{
     line-height: 18px;
 }
+
+.addon-before-main-dish{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-new-entry{
+    padding-right: 10px;
+}
+
+.add-new-button{
+    padding: 6px 7px 6px 16px;
+}
+
+.add-new-button:hover{
+    background: #F55C47;
+}
+
+.add-icon{
+    font-size: 14px;
+    padding-left: 2px;
+}
+
+.readonly-input{
+    background: #e0e0e0;
+    box-shadow: none !important;
+
+}

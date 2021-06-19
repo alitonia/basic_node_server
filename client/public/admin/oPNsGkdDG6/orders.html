@@ -124,6 +124,10 @@
                     </tbody>
                 </table>
 
+
+                <button class="stickyness" onclick="window.scrollTo(0,0);"><i class="fas fa-chevron-up icon-up"></i>
+                </button>
+
                 <div class="naviagte-buttons">
                     <div class="navigate-left">
                         <button class="control-button cb-left" onclick="toLastPage()"> <</button>
@@ -181,7 +185,7 @@
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }).then(x => {
             if (x.status >= 400) {
-                if (x.status == 401) {
+                if (x.status === 401) {
                     //unauthorized. Maybe out of session
                     deleteCookie1()
                     alert('Your session has ended. Please log in again')
@@ -196,7 +200,7 @@
         })
     }
 
-    async function start(sortby = 'order_date', order = 'desc', page = 0, searchby = '') {
+    async function start(sortby = 'order_date', order = 'desc', page = 0, searchby = '', target) {
         if (!isLogin) {
             return;
         }
@@ -235,7 +239,7 @@
                 const canBackPending = status !== 'pending'
 
                 return acc + `
-                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
+                    <tr class="${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
                         <td>${id}</td>
                         <td>${customer_id}</td>
                         <td>${email}</td>
@@ -252,14 +256,15 @@
                         </td>
                     </tr>
                 `;
-
-                if (id !== null) {
-                } else {
-                    return acc
-                }
             }, '')}
-
             `)
+            console.log('t', target)
+            if (target) {
+                const mayScrollToElement = document.querySelector(`.entity-id-${target}`)
+                if (mayScrollToElement) {
+                    mayScrollToElement.scrollIntoView()
+                }
+            }
         }
     }
 
@@ -276,13 +281,14 @@
     const order = current_url.searchParams.get('order') || 'desc'
     const page = current_url.searchParams.get('page') || 0
     const searchby = current_url.searchParams.get('searchValue') || 0
+    const target = getParam('target', null)
 
     displayOrRemove('display-page-label', page)
     displayOrRemove('display-target-label', sortby)
     displayOrRemove('display-sort-label', order)
     displayOrRemove('display-search-label', searchby)
 
-    start(sortby, order, page, searchby);
+    start(sortby, order, page, searchby, target);
 </script>
 
 <script>
@@ -316,7 +322,7 @@
                 if (x && x.error) {
                     throw new Error(x.error)
                 } else {
-                    reload()
+                    reload(x.id)
                 }
             })
             .catch(err => {
@@ -377,7 +383,7 @@
         const sortValue = formData.get('sort-value')
         const searchValue = formData.get('search-value') || ""
 
-        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue}))
+        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue, target: ''}))
         return false
     }
 
@@ -391,12 +397,11 @@
 
 <script>
     function resetPage() {
-        changePage(removeParam('page', window.location.href))
+        changePage(removeParam('target', removeParam('page', window.location.href)))
     }
 
     function resetSearch() {
-        console.log('abc', removeParam('searchValue', window.location.href))
-        changePage(removeParam('searchValue', window.location.href))
+        changePage(removeParam('target', removeParam('searchValue', window.location.href)))
     }
 </script>
 

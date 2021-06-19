@@ -23,7 +23,7 @@ module.exports.updateReceipt = (req, res) => {
                 res.status(501)
                 return res.send({error: 'Something went wrong'})
             }
-            return res.send({status: 'OK'})
+            return res.send({status: 'OK', id: id})
         }
     );
 };

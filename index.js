@@ -66,6 +66,8 @@ app.use(require('./routes/admins/updateOrder'))
 app.use(require('./routes/admins/viewProducts'))
 app.use(require('./routes/admins/viewCategories'))
 app.use(require('./routes/admins/updateProduct'))
+app.use(require('./routes/admins/addProduct'))
+
 
 
 app.get('/test', (req, res) => {

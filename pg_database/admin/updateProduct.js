@@ -78,16 +78,43 @@ const dfile = util.promisify(fs.unlink)
 
 const isUploadedPath = (p) => /^images\/.*$/.test(p)
 
+
+
+const tryParse = (x, fallback = null) => {
+    try {
+        return JSON.parse(x)
+    } catch (e) {
+        console.log(e)
+        return fallback
+    }
+}
+
+function isColor(value = '') {
+    return /^#[abcedfABCDEF0-9]{3,8}$/.test(value)
+}
+
 module.exports.updateProduct = async (req, res) => {
     
     try{
         const body = req.body
-        const {id, ...rest} = body || {}
+        const {id, color_options, size_options, ...rest} = body || {}
 
-        if (!id) {
+        const parsedColor = tryParse(color_options, [])
+        const parsedSize = tryParse(size_options, [])
+
+        const isValidColors = parsedColor.reduce((acc, cur)=>{
+            return acc && isColor(cur)
+        }, true)
+
+
+        if (!id 
+            || (color_options!==undefined && (parsedColor.length === 0 || !isValidColors) )
+            || (size_options!==undefined && parsedSize.length === 0)
+            ) {
             res.status(501)
             return res.send({error: 'Invalid request'})
         }
+
 
         const _matchingIdProduct = await pool.query(getProductWithId(id))
 
@@ -98,6 +125,7 @@ module.exports.updateProduct = async (req, res) => {
 
         const targetedProduct = _matchingIdProduct.rows[0]
         const currentImagePath = targetedProduct.big_image_link
+
 
         const reqOb = {}
 
@@ -112,7 +140,7 @@ module.exports.updateProduct = async (req, res) => {
 
     //no modification
     if (Object.keys(reqOb).length === 0) {
-        return res.send({status: 'OK'})
+        return res.send({status: 'OK', id: id})
     }
 
     if (body['big_image_link'] && !body['big_image_link_type']) {
@@ -183,7 +211,7 @@ module.exports.updateProduct = async (req, res) => {
     await dfile(oldImagePath)
 }
 
-return res.send({status: 'OK'})
+return res.send({status: 'OK', id: id})
     // TODO: handle error, delete image if error
 }
 catch(e){
