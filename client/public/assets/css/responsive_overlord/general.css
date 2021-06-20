@@ -1,0 +1,19 @@
+.promo_area {
+    height: 500px;
+}
+
+.page_name {
+    padding-left: 10px;
+}
+
+@media only screen and (max-width: 585px) {
+    .list_nav li, .list_nav li a {
+        padding-right: 9px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .list_nav {
+        display: none;
+    }
+}

@@ -1,0 +1,15 @@
+@media only screen and (max-width: 877px) {
+    .product_title {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .product_title {
+        font-size: 14px;
+    }
+
+    .product_text_info {
+        text-align: center;
+    }
+}

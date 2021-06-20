@@ -6,13 +6,13 @@
 }
 
 .men_container {
-    width: 1200px;
+    /*width: 1200px;*/
     display: flex;
     justify-content: space-between;
     margin: auto;
 }
 
-.col_left  h2 {
+.col_left h2 {
     font-size: 26px;
     color: white;
 }
