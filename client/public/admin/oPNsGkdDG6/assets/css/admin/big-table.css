@@ -32,7 +32,7 @@
 }
 
 .styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #efefef;
 }
 
 .styled-table tbody tr:last-of-type {
@@ -335,34 +335,39 @@ th:hover {
     color: red
 }
 
-.color-entry, .size-entry{
+.color-entry, .size-entry {
     line-height: 18px;
 }
 
-.addon-before-main-dish{
+.addon-before-main-dish {
     display: flex;
     justify-content: space-between;
 }
 
-.add-new-entry{
+.add-new-entry {
     padding-right: 10px;
 }
 
-.add-new-button{
+.add-new-button {
     padding: 6px 7px 6px 16px;
 }
 
-.add-new-button:hover{
+.add-new-button:hover {
     background: #F55C47;
 }
 
-.add-icon{
+.add-icon {
     font-size: 14px;
     padding-left: 2px;
 }
 
-.readonly-input{
+.readonly-input {
     background: #e0e0e0;
     box-shadow: none !important;
 
+}
+
+.blurry-row {
+    color: #0A1931;
+    font-weight: 600;
 }

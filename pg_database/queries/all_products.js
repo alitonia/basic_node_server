@@ -22,7 +22,7 @@ const toOrderByString = (x) => {
 }
 
 const sql_select_all = (query) => {
-        const {limit = 20, offset = 0, category_id = null, sortby = '', search = ''} = query ?? {}
+        const {limit = 20, offset = 0, category_id = null, sortby = 'name', search = ''} = query ?? {}
 
         const x = `SELECT products.*
                    FROM products `
@@ -33,7 +33,7 @@ const sql_select_all = (query) => {
             WHERE available != false`)
             + ((category_id === null) ? `${!!search ? ` and products.name ILIKE '%%${search}%' ` : ''}` : '')
             + '   ' + toOrderByString(sortby) + ' '
-
+            + ` ORDER BY ${sortby} `
             + `LIMIT ${limit} OFFSET ${offset}`
             + ' ;'
 

@@ -18,7 +18,7 @@ const allowedOrder = ['asc', 'desc']
 const allowedSortby = [
     'name', 'id', 'price', 'current_stock',
     'bought', 'category_id', 'created_date', 'available',
-    'rating', 'total_rated'
+    'rating', 'total_rated', 'big_image_link'
 ]
 
 module.exports.getAllProducts = (req, res) => {
@@ -30,7 +30,10 @@ module.exports.getAllProducts = (req, res) => {
 
     const {limit = 30, offset = 0, sortby = 'name', order = 'asc', searchby = ''} = req.params || {}
 
-    if (!allowedOrder.includes(order) || !allowedSortby.includes(sortby) || limit > 50) {
+    if (
+        (order && !allowedOrder.includes(order))
+        || (sortby && !allowedSortby.includes(sortby))
+    ) {
         return res.send({error: 'Something went wrong'})
     }
 

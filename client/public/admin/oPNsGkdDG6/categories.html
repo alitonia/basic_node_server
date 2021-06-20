@@ -27,7 +27,7 @@
 
 
 <head>
-    <title>Admin - Products</title>
+    <title>Admin - Categories</title>
 </head>
 
 <body>
@@ -53,10 +53,10 @@
                                 <a class="orders-link link" href="./orders.html">ORDERS</a>
                             </li>
                             <li class="menu_item">
-                                <a class="products-link link link-active" href="./products.html">PRODUCTS</a>
+                                <a class="products-link link" href="./products.html">PRODUCTS</a>
                             </li>
                             <li class="menu_item">
-                                <a class="categories-link link" href="./categories.html">CATEGORIES</a>
+                                <a class="categories-link link link-active" href="./categories.html">CATEGORIES</a>
                             </li>
                             <li class="menu_item">
                                 <a class="customers-link link" href="./customers">CUSTOMERS</a>
@@ -92,13 +92,11 @@
                         <div class="display-box display-target-label">
                             <span class="display-prefix">Target: </span> <span
                                 class="display-value display-target-label-value"></span>
-                            <!--                        <i class="fas fa-times close"></i>-->
                         </div>
 
                         <div class="display-box display-sort-label">
                             <span class="display-prefix">Sort: </span> <span
                                 class="display-value display-sort-label-value"></span>
-                            <!--                        <i class="fas fa-times close"></i>-->
                         </div>
 
                         <div class="display-box display-search-label">
@@ -118,31 +116,20 @@
                     <thead>
                     <tr>
                         <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
-                        <th class="t_customer_id" onclick="openPopup('name')">Product Name <i
+                        <th class="t_customer_id" onclick="openPopup('name')">Categories Name <i
                                 class="fas fa-sort"></i></th>
 
                         <th class="t_customer_id" onclick="openPopup('description')">Description <i
                                 class="fas fa-sort"></i></th>
 
-                        <th class="t_send_email" onclick="openPopup('price')">Price <i
-                                class="fas fa-sort"></i></th>
-                        <th class="date" onclick="openPopup('current_stock')">Current Stock <i class="fas fa-sort"></i>
-                        </th>
-                        <th class="status" onclick="openPopup('bought')">Bought <i class="fas fa-sort"></i></th>
-
-                        <th class="t_customer_id" onclick="openPopup('big_image_link')">Big Image Link <i
+                        <th class="t_customer_id" onclick="openPopup('image_link')">Image Link <i
                                 class="fas fa-sort"></i></th>
 
-                        <th class="t_customer_id" onclick="openPopup('category_id')">Category ID<i
+                        <th class="t_customer_id" onclick="openPopup('parent_category')">Parent Category<i
                                 class="fas fa-sort"></i></th>
 
-                        <th class="t_customer_id" onclick="openPopup('available')">Available <i
-                                class="fas fa-sort"></i></th>
-
-                        <th class="t_customer_id" onclick="openPopup('color_options')">Color Options <i
-                                class="fas fa-sort"></i></th>
-                        <th class="t_customer_id" onclick="openPopup('size_options')">Size Options <i
-                                class="fas fa-sort"></i></th>
+                        <!--                        <th class="t_customer_id" onclick="openPopup('available')">Available <i-->
+                        <!--                                class="fas fa-sort"></i></th>-->
 
 
                         <th rowspan="3" class="action">Actions</th>
@@ -207,8 +194,8 @@
 
             <input type="hidden" name="submit_type" class="p-submit_type" value="edit"/>
 
-            <div class="entry product-id-entry">
-                <label for="id" class="search-label align-label">Product ID</label>
+            <div class="entry category-id-entry">
+                <label for="id" class="search-label align-label">Category ID</label>
                 <input type="text" name="id" readonly class="p-id readonly-input"/>
             </div>
 
@@ -222,24 +209,10 @@
                 <textarea cols="30" rows="5" name="description" class="p-description t-ara" required></textarea>
             </div>
 
-            <div class="entry">
-                <label for="price" class="search-label align-label">Price</label>
-                <input type="number" name="price" class="p-price" step="0.000001" min="0" required/>
-            </div>
-
-            <div class="entry">
-                <label for="bought" class="search-label align-label">Bought</label>
-                <input type="number" name="bought" class="p-bought" min="0" required/>
-            </div>
-            <div class="entry">
-                <label for="current_stock" class="search-label align-label">Current Stock</label>
-                <input type="number" name="current_stock" class="p-current_stock" min="0" required/>
-            </div>
-
             <div class="entry sentry-looker">
-                <label for="big_image_link" class="search-label align-label">Image</label>
+                <label for="image_link" class="search-label align-label">Image</label>
                 <div class="img-container">
-                    <input type="file" name="big_image_link" class="p-big_image_link upload-zone-1 upload-input"
+                    <input type="file" name="image_link" class="p-image_link upload-zone-1 upload-input"
                            accept=".jpg, .jpeg, .png" title=""/>
 
                     <div class="preview upload-zone-1 upload-preview">
@@ -250,52 +223,19 @@
             </div>
 
             <div class="entry">
-                <label for="category_id" class="search-label align-label">Category Id</label>
-                <select class="p-category_id sort-choice custom-choice" name="category_id" required>
+                <label for="parent_category" class="search-label align-label">Category Id</label>
+                <select class="p-parent_category sort-choice custom-choice" name="parent_category" required>
 
                 </select>
             </div>
 
-            <div class="entry created-date-entry">
-                <label for="created_date" class="search-label align-label">Created Date</label>
-                <input type="text" name="created_date" class="p-created_date readonly-input" readonly=""/>
-            </div>
-
-            <div class="entry">
-                <label for="available" class="search-label align-label">Available</label>
-                <select type="text" name="available" class="p-available sort-choice custom-choice" required>
-                    <option value="true">True</option>
-                    <option value="False">False</option>
-                </select>
-            </div>
-
-
-            <div class="with-area entry">
-                <label for="address" class="search-label align-label">Address</label>
-                <textarea cols="30" rows="5" name="address" class="p-address t-ara" required></textarea>
-            </div>
-
-            <div class="with-area entry">
-                <label for="color_options" class="search-label align-label">Color Option</label>
-                <div class="grand-container">
-                    <input type="hidden" name="color_options" class="p-color_options"/>
-                    <span class="color_zone consec-button-zone"></span>
-                    <input type="text" name="color-adder"
-                           class="additional-add-color-input additional-adder"
-                           placeholder="Add new Color"/>
-                </div>
-            </div>
-
-            <div class="with-area entry">
-                <label for="size_options" class="search-label align-label">Size Option</label>
-                <div class="grand-container">
-                    <input type="hidden" name="size_options" class="p-size_options"/>
-                    <span class="size_zone consec-button-zone"></span>
-                    <input type="text" name="color-adder"
-                           class="additional-add-size-input additional-adder"
-                           placeholder="Add new Size"/>
-                </div>
-            </div>
+            <!--            <div class="entry">-->
+            <!--                <label for="available" class="search-label align-label">Available</label>-->
+            <!--                <select type="text" name="available" class="p-available sort-choice custom-choice" required>-->
+            <!--                    <option value="true">True</option>-->
+            <!--                    <option value="False">False</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
 
             <div class="popup-buttons">
                 <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
@@ -307,12 +247,12 @@
 
 
 <script>
-    const PAGE_SIZE = 30
-    const path = '/admin/products'
+    const PAGE_SIZE = 10
+    const path = '/admin/categories'
 
     let savedProducts = null
 
-    async function getProducts(sortby = 'name', order = 'asc', page = 0, searchby = '') {
+    async function getCategories(sortby = 'name', order = 'asc', page = 0, searchby = '') {
         return fetch(`${path}?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
@@ -350,48 +290,36 @@
             document.querySelector('.cb-left').style.display = 'none'
         }
 
-        const products = await getProducts(sortby, order, page, searchby)
-        if (!products) {
+        const categories = await getCategories(sortby, order, page, searchby)
+        if (!categories) {
             return;
         }
-        savedProducts = products
+        savedProducts = categories
 
         const injectSpace = document.querySelector('.injectable-space')
         const space = document.querySelector('.board-space')
 
-        if (products.length < PAGE_SIZE) {
+        if (categories.length < PAGE_SIZE) {
             document.querySelector('.cb-right').style.display = 'none'
         }
 
-        if (products.length === 0) {
+        if (categories.length === 0) {
             // space.innerHTML = (`
             //     <h4 style="font-size: 20px">Orders are empty</h4>
             // `)
         } else {
             injectSpace.innerHTML = (`
-                ${products.reduce((acc, cur) => {
+                ${categories.reduce((acc, cur) => {
                 const {
                     id,
                     name,
                     description,
-                    full_description,
-                    price,
-                    bought,
-                    current_stock,
-                    big_image_link,
-                    image_links = '',
-                    category_id,
-                    created_date,
-                    available,
-                    rating,
-                    total_rated,
-                    address,
-                    color_options,
-                    size_options,
-                    status = ''
+                    image_link,
+                    parent_category,
+                    available = true,
                 } = cur
 
-                const notAvailable = (available === false || current_stock === 0)
+                const notAvailable = !available
                 const lowlight = notAvailable
 
                 const highlight = false
@@ -407,24 +335,12 @@
                 const canEdit = available === true
                 const canSetDelivered = false
 
-                const imgLink = `${window.location.origin}/${big_image_link}`
-                const product_link = `${window.location.origin}/product.html?product_id=${id}`
-
-                const colorSpans = tryParse(color_options, []).sort().reduce((acc, c) => {
-                    return `${acc} <div class="small-entry tooltip">
-                        ${c}
-                        <span class="tooltiptext gentle-longness sample-color-preview"
-                        style="background: ${c}"></span>
-                        </div>`
-                }, '')
-
-                const sizeSpans = tryParse(size_options, []).sort().reduce((acc, c) => {
-                    return `${acc} <div class="small-entry">${c}</div>`
-                }, '')
+                const imgLink = `${window.location.origin}/${image_link}`
+                const category_link = `${window.location.origin}/category.html?category_id=${id}`
 
                 return acc + `
                     <tr class="${blurrylight ? 'blurry-row' : ''} ${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
-                    <td>${!notAvailable ? `<a href="${product_link}" target="_blank" style="font-weight: 500;">${id}</a>` : `${id}`}</td>
+                    <td>${!notAvailable ? `<a href="${category_link}" target="_blank" style="font-weight: 500;">${id}</a>` : `${id}`}</td>
                     <td>${name}</td>
 
                     <td>
@@ -435,21 +351,13 @@
                     </span>
                     </td>
 
-                    <td>${price.toFixed(3)}</td>
-                    <td>${current_stock}</td>
-                    <td>${bought}</td>
-
                     <td><span class=" tooltip">
-                    <a href="${imgLink}" target="_blank" style="font-weight: 500;">${big_image_link}</a>
+                    <a href="${imgLink}" target="_blank" style="font-weight: 500;">${imgLink}</a>
                     <span class="tooltiptext freedom-img"><img src="${imgLink}" alt="big link"></span>
                     </span></td>
 
-                    <td>${category_id}</td>
-                    <td>${available}</td>
+                    <td>${parent_category || 'NULL'}</td>
 
-                    <td class="color-entry">${colorSpans}</td>
-
-                    <td class="size-entry">${sizeSpans}</td>
                     <td>
                     <div class="button-holder">
                     ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
@@ -500,7 +408,7 @@
 
 <script>
     async function productModificationRequest(id, fields, method = 'PUT') {
-        return fetch('/admin/products', {
+        return fetch('/admin/categories', {
             method: method, // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -596,167 +504,40 @@
         const {
             name,
             description,
-            price,
-            bought,
-            current_stock,
-            big_image_link,
-            category_id,
-            created_date,
-            available,
-            address,
-            color_options,
-            size_options,
+            image_link,
+            parent_category,
+            available = true,
         } = target
 
         injectProductPopup('p-submit_type', 'edit')
         injectProductPopupProps('pop-action', {innerText: 'Edit'})
 
         injectProductPopup('p-id', id)
-        injectProductPopupStyle('product-id-entry', {display: 'flex'})
+        injectProductPopupStyle('category-id-entry', {display: 'flex'})
 
 
         injectProductPopup('p-name', name)
         injectProductPopup('p-description', description)
-        injectProductPopup('p-price', price.toFixed(6))
-        injectProductPopup('p-bought', bought)
 
-        injectProductPopup('p-current_stock', current_stock)
-
-        injectProductPopup('p-big_image_link', null)
-        injectProductPopupProps('p-big_image_link', {required: false})
+        injectProductPopup('p-image_link', null)
+        injectProductPopupProps('p-image_link', {required: false})
         clearChild('.upload-zone-1.upload-preview')
-        injectImageToPreview(big_image_link)
+        injectImageToPreview(image_link)
 
-        injectProductPopup('p-category_id', category_id)
-
-        injectProductPopup('p-created_date', created_date)
-        injectProductPopupStyle('created-date-entry', {display: 'flex'})
-
-
-        injectProductPopup('p-address', address)
-        injectProductPopup('p-available', available)
-
-        // start size processing
-        const size_op = tryParse(size_options, [])
-
-        injectProductPopup('p-size_options', size_options)
-        clearChild('.size_zone')
-
-        size_op.forEach(s => {
-            const button = document.createElement('button')
-
-            const idButton = Math.random().toString()
-            button.classList.add(idButton)
-
-            const deleteSelfIcon = document.createElement('i')
-            deleteSelfIcon.classList.add('fas')
-            deleteSelfIcon.classList.add('close')
-            deleteSelfIcon.classList.add('fa-times')
-            deleteSelfIcon.classList.add('small-close')
-
-            deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete size ${s}?`)) {
-                    button.parentNode.removeChild(button)
-                    const newValue = tryParse(document.querySelector('.p-size_options').value, [])
-                        .filter(x => x !== s)
-
-                    document.querySelector('.p-size_options').value = JSON.stringify(newValue)
-                }
-            }
-
-            button.type = 'button'
-            button.innerText = s
-
-            button.classList.add('display-box')
-            button.classList.add('display-page-label')
-            button.classList.add('remove-able-button')
-            // button.style.background = s
-
-            button.onclick = () => {
-                console.log(s)
-            }
-            button.appendChild(deleteSelfIcon)
-
-            button.onmouseenter = () => {
-                // button.style.background = 'black'
-            }
-
-            button.onmouseleave = () => {
-                // button.style.background = s
-            }
-
-            document.querySelector('.size_zone').appendChild(button)
-        })
-
-        // start size processing
-        const color_op = tryParse(color_options, [])
-
-        injectProductPopup('p-color_options', color_options)
-        clearChild('.color_zone')
-
-        color_op.forEach(c => {
-            const button = document.createElement('button')
-
-            const idButton = Math.random().toString()
-            button.classList.add(idButton)
-
-            const deleteSelfIcon = document.createElement('i')
-            deleteSelfIcon.classList.add('fas')
-            deleteSelfIcon.classList.add('close')
-            deleteSelfIcon.classList.add('fa-times')
-            deleteSelfIcon.classList.add('small-close')
-
-            deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete color ${c}?`)) {
-                    button.parentNode.removeChild(button)
-                    const newValue = tryParse(document.querySelector('.p-color_options').value, [])
-                        .filter(x => x !== c)
-
-                    document.querySelector('.p-color_options').value = JSON.stringify(newValue)
-                }
-            }
-
-            button.type = 'button'
-            button.innerText = c
-
-            button.classList.add('display-box')
-            button.classList.add('display-page-label')
-            button.classList.add('remove-able-button')
-            button.style.background = c
-
-            button.onclick = () => {
-                console.log(c)
-            }
-            button.appendChild(deleteSelfIcon)
-
-            button.onmouseenter = () => {
-                button.style.background = 'black'
-            }
-
-            button.onmouseleave = () => {
-                button.style.background = c
-            }
-
-            document.querySelector('.color_zone').appendChild(button)
-        })
-
-        document.querySelectorAll('.additional-adder').forEach(e => {
-            e.value = ''
-        })
-
+        injectProductPopup('p-parent_category', parent_category || '')
         openAddPop('')
     }
-    const handleDelete = (id) => {
-        updateProduct(id, {'available': false})
 
+    const handleDelete = (id) => {
+        // updateProduct(id, {'available': false})
     }
 
     const handleRestore = (id) => {
-        updateProduct(id, {'available': true})
+        // updateProduct(id, {'available': true})
     }
 
     const handleView = (id) => {
-        openNewTab(`${window.location.origin}/product/${id}`)
+        openNewTab(`${window.location.origin}/category/${id}`)
     }
 </script>
 
@@ -876,148 +657,6 @@
 
     upload_input.addEventListener('change', updateImageDisplay);
 
-
-    function addToColors(e) {
-        const isSubmit = e.key === 'Enter'
-
-        if (isSubmit) {
-            const input = document.querySelector('.additional-add-color-input.additional-adder')
-            const value = input.value.toString().trim()
-
-            if (isColor(value)) {
-                const oldColorsInput = document.querySelector('.p-color_options')
-                const pOb = tryParse(oldColorsInput.value, [])
-
-                if (pOb.map(k => k.toLowerCase()).includes(value.toLowerCase())) {
-                    alert('Value already existed!')
-                    return;
-                }
-
-                const newValue = JSON.stringify(pOb.concat(value))
-                console.log(newValue)
-                oldColorsInput.value = newValue
-
-                const button = document.createElement('button')
-
-                const idButton = Math.random().toString()
-                button.classList.add(idButton)
-
-                const deleteSelfIcon = document.createElement('i')
-                deleteSelfIcon.classList.add('fas')
-                deleteSelfIcon.classList.add('close')
-                deleteSelfIcon.classList.add('fa-times')
-                deleteSelfIcon.classList.add('small-close')
-
-                deleteSelfIcon.onclick = () => {
-                    if (window.confirm(`Are you sure you want to delete color ${value}?`)) {
-                        button.parentNode.removeChild(button)
-                        const newValue = tryParse(document.querySelector('.p-color_options').value, [])
-                            .filter(x => x !== value)
-
-                        document.querySelector('.p-color_options').value = JSON.stringify(newValue)
-                    }
-                }
-
-                button.type = 'button'
-                button.innerText = value
-
-                button.classList.add('display-box')
-                button.classList.add('display-page-label')
-                button.classList.add('remove-able-button')
-                button.style.background = value
-
-                button.onclick = () => {
-                    console.log(value)
-                }
-                button.appendChild(deleteSelfIcon)
-
-                button.onmouseenter = () => {
-                    button.style.background = 'black'
-                }
-
-                button.onmouseleave = () => {
-                    console.log(value)
-                    button.style.background = value
-                }
-
-                document.querySelector('.color_zone').appendChild(button)
-                input.value = ''
-            } else {
-                alert('Not a valid color')
-            }
-        }
-    }
-
-    function addToSizes(e) {
-        const isSubmit = e.key === 'Enter'
-
-        if (isSubmit) {
-            const input = document.querySelector('.additional-add-size-input.additional-adder')
-            const value = input.value.toString().trim()
-
-            const oldSizesInput = document.querySelector('.p-size_options')
-            const pOb = tryParse(oldSizesInput.value, [])
-            if (pOb.map(k => k.toLowerCase()).includes(value.toLowerCase())) {
-                alert('Value already existed!')
-                return;
-            }
-
-            const newValue = JSON.stringify(pOb.concat(value))
-            console.log(newValue)
-            oldSizesInput.value = newValue
-
-            const button = document.createElement('button')
-
-            const idButton = Math.random().toString()
-            button.classList.add(idButton)
-
-            const deleteSelfIcon = document.createElement('i')
-            deleteSelfIcon.classList.add('fas')
-            deleteSelfIcon.classList.add('close')
-            deleteSelfIcon.classList.add('fa-times')
-            deleteSelfIcon.classList.add('small-close')
-
-            deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete size ${value}?`)) {
-                    button.parentNode.removeChild(button)
-                    const newValue = tryParse(document.querySelector('.p-size_options').value, [])
-                        .filter(x => x !== value)
-
-                    document.querySelector('.p-size_options').value = JSON.stringify(newValue)
-                }
-            }
-
-            button.type = 'button'
-            button.innerText = value
-
-            button.classList.add('display-box')
-            button.classList.add('display-page-label')
-            button.classList.add('remove-able-button')
-            // button.style.background = s
-
-            button.onclick = () => {
-                console.log(value)
-            }
-            button.appendChild(deleteSelfIcon)
-
-            button.onmouseenter = () => {
-                // button.style.background = 'black'
-            }
-
-            button.onmouseleave = () => {
-                // button.style.background = s
-            }
-
-            document.querySelector('.size_zone').appendChild(button)
-            input.value = ''
-
-        }
-    }
-
-    document.querySelector('.additional-add-color-input.additional-adder').addEventListener('keyup', addToColors)
-
-    document.querySelector('.additional-add-size-input.additional-adder').addEventListener('keyup', addToSizes)
-
 </script>
 
 <script>
@@ -1062,12 +701,12 @@
         }
 
         clearChild('.p-category_id')
-        const p = document.querySelector('.p-category_id')
+        const p = document.querySelector('.p-parent_category')
 
-        categories.forEach(c => {
+        categories.concat(null).forEach(c => {
             const entry = document.createElement('option')
-            entry.value = c.id;
-            entry.innerText = c.id
+            entry.value = c ? c.id : '';
+            entry.innerText = c ? c.id : 'NULL'
             entry.classList.add('category-id-possible-value')
             p.appendChild(entry)
         })
@@ -1078,7 +717,6 @@
 
 <script>
     const maxUploadSize = 200 //KB
-
 
     function readFileContent(file, callback) {
         const fileReader = new FileReader();
@@ -1105,26 +743,10 @@
 
         const allowedFields = [
             'name', 'description',
-            'price', 'bought',
-            'current_stock',
-            'big_image_link',
-            'category_id', 'available', 'address',
-            'color_options', 'size_options'
+            'image_link',
+            'parent_category',
+            'available'
         ]
-
-        const color_options = formData.get('color_options')
-        const size_options = formData.get('size_options')
-
-        if (tryParse(color_options, []).length === 0) {
-            alert('Product needs at least 1 color')
-            return false;
-        }
-
-        if (tryParse(size_options, []).length === 0) {
-            alert('Product needs at least 1 size')
-            return false;
-        }
-
 
         for (const pair of formData.entries()) {
             if (allowedFields.includes(pair[0])) {
@@ -1132,7 +754,7 @@
             }
         }
 
-        const uploadedFile = formData.get('big_image_link')
+        const uploadedFile = formData.get('image_link')
         const fileSize = returnFileSizeInKB(uploadedFile.size)
         console.log(fileSize)
 
@@ -1148,24 +770,24 @@
             return false;
         }
 
-        const type = reqBody['big_image_link'].type
+        const type = reqBody['image_link'].type
         const allowedType = /^image\/(png|jpe?g)$/
 
         console.log(type)
 
-        const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
+        const isImageNotChange = reqBody['image_link'] && reqBody['image_link'].size === 0
 
         if (!allowedType.test(type) && !isImageNotChange) {
             alert('Invalid file type. Expect jpg/jpeg/png.')
             return false;
         }
 
-        readFileContent(reqBody['big_image_link'], (file) => {
+        readFileContent(reqBody['image_link'], (file) => {
             if (!isImageNotChange) {
-                reqBody['big_image_link_type'] = type
-                reqBody['big_image_link'] = file
+                reqBody['image_link_type'] = type
+                reqBody['image_link'] = file
             } else {
-                reqBody['big_image_link'] = ''
+                reqBody['image_link'] = ''
             }
             if (isEdit) {
                 updateProduct(id, reqBody)
@@ -1185,51 +807,25 @@
     }
 </script>
 
+
 <script type="text/javascript">
-
     function handleAddNew() {
-
         injectProductPopup('p-submit_type', 'add')
         injectProductPopupProps('pop-action', {innerText: 'Add new'})
 
 
         injectProductPopup('p-id', '')
-        injectProductPopupStyle('product-id-entry', {display: 'none'})
-
+        injectProductPopupStyle('category-id-entry', {display: 'none'})
 
         injectProductPopup('p-name', '')
         injectProductPopup('p-description', '')
-        injectProductPopup('p-price', '')
-        injectProductPopup('p-bought', '')
 
-        injectProductPopup('p-current_stock', '')
-
-        injectProductPopup('p-big_image_link', null)
-        injectProductPopupProps('p-big_image_link', {required: true})
+        injectProductPopup('p-image_link', null)
+        injectProductPopupProps('p-image_link', {required: true})
 
         clearChild('.upload-zone-1.upload-preview')
 
-        injectProductPopup('p-category_id', '')
-
-        injectProductPopup('p-created_date', '')
-        injectProductPopupStyle('created-date-entry', {display: 'none'})
-
-
-        injectProductPopup('p-address', '')
-        injectProductPopup('p-available', true)
-
-        // start size processing
-        injectProductPopup('p-size_options', JSON.stringify([]))
-        clearChild('.size_zone')
-
-        // start size processing
-        injectProductPopup('p-color_options', JSON.stringify([]))
-        clearChild('.color_zone')
-
-
-        document.querySelectorAll('.additional-adder').forEach(e => {
-            e.value = ''
-        })
+        injectProductPopup('p-parent_category', '')
 
         openAddPop('')
     }
@@ -1238,12 +834,8 @@
 </body>
 
 <style>
-    .styled-table th, .styled-table td {
-        padding: 12px 3px;
-    }
-
     .description-text {
-        max-width: 50px;
+        max-width: 300px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
