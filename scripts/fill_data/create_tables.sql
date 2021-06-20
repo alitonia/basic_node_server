@@ -21,7 +21,7 @@ create TABLE customers
     password_hash   varchar(256) ,
     salt varchar(256) CHECK((password_hash is not null and salt is null) = FALSE),
     gender     varchar(32) CHECK (gender in ('male', 'female', 'other', 'not specified')) DEFAULT 'not specified',
-    status     varchar(32) CHECK (status in ('active', 'inactive')),
+    status     varchar(32) CHECK (status in ('active', 'inactive', 'pending')),
     created_date TIMESTAMP WITH time zone default current_timestamp
 );
 CREATE

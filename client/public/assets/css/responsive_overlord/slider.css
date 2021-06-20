@@ -1,0 +1,11 @@
+@media only screen and (max-width: 634px) {
+    #owl_previous, #owl_next {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .slider {
+        display: none;
+    }
+}

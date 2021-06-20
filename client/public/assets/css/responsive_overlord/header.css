@@ -1,0 +1,77 @@
+@media only screen and (max-width: 1229px) {
+    .men {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 1046px) {
+    .women {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 904px) {
+    .header_navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sign_in_up {
+        margin-top: 10px;
+    }
+
+    .sign_up {
+        margin: 0 30px 0 0;
+    }
+
+    .sign_in a h3, .sign_up a h3, .log_out a h3 {
+        margin-top: 0;
+    }
+
+    .men, .women {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 630px) {
+    .men {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 535px) {
+    .women {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 535px) {
+    .menu_item > a {
+        font-size: 17px;
+        margin: 0 10px;
+    }
+
+    .menu_item {
+        line-height: 50px;
+    }
+}
+
+@media only screen and (max-width: 316px) {
+    .menu_item > a {
+        font-size: 15px;
+    }
+
+    .sign_up a, .sign_in a, .log_out a {
+        font-size: 9px;
+    }
+}
+
+@media only screen and (max-width: 294px) {
+    .menu_list {
+        flex-direction: column;
+    }
+
+    .men, .women {
+        display: flex;
+    }
+}

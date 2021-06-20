@@ -2,11 +2,15 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/footer.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/product-bundle.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/category_bundle.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/slider.css"/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self';script-src 'self' https://apis.google.com-->
-<!--'unsafe-inline' 'unsafe-eval' ; img-src 'self'">-->
+    <!--    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self';script-src 'self' https://apis.google.com-->
+    <!--'unsafe-inline' 'unsafe-eval' ; img-src 'self'">-->
     <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/home/main.css">
@@ -244,7 +248,7 @@
                     <li>Contact@yourcompany.com</li>
                 </ul>
             </div>
-            <div class="single_footer">
+            <div class="single_footer chosen-footer">
                 <h4>INFORMATION</h4>
                 <ul>
                     <li>About us</li>
@@ -254,7 +258,7 @@
                     <li>Contact us</li>
                 </ul>
             </div>
-            <div class="single_footer">
+            <div class="single_footer chosen-single">
                 <h4>Service</h4>
                 <ul>
                     <li>My Account</li>
@@ -331,6 +335,7 @@
                 if (x.error) {
                     return undefined
                 }
+                console.log('p', x)
                 return x
             }).catch(err => {
                 return null
@@ -393,7 +398,6 @@
                 `
             p.appendChild(pres)
         })
-        handleChangeWith(document.documentElement.clientWidth)
     }
 
     function deleteCookie(path) {
@@ -432,263 +436,21 @@
     }
 
     start()
-
-    const selectChange = (selectors, styleObj) => {
-        document.querySelectorAll(selectors).forEach(e => {
-            Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
-        })
-    }
-
-    const compactChange = (classNames, styleObj) => {
-        classNames.forEach(className => {
-            document.querySelectorAll(`.${className}`).forEach(e => {
-                Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
-            })
-        })
-    }
-
-    const changeVisibility = (classNames, value, all = false) => {
-        if (all === false) {
-            classNames.forEach(className => {
-                console.log(className)
-                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
-            })
-        } else {
-            classNames.forEach(className => {
-                document.querySelectorAll(`.${className}`).forEach(e => {
-                    e.style.display = value ? 'initial' : 'none'
-                })
-            })
-        }
-    }
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-
-        if (width <= 560) {
-            changeVisibility(['women', 'men'], false)
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-            document.querySelectorAll('.slider').forEach(e => {
-                e.style.display = 'none'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '40px'
-            })
-            document.querySelectorAll('.sign_in a h3, .sign_up a h3, .log_out a h3').forEach(e => {
-                e.style['margin-top'] = '10px'
-            })
-            document.querySelectorAll('.single_promo_content').forEach(e => {
-                e.style.display = 'none'
-            })
-            document.querySelectorAll('.row').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelector('.promo_area').style.height = 'auto'
-            document.querySelector('.promo_area').style.padding = '0'
-            changeVisibility(['select_feature'], false)
-
-            document.querySelectorAll('.product_filter').forEach(e => {
-                e.style.width = 'auto'
-            })
-
-            document.querySelectorAll('.product_item_container').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.single_product').forEach(e => {
-                e.style.width = 'auto'
-            })
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '16px'
-            })
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-
-        } else if (width <= 760) {
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.product_item_container').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.single_product').forEach(e => {
-                e.style.width = '23%'
-            })
-            document.querySelectorAll('.product_filter').forEach(e => {
-                e.style.width = '500px'
-            })
-            changeVisibility(['select_feature'], true)
-
-            document.querySelector('.promo_area').style.padding = '0px 15px'
-
-            document.querySelectorAll('.row').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.sign_in a h3, .sign_up a h3, .log_out a h3').forEach(e => {
-                e.style['margin-top'] = '28px'
-            })
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '80px'
-            })
-            document.querySelectorAll('.slider').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'auto'
-            })
-            changeVisibility(['home', 'women', 'men'], false)
-            document.querySelector('.product_item_list').style.width = 'auto'
-            document.querySelector('.promo_area').style.height = 'auto'
-
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '0px'
-                document.querySelector('.sign_up').style['margin-right'] = '10px'
-            }
-
-            document.querySelector('.slider').style.width = '99%'
-
-            document.querySelector('.col.col_2.image_banner').style.margin = '0px 8px'
-
-            document.querySelector('.single_promo.shoe-promo').style['padding-bottom'] = '10px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-            document.querySelectorAll('.single_promo_content').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '0'
-            })
-
-        } else {
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = '1160px'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '0'
-            })
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.product_item_container').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.single_product').forEach(e => {
-                e.style.width = '23%'
-            })
-            document.querySelectorAll('.product_filter').forEach(e => {
-                e.style.width = '500px'
-            })
-            changeVisibility(['select_feature'], true)
-
-            document.querySelector('.promo_area').style.padding = '0px 15px'
-
-            document.querySelectorAll('.row').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.single_promo_content').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.sign_in a h3, .sign_up a h3, .log_out a h3').forEach(e => {
-                e.style['margin-top'] = '28px'
-            })
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '80px'
-            })
-            document.querySelectorAll('.slider').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'auto'
-            })
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'flex'
-            })
-            changeVisibility(['home', 'women', 'men'], true)
-            // product list
-            document.querySelector('.product_item_list').style.width = '1160px'
-
-            // spacing product-list and slider
-            document.querySelector('.promo_area').style.height = '450px'
-
-            //sign in-up
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '50px'
-                document.querySelector('.sign_up').style['margin-right'] = '20px'
-            }
-
-            document.querySelector('.col.col_2.image_banner').style.margin = '0px 20px'
-
-            document.querySelector('.single_promo.shoe-promo').style['padding-bottom'] = '20px'
-
-            document.querySelector('.slider').style.width = 'auto'
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '1px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px'
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'flex'
-            })
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-
-    setTimeout(() => handleChangeWith(document.documentElement.clientWidth), 200)
-
 </script>
 
 
 </div>
 </body>
 
+<style>
+    .promo_area {
+        height: 500px;
+    }
+
+</style>
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
 </html>

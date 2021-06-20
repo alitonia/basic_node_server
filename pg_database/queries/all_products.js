@@ -1,8 +1,9 @@
 const pool = require('../connect_database.js');
 const {validationResult} = require("express-validator");
 
+const allowedKey = ['sale', 'bestseller', 'feature']
+
 const toOrderByString = (x) => {
-    const allowedKey = ['sale', 'bestseller', 'feature']
     const element = x.split('+').filter(k => allowedKey.includes(k))
     if (element.length === 0) {
         return ''
@@ -24,6 +25,8 @@ const toOrderByString = (x) => {
 const sql_select_all = (query) => {
         const {limit = 20, offset = 0, category_id = null, sortby = 'name', search = ''} = query ?? {}
 
+        const isMaleficNamedSort = allowedKey.includes(sortby)
+
         const x = `SELECT products.*
                    FROM products `
             + (category_id !== null ?
@@ -32,8 +35,7 @@ const sql_select_all = (query) => {
                 : `INNER JOIN categories on products.category_id = categories.id
             WHERE available != false`)
             + ((category_id === null) ? `${!!search ? ` and products.name ILIKE '%%${search}%' ` : ''}` : '')
-            + '   ' + toOrderByString(sortby) + ' '
-            + ` ORDER BY ${sortby} `
+            + '   ' + (isMaleficNamedSort ? toOrderByString(sortby) : ` ORDER BY ${sortby} `) + '  '
             + `LIMIT ${limit} OFFSET ${offset}`
             + ' ;'
 
