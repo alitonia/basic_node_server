@@ -188,7 +188,7 @@
 
 <div class="popopen addpop" onclick="closePopup()">
     <div class="popopen-content no-prop long">
-        <h4 class="popopen-title"><span class="pop-action">Edit</span> <span class="pop-target">product</span></h4>
+        <h4 class="popopen-title"><span class="pop-action">Edit</span> <span class="pop-target">category</span></h4>
         <form class="popopen-form" onkeydown="return event.key != 'Enter';">
             <input type="hidden" name="field" class="target-field"/>
 
@@ -223,8 +223,9 @@
             </div>
 
             <div class="entry">
-                <label for="parent_category" class="search-label align-label">Category Id</label>
-                <select class="p-parent_category sort-choice custom-choice" name="parent_category" required>
+                <label for="parent_category" class="search-label align-label">Parent Category</label>
+                <select class="p-parent_category sort-choice custom-choice even-bigger-max-option"
+                        name="parent_category" required>
 
                 </select>
             </div>
@@ -839,6 +840,10 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+    }
+
+    .even-bigger-max-option {
+        width: 82%;
     }
 
 </style>

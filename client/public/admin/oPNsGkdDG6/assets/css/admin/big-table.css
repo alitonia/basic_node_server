@@ -371,3 +371,7 @@ th:hover {
     color: #0A1931;
     font-weight: 600;
 }
+
+.nowrapper {
+    white-space: nowrap;
+}
