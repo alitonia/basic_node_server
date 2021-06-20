@@ -1,7 +1,7 @@
 const pool = require('../connect_database.js');
 const {validationResult} = require("express-validator");
 
-const allowedKey = ['sale', 'bestseller', 'feature']
+const allowedKey = ['sale', 'bestseller', 'feature', 'all']
 
 const toOrderByString = (x) => {
     const element = x.split('+').filter(k => allowedKey.includes(k))
@@ -18,6 +18,8 @@ const toOrderByString = (x) => {
 
     } else if (element.includes('feature')) {
         str += ' rating desc'
+    } else {
+        str += ' name asc'
     }
     return str
 }

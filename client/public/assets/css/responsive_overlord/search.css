@@ -1,0 +1,33 @@
+.search_container {
+    margin: 0 20px 20px 47px;
+}
+
+@media only screen and (max-width: 1085px) {
+    .search_container {
+        margin: 0 20px 20px 38px;
+    }
+}
+
+@media only screen and (max-width: 785px) {
+    .search_container {
+        margin: 0 20px 20px 27px;
+    }
+}
+
+@media only screen and (max-width: 613px) {
+    .search_container {
+        margin: 0 20px 20px 45px;
+    }
+}
+
+@media only screen and (max-width: 483px) {
+    .search_container {
+        margin: 0 20px 20px 36px;
+    }
+}
+
+@media only screen and (max-width: 396px) {
+    .search_container {
+        margin: 0 20px 20px 28px;
+    }
+}
