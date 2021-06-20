@@ -331,8 +331,8 @@
                 const blurrylight = false
 
                 const canView = available === true;
-                const canDelete = available === true
-                const canRestore = !canDelete
+                const canDelete = false
+                const canRestore = false
                 const canEdit = available === true
                 const canSetDelivered = false
 
@@ -553,6 +553,7 @@
         closePopup()
 
         document.querySelectorAll(`.popopen.${specific}`).forEach(e => {
+            e.classList.add('active')
             e.classList.add('active')
         })
 

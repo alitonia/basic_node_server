@@ -14,8 +14,14 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-//special path that need increase in upload capacity
+//special paths that need increase in upload capacity
 app.use('/admin/products',
+    bodyParser.json({
+        limit: '300kb',
+    })
+)
+
+app.use('/admin/categories',
     bodyParser.json({
         limit: '300kb',
     })
@@ -65,9 +71,9 @@ app.use(require('./routes/admins/updateOrder'))
 
 app.use(require('./routes/admins/viewProducts'))
 app.use(require('./routes/admins/viewCategories'))
-app.use(require('./routes/admins/updateProduct'))
 app.use(require('./routes/admins/addProduct'))
-
+app.use(require('./routes/admins/updateProduct'))
+app.use(require('./routes/admins/updateCategory'))
 
 
 app.get('/test', (req, res) => {
