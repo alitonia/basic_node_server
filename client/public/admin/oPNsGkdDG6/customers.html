@@ -27,7 +27,7 @@
 
 
 <head>
-    <title>Admin - Products</title>
+    <title>Admin - Customers</title>
 </head>
 
 <body>
@@ -53,13 +53,13 @@
                                 <a class="orders-link link" href="./orders.html">ORDERS</a>
                             </li>
                             <li class="menu_item">
-                                <a class="products-link link link-active" href="./products.html">PRODUCTS</a>
+                                <a class="products-link link" href="./products.html">PRODUCTS</a>
                             </li>
                             <li class="menu_item">
                                 <a class="categories-link link" href="./categories.html">CATEGORIES</a>
                             </li>
                             <li class="menu_item">
-                                <a class="customers-link link" href="./customers.html">CUSTOMERS</a>
+                                <a class="customers-link link link-active" href="./customers.html">CUSTOMERS</a>
                             </li>
 
                             <li class="menu_item">
@@ -118,32 +118,20 @@
                     <thead>
                     <tr>
                         <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
-                        <th class="t_customer_id" onclick="openPopup('name')">Product Name <i
+                        <th class="t_customer_id" onclick="openPopup('first_name')">First Name <i
                                 class="fas fa-sort"></i></th>
 
-                        <th class="t_customer_id" onclick="openPopup('description')">Description <i
+                        <th class="t_customer_id" onclick="openPopup('last_name')">Last Name <i
                                 class="fas fa-sort"></i></th>
 
-                        <th class="t_send_email" onclick="openPopup('price')">Price <i
+                        <th class="t_send_email" onclick="openPopup('email')">Email <i
                                 class="fas fa-sort"></i></th>
-                        <th class="date" onclick="openPopup('current_stock')">Current Stock <i class="fas fa-sort"></i>
+                        <th class="date" onclick="openPopup('gender')">Gender<i class="fas fa-sort"></i>
                         </th>
-                        <th class="status" onclick="openPopup('bought')">Bought <i class="fas fa-sort"></i></th>
+                        <th class="status" onclick="openPopup('status')">Status<i class="fas fa-sort"></i></th>
 
-                        <th class="t_customer_id" onclick="openPopup('big_image_link')">Big Image Link <i
+                        <th class="t_customer_id" onclick="openPopup('created_date')">Created Date<i
                                 class="fas fa-sort"></i></th>
-
-                        <th class="t_customer_id" onclick="openPopup('category_id')">Category ID<i
-                                class="fas fa-sort"></i></th>
-
-                        <th class="t_customer_id" onclick="openPopup('available')">Available <i
-                                class="fas fa-sort"></i></th>
-
-                        <th class="t_customer_id" onclick="openPopup('color_options')">Color Options <i
-                                class="fas fa-sort"></i></th>
-                        <th class="t_customer_id" onclick="openPopup('size_options')">Size Options <i
-                                class="fas fa-sort"></i></th>
-
 
                         <th rowspan="3" class="action">Actions</th>
                     </tr>
@@ -208,52 +196,23 @@
             <input type="hidden" name="submit_type" class="p-submit_type" value="edit"/>
 
             <div class="entry product-id-entry">
-                <label for="id" class="search-label align-label">Product ID</label>
+                <label for="id" class="search-label align-label">Customer ID</label>
                 <input type="text" name="id" readonly class="p-id readonly-input"/>
             </div>
 
             <div class="entry">
-                <label for="name" class="search-label align-label">Name</label>
-                <input type="text" name="name" class="p-name" required/>
+                <label for="first_name" class="search-label align-label">First Name</label>
+                <input type="text" name="first_name" class="p-first_name" required/>
             </div>
 
             <div class="with-area entry">
-                <label for="description" class="search-label align-label">Description</label>
-                <textarea cols="30" rows="5" name="description" class="p-description t-ara" required></textarea>
+                <label for="last_name" class="search-label align-label">Last Name</label>
+                <input type="text" name="last_name" class="p-last_name" required/>
             </div>
 
             <div class="entry">
-                <label for="price" class="search-label align-label">Price</label>
-                <input type="number" name="price" class="p-price" step="0.000001" min="0" required/>
-            </div>
-
-            <div class="entry">
-                <label for="bought" class="search-label align-label">Bought</label>
-                <input type="number" name="bought" class="p-bought" min="0" required/>
-            </div>
-            <div class="entry">
-                <label for="current_stock" class="search-label align-label">Current Stock</label>
-                <input type="number" name="current_stock" class="p-current_stock" min="0" required/>
-            </div>
-
-            <div class="entry sentry-looker">
-                <label for="big_image_link" class="search-label align-label">Image</label>
-                <div class="img-container">
-                    <input type="file" name="big_image_link" class="p-big_image_link upload-zone-1 upload-input"
-                           accept=".jpg, .jpeg, .png" title=""/>
-
-                    <div class="preview upload-zone-1 upload-preview">
-                        <p class="nothing-text"></p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="entry">
-                <label for="category_id" class="search-label align-label">Category Id</label>
-                <select class="p-category_id sort-choice custom-choice" name="category_id" required>
-
-                </select>
+                <label for="email" class="search-label align-label">Email</label>
+                <input type="email" name="email" class="p-email" required/>
             </div>
 
             <div class="entry created-date-entry">
@@ -262,39 +221,20 @@
             </div>
 
             <div class="entry">
-                <label for="available" class="search-label align-label">Available</label>
-                <select type="text" name="available" class="p-available sort-choice custom-choice" required>
-                    <option value="true">True</option>
-                    <option value="False">False</option>
+                <label for="gender" class="search-label align-label">Gender</label>
+                <select type="text" name="gender" class="p-gender sort-choice custom-choice" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Female</option>
+                    <option value="not specified">Rather not say</option>
                 </select>
             </div>
 
-
-            <div class="with-area entry">
-                <label for="address" class="search-label align-label">Address</label>
-                <textarea cols="30" rows="5" name="address" class="p-address t-ara" required></textarea>
-            </div>
-
-            <div class="with-area entry">
-                <label for="color_options" class="search-label align-label">Color Option</label>
-                <div class="grand-container">
-                    <input type="hidden" name="color_options" class="p-color_options"/>
-                    <span class="color_zone consec-button-zone"></span>
-                    <input type="text" name="color-adder"
-                           class="additional-add-color-input additional-adder"
-                           placeholder="Add new Color"/>
-                </div>
-            </div>
-
-            <div class="with-area entry">
-                <label for="size_options" class="search-label align-label">Size Option</label>
-                <div class="grand-container">
-                    <input type="hidden" name="size_options" class="p-size_options"/>
-                    <span class="size_zone consec-button-zone"></span>
-                    <input type="text" name="color-adder"
-                           class="additional-add-size-input additional-adder"
-                           placeholder="Add new Size"/>
-                </div>
+            <div class="entry">
+                <label for="status" class="search-label align-label">Status</label>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
             </div>
 
             <div class="popup-buttons">
@@ -494,7 +434,7 @@
     displayOrRemove('display-sort-label', order)
     displayOrRemove('display-search-label', searchby)
 
-    start(sortby, order, page, searchby, target);
+    // start(sortby, order, page, searchby, target);
 
 </script>
 

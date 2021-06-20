@@ -380,3 +380,13 @@ th:hover {
 .aesthetic-null {
     font-weight: bold;
 }
+
+.major-sort {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.first-sort-label {
+    display: block;
+}

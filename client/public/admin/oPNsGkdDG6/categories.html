@@ -59,7 +59,7 @@
                                 <a class="categories-link link link-active" href="./categories.html">CATEGORIES</a>
                             </li>
                             <li class="menu_item">
-                                <a class="customers-link link" href="./customers">CUSTOMERS</a>
+                                <a class="customers-link link" href="./customers.html">CUSTOMERS</a>
                             </li>
 
                             <li class="menu_item">
@@ -164,8 +164,8 @@
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
 
-            <div>
-                <label for="sort-value" class="sort-label">Sort By</label>
+            <div class="major-sort">
+                <label for="sort-value" class="sort-label first-sort-label">Sort By</label>
                 <select name="sort-value" class="sort-choice">
                     <option value="asc">Ascending</option>
                     <option value="desc">Descending</option>
@@ -230,14 +230,6 @@
                 </select>
             </div>
 
-            <!--            <div class="entry">-->
-            <!--                <label for="available" class="search-label align-label">Available</label>-->
-            <!--                <select type="text" name="available" class="p-available sort-choice custom-choice" required>-->
-            <!--                    <option value="true">True</option>-->
-            <!--                    <option value="False">False</option>-->
-            <!--                </select>-->
-            <!--            </div>-->
-
             <div class="popup-buttons">
                 <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
                 <button type="submit" class="action-button view-button">Submit</button>
@@ -248,7 +240,7 @@
 
 
 <script>
-    const PAGE_SIZE = 10
+    const PAGE_SIZE = 30
     const path = '/admin/categories'
 
     let savedProducts = null
