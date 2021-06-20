@@ -66,14 +66,18 @@ app.use(require('./routes/etc/meme.js'));
 
 //admin
 app.use(require('./routes/admins/login.js'))
-app.use(require('./routes/admins/viewOrders'))
-app.use(require('./routes/admins/updateOrder'))
 
+app.use(require('./routes/admins/viewOrders'))
 app.use(require('./routes/admins/viewProducts'))
 app.use(require('./routes/admins/viewCategories'))
+app.use(require('./routes/admins/viewCustomers'))
 
+app.use(require('./routes/admins/updateOrder'))
 app.use(require('./routes/admins/updateProduct'))
 app.use(require('./routes/admins/updateCategory'))
+app.use(require('./routes/admins/updateCustomer'))
+
+
 app.use(require('./routes/admins/addProduct'))
 app.use(require('./routes/admins/addCategory'))
 

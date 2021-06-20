@@ -109,8 +109,8 @@
                     </div>
 
                     <div class="add-new-entry">
-                        <button class="add-new-button action-button" onclick="handleAddNew()">Add New <i
-                                class="fas fa-plus add-icon"></i></button>
+                        <!--                        <button class="add-new-button action-button" onclick="handleAddNew()">Add New <i-->
+                        <!--                                class="fas fa-plus add-icon"></i></button>-->
                     </div>
                 </div>
 
@@ -195,24 +195,24 @@
 
             <input type="hidden" name="submit_type" class="p-submit_type" value="edit"/>
 
-            <div class="entry product-id-entry">
+            <div class="entry customer-id-entry">
                 <label for="id" class="search-label align-label">Customer ID</label>
                 <input type="text" name="id" readonly class="p-id readonly-input"/>
             </div>
 
             <div class="entry">
                 <label for="first_name" class="search-label align-label">First Name</label>
-                <input type="text" name="first_name" class="p-first_name" required/>
+                <input type="text" name="first_name" class="p-first_name" disabled/>
             </div>
 
-            <div class="with-area entry">
+            <div class="entry">
                 <label for="last_name" class="search-label align-label">Last Name</label>
-                <input type="text" name="last_name" class="p-last_name" required/>
+                <input type="text" name="last_name" class="p-last_name" disabled/>
             </div>
 
             <div class="entry">
                 <label for="email" class="search-label align-label">Email</label>
-                <input type="email" name="email" class="p-email" required/>
+                <input type="email" name="email" class="p-email" disabled/>
             </div>
 
             <div class="entry created-date-entry">
@@ -222,24 +222,24 @@
 
             <div class="entry">
                 <label for="gender" class="search-label align-label">Gender</label>
-                <select type="text" name="gender" class="p-gender sort-choice custom-choice" required>
+                <select type="text" name="gender" class="p-gender sort-choice custom-choice  readonly-input" disabled>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="other">Female</option>
-                    <option value="not specified">Rather not say</option>
+                    <option value="other">Other</option>
+                    <option value="not specified">Not Specified</option>
                 </select>
             </div>
 
             <div class="entry">
                 <label for="status" class="search-label align-label">Status</label>
+                <select type="text" name="status" class="p-status sort-choice custom-choice readonly-input" disabled>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
             </div>
 
             <div class="popup-buttons">
-                <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
-                <button type="submit" class="action-button view-button">Submit</button>
+                <button type="button" onclick="closePopup()" class="action-button cancel-button ">Close</button>
             </div>
         </form>
     </div>
@@ -248,7 +248,7 @@
 
 <script>
     const PAGE_SIZE = 30
-    const path = '/admin/products'
+    const path = '/admin/customers'
 
     let savedProducts = null
 
@@ -312,90 +312,47 @@
                 ${products.reduce((acc, cur) => {
                 const {
                     id,
-                    name,
-                    description,
-                    full_description,
-                    price,
-                    bought,
-                    current_stock,
-                    big_image_link,
-                    image_links = '',
-                    category_id,
+                    first_name,
+                    last_name,
+                    email,
+                    gender,
+                    status,
                     created_date,
-                    available,
-                    rating,
-                    total_rated,
-                    address,
-                    color_options,
-                    size_options,
-                    status = ''
                 } = cur
 
-                const notAvailable = (available === false || current_stock === 0)
+                const available = status === 'active'
+
+                const notAvailable = status === 'inactive'
                 const lowlight = notAvailable
 
-                const highlight = false
+                const highlight = status === 'pending'
 
                 const goodlight = false
                 const queerlight = false
 
                 const blurrylight = false
 
-                const canView = available === true;
-                const canDelete = available === true
-                const canRestore = !canDelete
-                const canEdit = available === true
+                const canView = !notAvailable;
+                const canDelete = available
+                const canRestore = notAvailable
+                const canEdit = false
                 const canSetDelivered = false
-
-                const imgLink = `${window.location.origin}/${big_image_link}`
-                const product_link = `${window.location.origin}/product.html?product_id=${id}`
-
-                const colorSpans = tryParse(color_options, []).sort().reduce((acc, c) => {
-                    return `${acc} <div class="small-entry tooltip">
-                        ${c}
-                        <span class="tooltiptext gentle-longness sample-color-preview"
-                        style="background: ${c}"></span>
-                        </div>`
-                }, '')
-
-                const sizeSpans = tryParse(size_options, []).sort().reduce((acc, c) => {
-                    return `${acc} <div class="small-entry">${c}</div>`
-                }, '')
 
                 return acc + `
                     <tr class="${blurrylight ? 'blurry-row' : ''} ${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
-                    <td>${!notAvailable ? `<a href="${product_link}" target="_blank" style="font-weight: 500;">${id}</a>` : `${id}`}</td>
-                    <td>${name}</td>
+                    <td>${id}</td>
+                    <td>${first_name}</td>
+                    <td>${last_name}</td>
+                    <td>${email}</td>
+                    <td class="big-bold">${gender}</td>
+                    <td class="big-bold">${status}</td>
+                    <td>${created_date}</td>
 
-                    <td>
-                    <span class="tooltip">
-                    <p class="description-text">${description}
-                    </p>
-                    <span class="tooltiptext gentle-longness">${description}</span>
-                    </span>
-                    </td>
-
-                    <td>${price.toFixed(3)}</td>
-                    <td>${current_stock}</td>
-                    <td>${bought}</td>
-
-                    <td><span class=" tooltip">
-                    <a href="${imgLink}" target="_blank" style="font-weight: 500;">${big_image_link}</a>
-                    <span class="tooltiptext freedom-img"><img src="${imgLink}" alt="big link"></span>
-                    </span></td>
-
-                    <td>${category_id}</td>
-                    <td>${available}</td>
-
-                    <td class="color-entry">${colorSpans}</td>
-
-                    <td class="size-entry">${sizeSpans}</td>
                     <td>
                     <div class="button-holder">
-                    ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
+                    ${canView ? `<button class="action-button view-button" onclick="handleEdit(${id})">View</button>` : ''}
                     ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
                     ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
-                    ${canEdit ? `<button class="action-button accept-button" onclick="handleEdit(${id})">Edit</button>` : ''}
                     </div>
                     </td>
                     </tr>
@@ -421,7 +378,7 @@
     }
 
     const current_url = new URL(window.location.href)
-    const sortby = current_url.searchParams.get('sortby') || 'name'
+    const sortby = current_url.searchParams.get('sortby') || 'id'
     const order = current_url.searchParams.get('order') || 'asc'
     const page = current_url.searchParams.get('page') || 0
     const searchby = current_url.searchParams.get('searchValue') || 0
@@ -434,13 +391,13 @@
     displayOrRemove('display-sort-label', order)
     displayOrRemove('display-search-label', searchby)
 
-    // start(sortby, order, page, searchby, target);
+    start(sortby, order, page, searchby, target);
 
 </script>
 
 <script>
     async function productModificationRequest(id, fields, method = 'PUT') {
-        return fetch('/admin/products', {
+        return fetch('/admin/customers', {
             method: method, // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -490,10 +447,11 @@
     }
 
     async function addAProduct(id, fields) {
-        return productModificationRequest(id, fields, 'POST')
+        // return productModificationRequest(id, fields, 'POST')
     }
 
     function injectProductPopup(className, value) {
+        console.log(className)
         document.querySelector(`.popopen.addpop .${className}`).value = value
     }
 
@@ -532,171 +490,47 @@
 
 
     const handleEdit = (id) => {
-        const target = savedProducts.find(p => p.id === id)
+        const target = savedProducts.find(p => p.id == id)
         const {
-            name,
-            description,
-            price,
-            bought,
-            current_stock,
-            big_image_link,
-            category_id,
+            first_name,
+            last_name,
+            email,
+            gender,
+            status,
             created_date,
-            available,
-            address,
-            color_options,
-            size_options,
         } = target
 
         injectProductPopup('p-submit_type', 'edit')
         injectProductPopupProps('pop-action', {innerText: 'Edit'})
 
         injectProductPopup('p-id', id)
-        injectProductPopupStyle('product-id-entry', {display: 'flex'})
+        injectProductPopupStyle('customer-id-entry', {display: 'flex'})
 
 
-        injectProductPopup('p-name', name)
-        injectProductPopup('p-description', description)
-        injectProductPopup('p-price', price.toFixed(6))
-        injectProductPopup('p-bought', bought)
+        injectProductPopup('p-first_name', first_name)
+        injectProductPopup('p-last_name', last_name)
+        injectProductPopup('p-email', email)
 
-        injectProductPopup('p-current_stock', current_stock)
-
-        injectProductPopup('p-big_image_link', null)
-        injectProductPopupProps('p-big_image_link', {required: false})
-        clearChild('.upload-zone-1.upload-preview')
-        injectImageToPreview(big_image_link)
-
-        injectProductPopup('p-category_id', category_id)
+        injectProductPopup('p-gender', gender)
+        injectProductPopup('p-status', status)
 
         injectProductPopup('p-created_date', created_date)
         injectProductPopupStyle('created-date-entry', {display: 'flex'})
 
-
-        injectProductPopup('p-address', address)
-        injectProductPopup('p-available', available)
-
-        // start size processing
-        const size_op = tryParse(size_options, [])
-
-        injectProductPopup('p-size_options', size_options)
-        clearChild('.size_zone')
-
-        size_op.forEach(s => {
-            const button = document.createElement('button')
-
-            const idButton = Math.random().toString()
-            button.classList.add(idButton)
-
-            const deleteSelfIcon = document.createElement('i')
-            deleteSelfIcon.classList.add('fas')
-            deleteSelfIcon.classList.add('close')
-            deleteSelfIcon.classList.add('fa-times')
-            deleteSelfIcon.classList.add('small-close')
-
-            deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete size ${s}?`)) {
-                    button.parentNode.removeChild(button)
-                    const newValue = tryParse(document.querySelector('.p-size_options').value, [])
-                        .filter(x => x !== s)
-
-                    document.querySelector('.p-size_options').value = JSON.stringify(newValue)
-                }
-            }
-
-            button.type = 'button'
-            button.innerText = s
-
-            button.classList.add('display-box')
-            button.classList.add('display-page-label')
-            button.classList.add('remove-able-button')
-            // button.style.background = s
-
-            button.onclick = () => {
-                console.log(s)
-            }
-            button.appendChild(deleteSelfIcon)
-
-            button.onmouseenter = () => {
-                // button.style.background = 'black'
-            }
-
-            button.onmouseleave = () => {
-                // button.style.background = s
-            }
-
-            document.querySelector('.size_zone').appendChild(button)
-        })
-
-        // start size processing
-        const color_op = tryParse(color_options, [])
-
-        injectProductPopup('p-color_options', color_options)
-        clearChild('.color_zone')
-
-        color_op.forEach(c => {
-            const button = document.createElement('button')
-
-            const idButton = Math.random().toString()
-            button.classList.add(idButton)
-
-            const deleteSelfIcon = document.createElement('i')
-            deleteSelfIcon.classList.add('fas')
-            deleteSelfIcon.classList.add('close')
-            deleteSelfIcon.classList.add('fa-times')
-            deleteSelfIcon.classList.add('small-close')
-
-            deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete color ${c}?`)) {
-                    button.parentNode.removeChild(button)
-                    const newValue = tryParse(document.querySelector('.p-color_options').value, [])
-                        .filter(x => x !== c)
-
-                    document.querySelector('.p-color_options').value = JSON.stringify(newValue)
-                }
-            }
-
-            button.type = 'button'
-            button.innerText = c
-
-            button.classList.add('display-box')
-            button.classList.add('display-page-label')
-            button.classList.add('remove-able-button')
-            button.style.background = c
-
-            button.onclick = () => {
-                console.log(c)
-            }
-            button.appendChild(deleteSelfIcon)
-
-            button.onmouseenter = () => {
-                button.style.background = 'black'
-            }
-
-            button.onmouseleave = () => {
-                button.style.background = c
-            }
-
-            document.querySelector('.color_zone').appendChild(button)
-        })
-
-        document.querySelectorAll('.additional-adder').forEach(e => {
-            e.value = ''
-        })
-
         openAddPop('')
     }
+
     const handleDelete = (id) => {
-        updateProduct(id, {'available': false})
+        updateProduct(id, {'status': 'inactive'})
 
     }
 
     const handleRestore = (id) => {
-        updateProduct(id, {'available': true})
+        updateProduct(id, {'status': 'active'})
     }
 
     const handleView = (id) => {
-        openNewTab(`${window.location.origin}/product/${id}`)
+        // openNewTab(`${window.location.origin}/product/${id}`)
     }
 </script>
 
@@ -758,429 +592,9 @@
 
 <script src="./assets/js/admin/popupProp.js"></script>
 
-<script>
-    const upload_input = document.querySelector('.upload-zone-1.upload-input')
-    const upload_display_zone = document.querySelector('.upload-zone-1.upload-preview')
-
-    function clearChild(selector) {
-        const x = document.querySelector(selector)
-        if (x) {
-            while (x.firstChild) {
-                x.removeChild(x.firstChild);
-            }
-        }
-    }
-
-    function injectImageToPreview(src) {
-        const image = document.createElement('img');
-        image.classList.add('upload-img-preview-holder')
-        image.src = window.location.origin + '/' + src
-        upload_display_zone.appendChild(image);
-    }
-
-    function updateImageDisplay() {
-        while (upload_display_zone.firstChild) {
-            upload_display_zone.removeChild(upload_display_zone.firstChild);
-        }
-
-        const curFiles = upload_input.files;
-
-        if (curFiles.length === 0) {
-            const para = document.createElement('p');
-            para.classList.add('nothing-text')
-            para.textContent = '';
-            upload_display_zone.appendChild(para);
-        } else {
-            const file = curFiles[0]
-            const para = document.createElement('p');
-            if (validFileType(file)) {
-                const sizeInKB = returnFileSizeInKB(file.size)
-                console.log(sizeInKB)
-                const isTooBig = sizeInKB > maxUploadSize
-                if (isTooBig) {
-                    para.classList.add('danger-file-size')
-                }
-                para.classList.add('something-text')
-                para.textContent = `   ${returnFileSizeString(file.size)} ${isTooBig ? `File too large. Max file size is ${maxUploadSize}KB.` : ''}`;
-                const image = document.createElement('img');
-                image.classList.add('upload-img-preview-holder')
-                image.src = URL.createObjectURL(file);
-                upload_display_zone.appendChild(image);
-            } else {
-                para.classList.add('nothing-text')
-                para.textContent = '';
-            }
-            upload_display_zone.appendChild(para);
-        }
-    }
-
-    upload_input.addEventListener('change', updateImageDisplay);
-
-
-    function addToColors(e) {
-        const isSubmit = e.key === 'Enter'
-
-        if (isSubmit) {
-            const input = document.querySelector('.additional-add-color-input.additional-adder')
-            const value = input.value.toString().trim()
-
-            if (isColor(value)) {
-                const oldColorsInput = document.querySelector('.p-color_options')
-                const pOb = tryParse(oldColorsInput.value, [])
-
-                if (pOb.map(k => k.toLowerCase()).includes(value.toLowerCase())) {
-                    alert('Value already existed!')
-                    return;
-                }
-
-                const newValue = JSON.stringify(pOb.concat(value))
-                console.log(newValue)
-                oldColorsInput.value = newValue
-
-                const button = document.createElement('button')
-
-                const idButton = Math.random().toString()
-                button.classList.add(idButton)
-
-                const deleteSelfIcon = document.createElement('i')
-                deleteSelfIcon.classList.add('fas')
-                deleteSelfIcon.classList.add('close')
-                deleteSelfIcon.classList.add('fa-times')
-                deleteSelfIcon.classList.add('small-close')
-
-                deleteSelfIcon.onclick = () => {
-                    if (window.confirm(`Are you sure you want to delete color ${value}?`)) {
-                        button.parentNode.removeChild(button)
-                        const newValue = tryParse(document.querySelector('.p-color_options').value, [])
-                            .filter(x => x !== value)
-
-                        document.querySelector('.p-color_options').value = JSON.stringify(newValue)
-                    }
-                }
-
-                button.type = 'button'
-                button.innerText = value
-
-                button.classList.add('display-box')
-                button.classList.add('display-page-label')
-                button.classList.add('remove-able-button')
-                button.style.background = value
-
-                button.onclick = () => {
-                    console.log(value)
-                }
-                button.appendChild(deleteSelfIcon)
-
-                button.onmouseenter = () => {
-                    button.style.background = 'black'
-                }
-
-                button.onmouseleave = () => {
-                    console.log(value)
-                    button.style.background = value
-                }
-
-                document.querySelector('.color_zone').appendChild(button)
-                input.value = ''
-            } else {
-                alert('Not a valid color')
-            }
-        }
-    }
-
-    function addToSizes(e) {
-        const isSubmit = e.key === 'Enter'
-
-        if (isSubmit) {
-            const input = document.querySelector('.additional-add-size-input.additional-adder')
-            const value = input.value.toString().trim()
-
-            const oldSizesInput = document.querySelector('.p-size_options')
-            const pOb = tryParse(oldSizesInput.value, [])
-            if (pOb.map(k => k.toLowerCase()).includes(value.toLowerCase())) {
-                alert('Value already existed!')
-                return;
-            }
-
-            const newValue = JSON.stringify(pOb.concat(value))
-            console.log(newValue)
-            oldSizesInput.value = newValue
-
-            const button = document.createElement('button')
-
-            const idButton = Math.random().toString()
-            button.classList.add(idButton)
-
-            const deleteSelfIcon = document.createElement('i')
-            deleteSelfIcon.classList.add('fas')
-            deleteSelfIcon.classList.add('close')
-            deleteSelfIcon.classList.add('fa-times')
-            deleteSelfIcon.classList.add('small-close')
-
-            deleteSelfIcon.onclick = () => {
-                if (window.confirm(`Are you sure you want to delete size ${value}?`)) {
-                    button.parentNode.removeChild(button)
-                    const newValue = tryParse(document.querySelector('.p-size_options').value, [])
-                        .filter(x => x !== value)
-
-                    document.querySelector('.p-size_options').value = JSON.stringify(newValue)
-                }
-            }
-
-            button.type = 'button'
-            button.innerText = value
-
-            button.classList.add('display-box')
-            button.classList.add('display-page-label')
-            button.classList.add('remove-able-button')
-            // button.style.background = s
-
-            button.onclick = () => {
-                console.log(value)
-            }
-            button.appendChild(deleteSelfIcon)
-
-            button.onmouseenter = () => {
-                // button.style.background = 'black'
-            }
-
-            button.onmouseleave = () => {
-                // button.style.background = s
-            }
-
-            document.querySelector('.size_zone').appendChild(button)
-            input.value = ''
-
-        }
-    }
-
-    document.querySelector('.additional-add-color-input.additional-adder').addEventListener('keyup', addToColors)
-
-    document.querySelector('.additional-add-size-input.additional-adder').addEventListener('keyup', addToSizes)
-
-</script>
-
-<script>
-    async function getAllCategories() {
-        return fetch('/admin/categories?is_short=true', {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${token}`
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        }).then(x => {
-            if (x.status === 401) {
-                //unauthorized. Maybe out of session
-                deleteCookie1()
-                alert('Your session has ended. Please log in again')
-                document.location.replace('./login.html')
-            }
-            return x.json()
-        })
-            .then(x => {
-                if (x && x.error) {
-                    throw new Error(x.error)
-                }
-                return x
-            })
-            .catch(err => {
-                alert(err.message)
-                console.warn(err)
-                return null
-            })
-    }
-
-    async function completeFormCategoryChoice() {
-        const categories = await getAllCategories()
-        if (categories === null || categories.length === 0) {
-            return;
-        }
-
-        clearChild('.p-category_id')
-        const p = document.querySelector('.p-category_id')
-
-        categories.forEach(c => {
-            const entry = document.createElement('option')
-            entry.value = c.id;
-            entry.innerText = c.id
-            entry.classList.add('category-id-possible-value')
-            p.appendChild(entry)
-        })
-    }
-
-    completeFormCategoryChoice()
-</script>
-
-<script>
-    const maxUploadSize = 200 //KB
-
-
-    function readFileContent(file, callback) {
-        const fileReader = new FileReader();
-        fileReader.onloadend = function () {
-            callback(fileReader.result);
-        }
-        fileReader.readAsDataURL(file);
-    }
-
-    function handleSubmitProductForm(e) {
-        if (e.preventDefault) {
-            e.preventDefault();
-        }
-
-        const formData = new FormData(e.target)
-
-        const submit_type = formData.get('submit_type')
-        console.log(submit_type)
-
-        const isEdit = submit_type === 'edit'
-        const isAdd = !isEdit
-
-        const reqBody = {}
-
-        const allowedFields = [
-            'name', 'description',
-            'price', 'bought',
-            'current_stock',
-            'big_image_link',
-            'category_id', 'available', 'address',
-            'color_options', 'size_options'
-        ]
-
-        const color_options = formData.get('color_options')
-        const size_options = formData.get('size_options')
-
-        if (tryParse(color_options, []).length === 0) {
-            alert('Product needs at least 1 color')
-            return false;
-        }
-
-        if (tryParse(size_options, []).length === 0) {
-            alert('Product needs at least 1 size')
-            return false;
-        }
-
-
-        for (const pair of formData.entries()) {
-            if (allowedFields.includes(pair[0])) {
-                reqBody[pair[0]] = pair[1]
-            }
-        }
-
-        const uploadedFile = formData.get('big_image_link')
-        const fileSize = returnFileSizeInKB(uploadedFile.size)
-        console.log(fileSize)
-
-        if (fileSize > maxUploadSize) {
-            alert(`Your image is too large. Max upload file size is ${maxUploadSize}KB`)
-            return false
-        }
-
-        const id = formData.get('id')
-
-        if (!id && isEdit) {
-            alert('Id is empty')
-            return false;
-        }
-
-        const type = reqBody['big_image_link'].type
-        const allowedType = /^image\/(png|jpe?g)$/
-
-        console.log(type)
-
-        const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
-
-        if (!allowedType.test(type) && !isImageNotChange) {
-            alert('Invalid file type. Expect jpg/jpeg/png.')
-            return false;
-        }
-
-        readFileContent(reqBody['big_image_link'], (file) => {
-            if (!isImageNotChange) {
-                reqBody['big_image_link_type'] = type
-                reqBody['big_image_link'] = file
-            } else {
-                reqBody['big_image_link'] = ''
-            }
-            if (isEdit) {
-                updateProduct(id, reqBody)
-            } else {
-                addAProduct(id, reqBody)
-            }
-        })
-
-        return false
-    }
-
-    const productForm = document.querySelector('.popopen.addpop .popopen-form');
-    if (productForm.attachEvent) {
-        productForm.attachEvent("submit", handleSubmitProductForm);
-    } else {
-        productForm.addEventListener("submit", handleSubmitProductForm);
-    }
-</script>
-
-<script type="text/javascript">
-
-    function handleAddNew() {
-
-        injectProductPopup('p-submit_type', 'add')
-        injectProductPopupProps('pop-action', {innerText: 'Add new'})
-
-
-        injectProductPopup('p-id', '')
-        injectProductPopupStyle('product-id-entry', {display: 'none'})
-
-
-        injectProductPopup('p-name', '')
-        injectProductPopup('p-description', '')
-        injectProductPopup('p-price', '')
-        injectProductPopup('p-bought', '')
-
-        injectProductPopup('p-current_stock', '')
-
-        injectProductPopup('p-big_image_link', null)
-        injectProductPopupProps('p-big_image_link', {required: true})
-
-        clearChild('.upload-zone-1.upload-preview')
-
-        injectProductPopup('p-category_id', '')
-
-        injectProductPopup('p-created_date', '')
-        injectProductPopupStyle('created-date-entry', {display: 'none'})
-
-
-        injectProductPopup('p-address', '')
-        injectProductPopup('p-available', true)
-
-        // start size processing
-        injectProductPopup('p-size_options', JSON.stringify([]))
-        clearChild('.size_zone')
-
-        // start size processing
-        injectProductPopup('p-color_options', JSON.stringify([]))
-        clearChild('.color_zone')
-
-
-        document.querySelectorAll('.additional-adder').forEach(e => {
-            e.value = ''
-        })
-
-        openAddPop('')
-    }
-</script>
-
 </body>
 
 <style>
-    .styled-table th, .styled-table td {
-        padding: 12px 3px;
-    }
 
     .description-text {
         max-width: 50px;

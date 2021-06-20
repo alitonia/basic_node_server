@@ -390,3 +390,8 @@ th:hover {
 .first-sort-label {
     display: block;
 }
+
+.big-bold {
+    text-transform: capitalize;
+    font-weight: 600;
+}
