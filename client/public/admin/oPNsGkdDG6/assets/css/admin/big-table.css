@@ -376,3 +376,7 @@ th:hover {
 .nowrapper {
     white-space: nowrap;
 }
+
+.aesthetic-null {
+    font-weight: bold;
+}
