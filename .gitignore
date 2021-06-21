@@ -195,3 +195,4 @@ docker_data
 venv
 log
 .DS_Store
+#scripts/extract_banner/Ads.zip

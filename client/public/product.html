@@ -155,6 +155,7 @@
 
         const handleAddToCart = () => {
             const cMessage = document.querySelector('.message_status')
+            cMessage.style.display = 'block'
             cMessage.innerHTML = (``)
 
             const size = document.querySelector('.size_value').value
@@ -197,7 +198,7 @@
                         throw new Error(x.error)
                     } else {
                         cMessage.innerHTML = (`
-                            <h4 style="padding: 10px 10px 10px 0; color: green;">${'Added to Cart'}</h4>
+                            <h4 style="color: green;">${'Added to Cart'}</h4>
                         `)
                         return x
                     }
@@ -328,12 +329,14 @@
                 <input class="cart_plus_minus_box quantity_value" type="number" value="1" min="1">
             </div>
 
-            <div class="message_status" style="color: brown;">
+            <div class="last-front-tier">
+                <div class="message_status" style="color: brown;">
 
-            </div>
+                </div>
 
-            <div class="product_btn add_to_cart_btn" style="margin-top: -20px;" onclick="handleAddToCart()">
-                <a>Add To Cart</a>
+                <div class="product_btn add_to_cart_btn" onclick="handleAddToCart()">
+                    <a>Add To Cart</a>
+                </div>
             </div>
         </div>
     </div>
@@ -445,62 +448,6 @@
 <link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
 <link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
 <link rel="stylesheet" href="assets/css/responsive_overlord/cart.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-detail.css">
 
-<style>
-    @media only screen and (max-width: 500px) {
-        .col_right {
-            display: none
-        }
-
-        .contact_container {
-            width: auto
-        }
-
-        .product_page_name {
-            line-height: 25px;
-        }
-
-        .product_details_container {
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .product_details {
-            padding: 0;
-            margin: 0;
-            width: auto;
-        }
-
-        .p_image {
-            width: 100%;
-            height: auto;
-        }
-
-        .product_details_info {
-            margin-left: 5px;
-            margin-right: 5px;
-            margin-top: 20px;
-        }
-
-        .product_details {
-            height: auto;
-        }
-
-        .product_img {
-            margin: 0 auto !important;
-        }
-
-        .product_size, .product_color {
-            flex-wrap: wrap;
-        }
-
-        .product_size .pd_size {
-            min-width: 38px;
-        }
-
-        .product_size .pd_size, .product_color .pd_color {
-            margin-bottom: 8px;
-        }
-    }
-</style>
 </html>

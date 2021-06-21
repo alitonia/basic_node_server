@@ -9,8 +9,7 @@ route.post('/login', function (req, res, next) {
             return next(err);
         }
 
-        console.log(user)
-        if (!user) {
+        if (!user || user.status !== 'active') {
             res.status(403)
             return res.send(({
                 error: 'Invalid arguments'

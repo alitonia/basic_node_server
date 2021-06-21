@@ -102,3 +102,9 @@
         margin-top: 22px;
     }
 }
+
+@media only screen and (max-width: 294px) {
+    .men, .women {
+        display: none;
+    }
+}
