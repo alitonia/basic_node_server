@@ -17,6 +17,8 @@
 
 <link rel="stylesheet" href="./assets/css/admin/general-header.css">
 <link rel="stylesheet" href="./assets/css/admin/big-table.css">
+<link rel="stylesheet" href="./assets/css/admin/tooltip.css">
+
 
 <script src="./assets/js/admin/tokenManipulation.js"></script>
 <script src="./assets/js/admin/immediateRedirect.js"></script>
@@ -25,7 +27,7 @@
 
 
 <head>
-    <title>Admin - Orders</title>
+    <title>Admin - Order List</title>
 </head>
 
 <body>
@@ -45,10 +47,10 @@
                     <div class="main_menu">
                         <ul class="menu_list">
                             <li class="menu_item">
-                                <a class="admin-panel-link link" href="./home.html">ADMIN PANEL</a>
+                                <a class="admin-panel-link link link-active" href="./home.html">ADMIN PANEL</a>
                             </li>
                             <li class="menu_item">
-                                <a class="orders-link link link-active" href="./orders.html">ORDERS</a>
+                                <a class="orders-link link" href="./orders.html">ORDERS</a>
                             </li>
                             <li class="menu_item">
                                 <a class="products-link link" href="./products.html">PRODUCTS</a>
@@ -79,44 +81,59 @@
         <div class="cart_page_container">
             <div class="board-space" style="width:100%">
 
-                <div class="hyper-values">
-                    <div class="display-box display-page-label">
-                        <span class="display-prefix">Page: </span> <span
-                            class="display-value display-page-label-value"></span>
-                        <i class="fas fa-times close" onclick="resetPage()"></i>
+                <div class="addon-before-main-dish">
+                    <div class="hyper-values">
+                        <div class="display-box display-page-label">
+                            <span class="display-prefix">Page: </span> <span
+                                class="display-value display-page-label-value"></span>
+                            <i class="fas fa-times close" onclick="resetPage()"></i>
+                        </div>
+
+                        <div class="display-box display-target-label">
+                            <span class="display-prefix">Target: </span> <span
+                                class="display-value display-target-label-value"></span>
+                            <!--                        <i class="fas fa-times close"></i>-->
+                        </div>
+
+                        <div class="display-box display-sort-label">
+                            <span class="display-prefix">Sort: </span> <span
+                                class="display-value display-sort-label-value"></span>
+                            <!--                        <i class="fas fa-times close"></i>-->
+                        </div>
+
+                        <div class="display-box display-search-label">
+                            <span class="display-prefix">Search: </span> <span
+                                class="display-value display-sort-label-value"></span> <i
+                                class="fas fa-times close" onclick="resetSearch()"></i>
+                        </div>
                     </div>
 
-                    <div class="display-box display-target-label">
-                        <span class="display-prefix">Target: </span> <span
-                            class="display-value display-target-label-value"></span>
-                        <!--                        <i class="fas fa-times close"></i>-->
-                    </div>
-
-                    <div class="display-box display-sort-label">
-                        <span class="display-prefix">Sort: </span> <span
-                            class="display-value display-sort-label-value"></span>
-                        <!--                        <i class="fas fa-times close"></i>-->
-                    </div>
-
-                    <div class="display-box display-search-label">
-                        <span class="display-prefix">Search: </span> <span
-                            class="display-value display-sort-label-value"></span> <i
-                            class="fas fa-times close" onclick="resetSearch()"></i>
+                    <div class="add-new-entry">
+                        <!--                        <button class="add-new-button action-button" onclick="handleAddNew()">Add New <i-->
+                        <!--                                class="fas fa-plus add-icon"></i></button>-->
                     </div>
                 </div>
 
                 <table class="styled-table">
                     <thead>
                     <tr>
-                        <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
-                        <th class="t_customer_id" onclick="openPopup('customer_id')">Customer ID <i
-                                class="fas fa-sort"></i></th>
-                        <th class="t_send_email" onclick="openPopup('email')">Send Email <i
-                                class="fas fa-sort"></i></th>
-                        <th class="date" onclick="openPopup('order_date')">Order Date <i class="fas fa-sort"></i>
+                        <th class="t_id" onclick="openPopup('product_id')">Product ID<i class="fas fa-sort"></i></th>
+
+                        <th class="t_id" onclick="openPopup('product_name')">Product Name<i class="fas fa-sort"></i>
                         </th>
-                        <th class="status" onclick="openPopup('status')">Status <i class="fas fa-sort"></i></th>
-                        <th rowspan="3" class="action">Actions</th>
+
+                        <th class="t_customer_id" onclick="openPopup('color')">Color<i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('size')">Size<i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('quantity')">Quantity<i
+                                class="fas fa-sort"></i></th>
+
+
+                        <th class="t_customer_id" onclick="openPopup('price')">Price<i class="fas fa-sort"></i>
+                        </th>
                     </tr>
                     </thead>
 
@@ -142,7 +159,8 @@
     </div>
 </div>
 
-<div class="popopen" onclick="closePopup()">
+
+<div class="popopen sortpop" onclick="closePopup()">
     <div class="popopen-content no-prop">
         <form class="popopen-form">
             <input type="hidden" name="field" class="target-field"/>
@@ -168,11 +186,16 @@
     </div>
 </div>
 
+
 <script>
     const PAGE_SIZE = 30
+    const path = '/admin/orders'
+    const receipt_id = getParam('receipt_id', null)
 
-    async function getOrders(sortby = 'order_date', order = 'desc', page = 0, searchby = '') {
-        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
+    let savedProducts = null
+
+    async function getProducts(sortby = 'name', order = 'asc', page = 0, searchby = '') {
+        return fetch(`${path}/${receipt_id}?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -184,6 +207,7 @@
             redirect: 'follow', // manual, *follow, error
             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         }).then(x => {
+            //TODO: fix this
             if (x.status >= 400) {
                 if (x.status === 401) {
                     //unauthorized. Maybe out of session
@@ -200,65 +224,87 @@
         })
     }
 
-    async function start(sortby = 'order_date', order = 'desc', page = 0, searchby = '', target) {
-        if (!isLogin) {
+    async function start(sortby = 'name', order = 'asc', page = 0, searchby = '', target) {
+        if (!isLogin || !receipt_id) {
             return;
         }
         if (getParam('page', 0) == 0) {
             document.querySelector('.cb-left').style.display = 'none'
         }
 
-        const orders = await getOrders(sortby, order, page, searchby)
-        if (!orders) {
+        const products = await getProducts(sortby, order, page, searchby)
+
+        console.log(products)
+        if (!products || products.length === 0) {
             return;
         }
+        savedProducts = products[0]['products'] || []
+
         const injectSpace = document.querySelector('.injectable-space')
         const space = document.querySelector('.board-space')
 
-        if (orders.length < PAGE_SIZE) {
+        if (savedProducts.length < PAGE_SIZE) {
             document.querySelector('.cb-right').style.display = 'none'
         }
 
-        if (orders.length === 0) {
+        if (savedProducts.length === 0) {
             // space.innerHTML = (`
             //     <h4 style="font-size: 20px">Orders are empty</h4>
             // `)
         } else {
             injectSpace.innerHTML = (`
-            ${orders.reduce((acc, cur) => {
-                const {id = null, order_date = '', status, customer_id, email} = cur
-                const highlight = status === 'pending'
-                const lowlight = status === 'cancelled'
-                const goodlight = status === 'delivered'
-                const queerlight = status === 'confirmed'
+                ${savedProducts.reduce((acc, cur) => {
+                const {
+                    product_id,
+                    product_name,
+                    color,
+                    size,
+                    quantity,
+                    price
+                } = cur
 
-                const canView = true;
-                const canAccept = status === 'pending'
-                const canCancel = status === 'pending' || status === 'confirmed'
-                const canSetDelivered = status === 'confirmed'
-                const canBackPending = status !== 'pending'
+                const available = true
+                const notAvailable = (available === false)
+                const lowlight = notAvailable
+
+                const highlight = false
+
+                const goodlight = false
+                const queerlight = false
+
+                const blurrylight = false
+
+                const canView = available === true;
+                const canDelete = available === true
+                const canRestore = !canDelete
+                const canEdit = available === true
+                const canSetDelivered = false
+
+                //TODO;
+                const product_link = `./products.html?sortby=id&searchValue=${product_id}&target=${product_id}`
+
 
                 return acc + `
-                    <tr class="${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
-                        <td>${id}</td>
-                        <td><a href="./customers.html?sortby=id&searchValue=${customer_id}&target=${customer_id}">${customer_id}</a></td>
-                        <td>${email}</td>
-                        <td>${order_date}</td>
-                        <td>${capitalize(status)}</td>
-                        <td>
-                            <div class="button-holder">
-                                ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View</button>` : ''}
-                                ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
-                                ${canAccept ? `<button class="action-button accept-button" onclick="handleAccept(${id})">Accept</button>` : ''}
-                                ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
-                                ${canCancel ? `<button class="action-button cancel-button" onclick="handleCancel(${id})">Cancel</button>` : ''}
-                            </div>
-                        </td>
+                    <tr class="${blurrylight ? 'blurry-row' : ''} ${`entity-id-${product_id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
+                    <td>${!notAvailable ? `<a href="${product_link}" target="_blank" style="font-weight: 500;">${product_id}</a>` : `${product_id}`}</td>
+                    <td>${product_name}</td>
+
+
+                    <td>
+                        <div class="small-entry tooltip">
+                        ${color}
+                        <span class="tooltiptext gentle-longness sample-color-preview"
+                        style="background: ${color}"></span>
+                        </div>
+                    </td>
+                    <td>${size}</td>
+                    <td>${quantity}</td>
+                    <td>${price.toFixed(3)}</td>
                     </tr>
-                `;
+                    `;
+
             }, '')}
-            `)
-            console.log('t', target)
+`)
             if (target) {
                 const mayScrollToElement = document.querySelector(`.entity-id-${target}`)
                 if (mayScrollToElement) {
@@ -277,11 +323,13 @@
     }
 
     const current_url = new URL(window.location.href)
-    const sortby = current_url.searchParams.get('sortby') || 'order_date'
-    const order = current_url.searchParams.get('order') || 'desc'
+    const sortby = current_url.searchParams.get('sortby') || 'product_name'
+    const order = current_url.searchParams.get('order') || 'asc'
     const page = current_url.searchParams.get('page') || 0
     const searchby = current_url.searchParams.get('searchValue') || 0
+
     const target = getParam('target', null)
+
 
     displayOrRemove('display-page-label', page)
     displayOrRemove('display-target-label', sortby)
@@ -289,89 +337,28 @@
     displayOrRemove('display-search-label', searchby)
 
     start(sortby, order, page, searchby, target);
+
 </script>
 
 <script>
-    async function updateStatus(id, status) {
-        return fetch('/admin/orders', {
-            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-            mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${token}`
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify({
-                id: id,
-                status: status
-            })
-        }).then(x => {
-            if (x.status === 401) {
-                //unauthorized. Maybe out of session
-                deleteCookie1()
-                alert('Your session has ended. Please log in again')
-                document.location.replace('./login.html')
-            }
-            // reload()
-            return x.json()
-        })
-            .then((x) => {
-                if (x && x.error) {
-                    throw new Error(x.error)
-                } else {
-                    reload(x.id)
-                }
-            })
-            .catch(err => {
-                alert(err.toString())
-                return null
-            })
-    }
-
-    const handleRevert = (id) => {
-        //set status = pending
-        updateStatus(id, 'pending')
-    }
-    const handleAccept = (id) => {
-        // confirmed
-        updateStatus(id, 'confirmed')
-
-    }
-    const handleDelivered = (id) => {
-        //delivered
-        updateStatus(id, 'delivered')
-
-    }
-    const handleCancel = (id) => {
-        //cancel
-        updateStatus(id, 'cancelled')
-
-    }
-    const handleView = (id) => {
-        window.open(`./orderdetail.html?receipt_id=${id}`)
-    }
-</script>
-
-<script>
-    function openPopup(id) {
-        document.querySelectorAll('.popopen').forEach(e => {
-            e.classList.add('active')
-        })
-        if (id) {
-            document.querySelectorAll('.popopen .target-field').forEach(e => {
-                e.value = id
-            })
-        }
-    }
-
     function closePopup() {
         document.querySelectorAll('.popopen').forEach(e => {
             e.classList.remove('active')
         })
     }
+
+    function openPopup(id, specific = 'sortpop') {
+        closePopup()
+
+        document.querySelectorAll(`.popopen.${specific}`).forEach(e => {
+            e.classList.add('active')
+        })
+
+        document.querySelectorAll(`.popopen.${specific} .target-field`).forEach(e => {
+            e.value = id || ''
+        })
+    }
+
 
     function processForm(e) {
         console.log('here')
@@ -387,7 +374,7 @@
         return false
     }
 
-    const form = document.querySelector('.popopen-form');
+    const form = document.querySelector('.popopen.sortpop .popopen-form');
     if (form.attachEvent) {
         form.attachEvent("submit", processForm);
     } else {
@@ -409,9 +396,29 @@
 </body>
 
 <style>
-    .naviagte-buttons {
-        margin-bottom: 20px;
+    .styled-table th, .styled-table td {
+        padding: 12px 3px;
     }
+
+    .description-text {
+        max-width: 50px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .color-entry {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        min-height: 100px;
+    }
+
+    .small-entry {
+        padding-bottom: 3px;
+    }
+
 </style>
 
 </html>

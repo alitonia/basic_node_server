@@ -444,7 +444,7 @@
                     <span class="tooltiptext freedom-img"><img src="${imgLink}" alt="big link"></span>
                     </span></td>
 
-                    <td>${category_id}</td>
+                    <td><a href="./categories.html?sortby=id&searchValue=${category_id}&target=${category_id}">${category_id}</a></td>
                     <td>${available}</td>
 
                     <td class="color-entry">${colorSpans}</td>
@@ -1247,6 +1247,18 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+    }
+
+    .color-entry {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        min-height: 100px;
+    }
+
+    .small-entry {
+        padding-bottom: 3px;
     }
 
 </style>

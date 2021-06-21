@@ -60,12 +60,26 @@ const check_existing_orders = (customer_id) => {
     )
 }
 
+const checkUserActive = (customer_id) => {
+    return `
+        SELECT *
+        FROM customers
+        where id = ${customer_id}
+          and status = 'active';
+    `
+}
+
 
 exports.purchase = async (req, res) => {
     const user_id = req.user.id
     const body = req.body || {};
 
     try {
+        const user = await pool.query(checkUserActive)
+        if (user.rowCount === 0) {
+            throw new Error('Invalid request')
+        }
+
         const existing_orders = await pool.query(check_existing_orders(user_id))
 
         if (existing_orders.rowCount === 0) {

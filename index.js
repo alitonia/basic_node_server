@@ -68,6 +68,7 @@ app.use(require('./routes/etc/meme.js'));
 app.use(require('./routes/admins/login.js'))
 
 app.use(require('./routes/admins/viewOrders'))
+app.use(require('./routes/admins/getOrderById'))
 app.use(require('./routes/admins/viewProducts'))
 app.use(require('./routes/admins/viewCategories'))
 app.use(require('./routes/admins/viewCustomers'))
