@@ -1,0 +1,83 @@
+.btn-home {
+    width: auto;
+    float: none;
+    padding: 10px 7px;
+    height: auto;
+    border-radius: 7px;
+    z-index: 3;
+    border: 1px solid;
+}
+
+#main {
+    width: 435px;
+    height: auto;
+    border-radius: 0;
+
+}
+
+#main .tb {
+    border-radius: 5px;
+    margin-bottom: 7px;
+}
+
+.t-tag {
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    padding: 7px 0;
+}
+
+.t-tag > .text {
+    padding-bottom: 9px;
+}
+
+.extra-line {
+    display: none;
+}
+
+.t-tag p span {
+    font-size: 30px;
+}
+
+#main .btn {
+    width: auto;
+    height: auto;
+    border-radius: 7px;
+    padding: 10px 42%;
+}
+
+@media only screen and (max-width: 480px) {
+    .btn-home {
+        display: none;
+    }
+
+    #main .tb {
+        width: auto;
+    }
+
+    #main .btn {
+        padding: 10px 38%;
+        margin-top: 20px;
+    }
+
+    .footer-content > p {
+        text-align: center;
+        margin: 10px;
+    }
+
+    .footer-content > p a {
+        font-size: 16px !important;
+    }
+
+    .footer-content > span {
+        font-size: 18px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .body {
+        padding-left: 0;
+        padding-right: 0;
+
+    }
+}

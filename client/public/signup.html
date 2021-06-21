@@ -70,14 +70,14 @@
 
 <div id="main">
     <div class="t-tag">
-        <div class="text" style="padding-top: 50px;">
+        <div class="text">
             <p>Sign Up</p>
         </div>
     </div>
 
     <!-- !-- login box -->
     <!-- <br><br><br> -->
-    <div class="login" style="padding-top: 20px;">
+    <div class="login">
 
         <input type="text" placeholder="Full name" id="name" class="tb fname_k"/><br>
         <!-- <input type="radio" id="male">Male <input type="radio" id="female">Female<br>  -->
@@ -92,81 +92,39 @@
 </div>
 </body>
 
-
-<script>
-    // z-index: 2;
-    // border: 1px solid;
-    // padding: 12px 5px;
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 760) {
-            const btnn = document.querySelector('.btn-home')
-            btnn.style['width'] = 'auto'
-            btnn.style['height'] = 'auto'
-            btnn.style['padding-top'] = '0px'
-            btnn.style['z-index'] = '2'
-            btnn.style['border'] = '1px solid'
-            btnn.style['padding'] = '12px 5px'
-        } else {
-            const btnn = document.querySelector('.btn-home')
-            btnn.style['padding'] = 'none'
-            btnn.style['height'] = '40px'
-            btnn.style['padding-top'] = '15px'
-            btnn.style['z-index'] = '2'
-            btnn.style['border'] = 'none'
-
-        }
+<style>
+    .text p {
+        font-size: 34px;
     }
 
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
+    .t-tag > .text {
+        padding-top: 20px;
+    }
 
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
+    #main .btn {
+        padding: 10px 36% !important;
+    }
 
-</script>
+    .br {
+        display: none;
+    }
 
-<style>
-    @media only screen and (max-width: 360px) {
-        #main {
-            width: auto;
-            height: auto;
-        }
+    #main .btn {
+        margin-top: 20px;
+    }
 
-        .t-tag {
-            width: auto;
-            height: auto;
-        }
+    .btn-home {
+        height: auto;
+        padding-top: 0;
+    }
 
-        #main .tb {
-            width: auto;
-        }
-
-        .btn-home {
-            margin-top: 0;
-        }
-
-        .text > p {
-            font-size: 2ch;
-        }
-
-        .login {
-            padding-top: 0;
-            margin-top: 10px;
-        }
-
+    @media only screen and (max-width: 480px) {
         #main .btn {
-            width: auto;
+            padding: 10px 28% !important;
         }
-
-        .sbmit_k {
-            padding: 10px 15px;
-        }
-
-
     }
 </style>
+<link rel="stylesheet" href="./assets/css/responsive_overlord/login.css">
+
+
 </html>

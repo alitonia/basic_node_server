@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/login.css"/>
     <title>Sign In Page</title>
     <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
 
@@ -23,12 +24,12 @@
 
     <!-- login box -->
     <div class="login">
-        <input type="text" placeholder="Email address" id="email" class="tb email_f"/><br>
+        <input type="text" placeholder="Email address" id="email" class="tb email_f"/><br class="extra-line">
         <input type="password" placeholder="Password" id="password" class="tb password_f"/>
         <input type="submit" value="SIGN IN" onclick="login()" class="btn submit-btn" style="margin-top:30px;"/><br>
         <!-- End of login box -->
     </div>
-    <br>
+    <br class="extra-line">
     <div class="footer-content">
         <span style="font-size: 2ch;" class="dont-have">Don't have account?</span>
         <p><b><a href="signup.html"
@@ -100,75 +101,8 @@
         }
     }
 </script>
-
-<script>
-    // z-index: 2;
-    // border: 1px solid;
-    // padding: 12px 5px;
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 760) {
-            const btnn = document.querySelector('.btn-home')
-            btnn.style['width'] = 'auto'
-            btnn.style['height'] = 'auto'
-            btnn.style['padding-top'] = '0px'
-            btnn.style['z-index'] = '2'
-            btnn.style['border'] = '1px solid'
-            btnn.style['padding'] = '12px 5px'
-        } else {
-            const btnn = document.querySelector('.btn-home')
-            btnn.style['padding'] = 'none'
-            btnn.style['height'] = '40px'
-            btnn.style['padding-top'] = '15px'
-            btnn.style['z-index'] = '2'
-            btnn.style['border'] = 'none'
-
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
-
-</script>
 </body>
 
-<style>
-    @media only screen and (max-width: 360px) {
+<link rel="stylesheet" href="./assets/css/responsive_overlord/login.css">
 
-        .email_f, .password_f, .t-tag, #main, #main .btn, #main .tb {
-            width: auto;
-        }
-
-        #main {
-            height: auto;
-        }
-
-        .btn-home {
-            margin-top: auto;
-        }
-
-        .text > p > span {
-            font-size: 0.75ch;
-        }
-
-        .extra-line {
-            display: none;
-        }
-
-        .submit-btn {
-            padding: 12px 29px;
-        }
-
-        .login {
-            margin: 20px auto 20px auto;
-        }
-    }
-
-</style>
 </html>
