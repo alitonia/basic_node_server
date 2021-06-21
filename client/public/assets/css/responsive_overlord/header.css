@@ -74,4 +74,8 @@
     .men, .women {
         display: flex;
     }
+
+    .menu_item {
+        text-align: left;
+    }
 }

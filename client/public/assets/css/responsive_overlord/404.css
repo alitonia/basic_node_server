@@ -1,0 +1,104 @@
+.transaction_page_container, .transaction_page_area {
+    padding: 0;
+}
+
+.transaction_page_container {
+    margin-top: 120px;
+}
+
+@media only screen and (max-width: 1015px) {
+    .icon-404 {
+        width: 26%;
+        margin-top: 6px;
+    }
+}
+
+@media only screen and (max-width: 863px) {
+    .icon-404 {
+        width: 22%;
+        margin-top: 6px;
+    }
+
+    .icon-404 > img {
+        max-width: 50%;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .failed-message h2 {
+        font-size: 52px;
+    }
+
+    .transaction_title_area, .menu_wrap {
+        display: none;
+    }
+
+    .transaction_page_container {
+        margin-top: 60px;
+    }
+}
+
+@media only screen and (max-width: 680px) {
+    .icon-404 {
+        display: none;
+    }
+
+    .transaction_page_container {
+        flex-direction: column;
+    }
+
+    .failed-message {
+        width: auto;
+        text-align: center;
+        padding: 0;
+        margin-bottom: 76px;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .failed-message {
+        margin-bottom: 35px;
+        margin-top: 30px;
+    }
+
+    .failed-message h2 {
+        font-size: 40px;
+    }
+
+    .home-back {
+        height: auto;
+        margin-top: 0;
+        font-size: 18px;
+        padding: 14px 12px;
+    }
+
+    .home-back a {
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .extra {
+        display: none;
+    }
+
+    .transaction_page_area {
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .failed-message h2 {
+        font-size: 27px;
+    }
+
+    .home-back {
+        font-size: 15px;
+        padding: 13px 10px;
+        text-transform: uppercase;
+    }
+
+    .transaction_page_container {
+        margin-top: 22px;
+    }
+}

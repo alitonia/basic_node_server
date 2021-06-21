@@ -1,3 +1,7 @@
+.product_filter {
+    max-width: 500px;
+}
+
 @media only screen and (max-width: 1060px) {
     .box_content {
         display: none;

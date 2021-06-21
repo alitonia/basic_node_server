@@ -6,6 +6,20 @@
     padding-left: 10px;
 }
 
+.col_left > h2 {
+    padding-left: 10px;
+}
+
+@media only screen and (max-width: 680px) {
+    .col_left h2 {
+        font-size: 22px;
+    }
+
+    .transaction_title_area, .about_us_title_area, .men_title_area, .contact_title_area {
+        padding: 34px 0;
+    }
+}
+
 @media only screen and (max-width: 585px) {
     .list_nav li, .list_nav li a {
         padding-right: 9px;

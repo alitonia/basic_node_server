@@ -1,0 +1,46 @@
+.form_row {
+    flex-direction: column;
+}
+
+.form_control_subject, .form_email input, .form_name input {
+    padding: 10px 110px 10px 15px;
+}
+
+.form_message textarea {
+    max-width: 80%;
+}
+
+@media only screen and (max-width: 676px) {
+    .contact_page_container {
+        width: auto;
+        flex-direction: column-reverse;
+        padding-left: 10px;
+    }
+
+    .contact_input, .contact_info {
+        width: auto;
+    }
+
+    .contact_info {
+        margin-top: 0px;
+    }
+
+    .contact_info, .contact_input {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .form_control_subject, .form_email input, .form_name input {
+        padding: 10px 51px 10px 15px;
+    }
+
+    .contact_input {
+        margin-top: 20px;
+    }
+
+    .form_message textarea {
+        max-width: 94%;
+    }
+
+}

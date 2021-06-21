@@ -6,7 +6,7 @@
 }
 
 .about_us_container {
-    width: 1200px;
+    /*width: 1200px;*/
     display: flex;
     justify-content: space-between;
     margin: auto;
@@ -329,7 +329,7 @@
 }
 
 .about_us_page_container {
-    width: 1200px;
+    /*width: 1200px;*/
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

@@ -155,7 +155,7 @@
                     <li>Contact@yourcompany.com</li>
                 </ul>
             </div>
-            <div class="single_footer">
+            <div class="single_footer chosen-footer">
                 <h4>INFORMATION</h4>
                 <ul>
                     <li>About us</li>
@@ -165,7 +165,7 @@
                     <li>Contact us</li>
                 </ul>
             </div>
-            <div class="single_footer service">
+            <div class="single_footer service chosen-single">
                 <h4>Service</h4>
                 <ul>
                     <li>My Account</li>
@@ -291,186 +291,13 @@
     }
 </script>
 
+<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/contact-us.css">
 
-<script>
-
-    const changeVisibility = (classNames, value, all = false) => {
-        if (all === false) {
-            classNames.forEach(className => {
-                console.log(className)
-                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
-            })
-        } else {
-            classNames.forEach(className => {
-                document.querySelectorAll(`.${className}`).forEach(e => {
-                    e.style.display = value ? 'initial' : 'none'
-                })
-            })
-        }
-    }
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 676) {
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'flex-start'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '16px'
-            })
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-            changeVisibility(['women', 'men'], false)
-
-            changeVisibility(['service'], false)
-        } else if (width <= 760) {
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'space-around'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '80px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '0px'
-            })
-
-            changeVisibility(['service'], true)
-            changeVisibility(['women', 'men'], false)
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '0px'
-                document.querySelector('.sign_up').style['margin-right'] = '10px'
-            }
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-
-            document.querySelector('.contact_page_area').style['padding-left'] = '10px'
-
-
-            document.querySelector('.contact_page_container').style['width'] = 'auto'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = 'auto'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-        } else {
-            changeVisibility(['women', 'men'], true)
-            //sign in-up
-            document.querySelector('.contact_page_area').style['padding-left'] = '0px'
-
-            document.querySelector('.contact_page_container').style['width'] = '1200px'
-
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '50px'
-                document.querySelector('.sign_up').style['margin-right'] = '20px'
-            }
-
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '1px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px'
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = '382px'
-            })
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
-
-</script>
-
-<style>
-    @media only screen and (max-width: 676px) {
-        .sign_in_up {
-            float: none;
-            padding-left: 53px;
-        }
-
-        .sign_in a h3, .sign_up a h3, .log_out a h3 {
-            margin-top: 0;
-        }
-
-        .contact_page_container {
-            width: auto;
-            flex-direction: column-reverse;
-            padding-left: 10px;
-        }
-
-        .contact_input, .contact_info {
-            width: auto;
-        }
-
-        .contact_info {
-            margin-top: 40px;
-        }
-
-        .home, .men, .women {
-            display: block !important;
-        }
-
-        .contact_info, .contact_input {
-            width: 100% !important;
-        }
-    }
-</style>
 </html>

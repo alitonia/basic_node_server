@@ -114,6 +114,7 @@ module.exports.addToCart = (req, res) => {
                         if (!response1 || response1.rows.length === 0) {
                             await pool.query(create_cart(user_id), (err2, response2) => {
                                     if (err2) {
+                                        console.log(err2)
                                         res.status(403)
                                         return res.send({error: 'Error create new cart'})
                                     } else {
@@ -126,8 +127,9 @@ module.exports.addToCart = (req, res) => {
 
                         pool.query(check_existing_cart(user_id), (err, response) => {
                             if (err || response.rows.length === 0) {
+                                console.log(err)
                                 res.status(403)
-                                return res.send({error: 'Error create new cart'})
+                                return res.send({error: 'Error create new cart 1'})
                             } else {
                                 const receipt_id = response.rows[0].id
                                 // if product already exist => add more, else create new order

@@ -111,7 +111,7 @@
                         <li>Contact@yourcompany.com</li>
                     </ul>
                 </div>
-                <div class="single_footer">
+                <div class="single_footer chosen-footer">
                     <h4>INFORMATION</h4>
                     <ul>
                         <li>About us</li>
@@ -121,7 +121,7 @@
                         <li>Contact us</li>
                     </ul>
                 </div>
-                <div class="single_footer service">
+                <div class="single_footer service chosen-single">
                     <h4>Service</h4>
                     <ul>
                         <li>My Account</li>
@@ -309,21 +309,41 @@
                 <div class="a_product ${isNotAvailable ? 'expired' : ''}">
                     <div class='product_infor'>
                         <img class='product_img' src='${cur.big_image_link}'>
-                        <div class='product_detail'>
+
+                        <div class='product_detail main-dish'>
                             <h2 class='product_title' style="line-height: 23px">${cur.product_name}</h2>
                             <p class='color_display' >Color: <span class='color_product'>${cur.color}</span></p>
                             <p class='size_display' >Size: <span class='size_product'>${cur.size}</span></p>
                         </div>
                     </div>
-                    <div class='product_price'>
+                    <div class="alternative">
+                        <div class='product_detail'>
+                                <h2 class='product_title' style="line-height: 23px">${cur.product_name}</h2>
+                                <p class='color_display' >Color: <span class='color_product'>${cur.color}</span></p>
+                                <p class='size_display' >Size: <span class='size_product'>${cur.size}</span></p>
+                        </div>
+                        <div class='product_price'>
+                            <h2 class="price_tag">Price($)</h2>
+                            <p class='price'>$${cur.price.toFixed(2)}</p>
+                        </div>
+                        <div class='product_quantity'>
+                            <h2 class="quantity_tag">Quantity</h2>
+                            <p class='quantity'>${!isNotAvailable ? cur.quantity : '<span class="warning-sight">This product is out of stock. Please remove it before you continue.</span>'}</p>
+                        </div>
+                        <div class='btn_delete'>
+                            <button class='remove' style="padding: 5px;" onclick="handleRemove(${cur.product_id}, ${cur.receipt_id}, '${cur.color}', '${cur.size}')">Remove</button>
+                        </div>
+                    </div>
+
+                    <div class='product_price main-dish'>
                         <h2 class="price_tag">Price($)</h2>
                         <p class='price'>$${cur.price.toFixed(2)}</p>
                     </div>
-                    <div class='product_quantity'>
+                    <div class='product_quantity main-dish'>
                         <h2 class="quantity_tag">Quantity</h2>
                         <p class='quantity'>${!isNotAvailable ? cur.quantity : '<span class="warning-sight">This product is out of stock. Please remove it before you continue.</span>'}</p>
                     </div>
-                    <div class='btn_delete'>
+                    <div class='btn_delete main-dish'>
                         <button class='remove' style="padding: 5px;" onclick="handleRemove(${cur.product_id}, ${cur.receipt_id}, '${cur.color}', '${cur.size}')">Remove</button>
                     </div>
                 </div>
@@ -334,7 +354,6 @@
             if (!canMoveOnFlag) {
                 document.querySelector('.transaction_button').classList.add('no-go-button')
             }
-            handleChangeWith(document.documentElement.clientWidth)
         }
     }
 
@@ -348,236 +367,16 @@
         }
     }
 </script>
-
-
-<script>
-
-    const changeVisibility = (classNames, value, all = false) => {
-        if (all === false) {
-            classNames.forEach(className => {
-                console.log(className)
-                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
-            })
-        } else {
-            classNames.forEach(className => {
-                document.querySelectorAll(`.${className}`).forEach(e => {
-                    e.style.display = value ? 'initial' : 'none'
-                })
-            })
-        }
-    }
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 575) {
-
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'flex-start'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '16px'
-            })
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-            changeVisibility(['women', 'men'], false)
-
-            changeVisibility(['service'], false)
-        } else if (width <= 1151) {
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'space-around'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '80px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '0px'
-            })
-
-            changeVisibility(['service'], true)
-
-            changeVisibility(['women', 'men'], false)
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.product_title').forEach(e => {
-                e.style['font-size'] = '13px'
-            })
-
-            // document.querySelectorAll('.color_product').forEach(e => {
-            //     e.style['font-size'] = '13px'
-            // })
-            document.querySelector('.cart_page_area').style['padding-left'] = '0'
-            document.querySelector('.cart_page_area').style['padding-right'] = '0'
-
-
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = 'auto'
-            })
-
-
-            document.querySelectorAll('.price_tag').forEach(e => {
-                e.style['font-size'] = '16px'
-            })
-
-            document.querySelectorAll('.quantity_tag').forEach(e => {
-                e.style['font-size'] = '16px'
-            })
-
-            document.querySelectorAll('.color_display').forEach(e => {
-                e.style['margin-top'] = '5px'
-            })
-            document.querySelectorAll('.size_display').forEach(e => {
-                e.style['margin-top'] = '5px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-            document.querySelectorAll('.continue_shopping').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-        } else {
-            changeVisibility(['women', 'men'], true)
-            //sign in-up
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '1px'
-            })
-
-            document.querySelectorAll('.price_tag').forEach(e => {
-                e.style['font-size'] = '18px'
-            })
-
-            document.querySelectorAll('.quantity_tag').forEach(e => {
-                e.style['font-size'] = '18px'
-            })
-
-            document.querySelectorAll('.color_display').forEach(e => {
-                e.style['margin-top'] = '7px'
-            })
-
-            document.querySelectorAll('.size_display').forEach(e => {
-                e.style['margin-top'] = '7px'
-            })
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px'
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = '382px'
-            })
-
-
-            document.querySelectorAll('.continue_shopping').forEach(e => {
-                e.style['width'] = '15%'
-            })
-
-            document.querySelector('.cart_page_area').style['padding-left'] = '10%'
-            document.querySelector('.cart_page_area').style['padding-right'] = '10%'
-
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
-
-</script>
-
 </body>
 
-<style>
-    .expired {
-        background: #F54748;
-    }
+<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/cart.css">
 
-    .no-go-button {
-        background: black !important;
-        opacity: 60%;
-    }
-
-    .warning-sight {
-        font-size: 14px;
-        color: wheat;
-        font-weight: 600;
-    }
-
-    @media only screen and (max-width: 575px) {
-        .cart_page_area {
-            padding-left: 0;
-            padding-right: 0;
-            width: auto;
-        }
-
-        .color_display, .size_display, .product_quantity, .product_price {
-            display: none;
-        }
-
-        .product_title {
-            font-size: 16px;
-        }
-
-        .product_infor {
-            width: 75%;
-        }
-
-        .remove {
-            margin-left: 10px;
-        }
-
-        .home, .men, .women {
-            display: block !important;
-        }
-    }
-</style>
 </html>

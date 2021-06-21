@@ -269,7 +269,7 @@
             pres.innerHTML = `
                         <div class="product_image product_view_${product.id}">
                             <a href="/product.html?product_id=${product.id}">
-                                <img src="${product.big_image_link}" alt="">
+                                <img src="${product.big_image_link}" alt=""/>
                                 <div class="box_content">
                                     <div class="men_box_content_icon">
                                         <a href="#"><i class="far fa-heart"></i></a>
@@ -359,6 +359,11 @@
 
 
 <style>
+    @media only screen and (max-width: 720px) {
+        .men {
+            display: none;
+        }
+    }
 
 </style>
 </html>

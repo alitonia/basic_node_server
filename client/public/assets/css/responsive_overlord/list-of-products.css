@@ -1,3 +1,27 @@
+.product_text_info {
+    text-align: center;
+}
+
+.product_image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box_content {
+    width: 80%;
+    justify-content: space-evenly;
+}
+
+.box_content > a {
+    display: none;
+}
+
+.men_box_content_icon, .box_content_icon, .women_box_content_icon {
+    margin-left: 0px;
+}
+
 @media only screen and (max-width: 877px) {
     .product_title {
         font-size: 16px;
@@ -9,7 +33,5 @@
         font-size: 14px;
     }
 
-    .product_text_info {
-        text-align: center;
-    }
+
 }

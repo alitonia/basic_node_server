@@ -118,7 +118,7 @@
             <div class="row_members">
                 <div class="member">
                     <div class="pic">
-                        <img src="./assets/images/aboutus/hoang.png" style="height:382px"
+                        <img src="./assets/images/aboutus/hoang.png"
                              alt="hoanglietsu">
                     </div>
                     <div class="team-content">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="member">
                     <div class="pic">
-                        <img src="./assets/images/aboutus/hung.jpg" style="height:382px" alt="hungvippro">
+                        <img src="./assets/images/aboutus/hung.jpg" alt="hungvippro">
                     </div>
                     <div class="team-content">
                         <h3 class="title">Pham Ngoc Hung</h3>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="member">
                     <div class="pic">
-                        <img src="./assets/images/aboutus/khai.png" style="height:382px" alt="khaicute">
+                        <img src="./assets/images/aboutus/khai.png" alt="khaicute">
                     </div>
                     <div class="team-content">
                         <h3 class="title">Do Van Khai</h3>
@@ -161,7 +161,7 @@
                     <li>Contact@yourcompany.com</li>
                 </ul>
             </div>
-            <div class="single_footer">
+            <div class="single_footer chosen-footer">
                 <h4>INFORMATION</h4>
                 <ul>
                     <li>About us</li>
@@ -171,7 +171,7 @@
                     <li>Contact us</li>
                 </ul>
             </div>
-            <div class="single_footer service">
+            <div class="single_footer service chosen-single">
                 <h4>Service</h4>
                 <ul>
                     <li>My Account</li>
@@ -252,197 +252,15 @@
         document.querySelector('.cart_button').style.display = 'none'
     }
 </script>
-
-<script>
-    const selectChange = (selectors, styleObj) => {
-        document.querySelectorAll(selectors).forEach(e => {
-            Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
-        })
-    }
-
-    const compactChange = (classNames, styleObj) => {
-        classNames.forEach(className => {
-            document.querySelectorAll(`.${className}`).forEach(e => {
-                Object.keys(styleObj).forEach(k => e.style[k] = styleObj[k])
-            })
-        })
-    }
-
-    const changeVisibility = (classNames, value, all = false) => {
-        if (all === false) {
-            classNames.forEach(className => {
-                console.log(className)
-                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
-            })
-        } else {
-            classNames.forEach(className => {
-                document.querySelectorAll(`.${className}`).forEach(e => {
-                    e.style.display = value ? 'initial' : 'none'
-                })
-            })
-        }
-    }
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 640) {
-
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'flex-start'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '16px'
-            })
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-            changeVisibility(['service'], false)
-        } else if (width <= 760) {
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'space-around'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '80px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '0px'
-            })
-
-            changeVisibility(['service'], true)
-
-            changeVisibility(['women', 'men'], false)
-            document.querySelector('.sign_up').style['margin-left'] = '0px'
-            document.querySelector('.sign_up').style['margin-right'] = '10px'
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelector('.content_area').style['margin-top'] = '0px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = 'auto'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-        } else {
-
-            changeVisibility(['service'], true)
-
-            changeVisibility(['women', 'men'], true)
-            //sign in-up
-            document.querySelector('.content_area').style['margin-top'] = '90px'
-
-            document.querySelector('.sign_up').style['margin-left'] = '50px'
-            document.querySelector('.sign_up').style['margin-right'] = '20px'
-
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '1px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px'
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = '382px'
-            })
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
-</script>
-
-<style>
-    @media only screen and (max-width: 640px) {
-        .sign_in_up {
-            float: none;
-            padding-left: 70px;
-        }
-
-        .about_us_container_area {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .row_about_inner {
-            display: block;
-        }
-
-        .about_img_area {
-            width: 100%;
-        }
-
-        .content_area {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .row_members {
-            display: block;
-        }
-
-        .member {
-            max-width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .home, .men, .women {
-            display: block !important;
-        }
-    }
-</style>
 </body>
+
+<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
+
 </html>
