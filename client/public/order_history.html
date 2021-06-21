@@ -129,7 +129,7 @@
     </div>
 
     <div class="cart_page_area">
-        <div class="cart_page_container" style="overflow: scroll;">
+        <div class="cart_page_container">
 
             <div class="board-space" style="width:100%">
                 <table class="styled-table">
@@ -175,7 +175,7 @@
                         <li>Contact@yourcompany.com</li>
                     </ul>
                 </div>
-                <div class="single_footer">
+                <div class="single_footer chosen-footer">
                     <h4>INFORMATION</h4>
                     <ul>
                         <li>About us</li>
@@ -185,7 +185,7 @@
                         <li>Contact us</li>
                     </ul>
                 </div>
-                <div class="single_footer service">
+                <div class="single_footer service chosen-single">
                     <h4>Service</h4>
                     <ul>
                         <li>My Account</li>
@@ -307,11 +307,15 @@
             ${orders.reduce((acc, cur) => {
                 const {id = null, order_date = '', status,} = cur
                 const highlight = status === 'pending'
+                const lowlight = status === 'cancelled'
+                const devlight = status === 'delivered'
+
+
                 const canView = true;
 
                 if (id !== null) {
                     return acc + `
-                    <tr class="${highlight ? 'active-row' : 'normal-row'}">
+                    <tr class="${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'low-row' : ' '} ${devlight ? 'dev-row' : ' '}">
                         <td>${id}</td>
                         <td>${order_date}</td>
                         <td>${capitalize(status)}</td>
@@ -333,105 +337,48 @@
 
     start()
 </script>
-
-
-<script>
-
-    const changeVisibility = (classNames, value, all = false) => {
-        if (all === false) {
-            classNames.forEach(className => {
-                console.log(className)
-                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
-            })
-        } else {
-            classNames.forEach(className => {
-                document.querySelectorAll(`.${className}`).forEach(e => {
-                    e.style.display = value ? 'initial' : 'none'
-                })
-            })
-        }
-    }
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 760) {
-            changeVisibility(['women', 'men'], false)
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '0px'
-                document.querySelector('.sign_up').style['margin-right'] = '10px'
-            }
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = 'auto'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-        } else {
-            changeVisibility(['women', 'men'], true)
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '50px'
-                document.querySelector('.sign_up').style['margin-right'] = '20px'
-            }
-
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '1px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px'
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = '382px'
-            })
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
-
-</script>
 </body>
+
 <style>
+    .normal-row {
+        font-weight: bold;
+        color: #053742;
+    }
+
+    .low-row {
+        font-weight: bold;
+        color: #D83A56;
+    }
+
+    .dev-row {
+        font-weight: bold;
+        color: #F5A962;
+    }
+
+    @media only screen and (max-width: 1080px) {
+        .cart_page_area {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+    }
+
+    @media only screen and (max-width: 980px) {
+        .styled-table th, .styled-table td {
+            padding: 12px 0;
+        }
+
+        .styled-table {
+            min-width: 460px !important;
+        }
+
+        .board-space {
+            overflow-y: scroll;
+        }
+    }
+
     @media only screen and (max-width: 676px) {
-        .header_navbar {
-            display: block !important;
-        }
-
-        .menu_list {
-            overflow: scroll !important;
-            justify-content: flex-start !important;
-        }
-
-        .menu_item {
-            margin: 0 !important;
+        .styled-table th, .styled-table td {
+            font-size: 14px;
         }
 
         .menu_item > a {
@@ -444,18 +391,6 @@
 
         .footer_btm_area {
             display: block !important;
-        }
-
-        .footer_copyright, .footer_payment_icon {
-            width: auto !important;
-        }
-
-        .service {
-            display: none !important;
-        }
-
-        .men, .women, .home {
-            display: block !important
         }
 
         .cart_page_area {
@@ -471,5 +406,21 @@
             min-width: auto;
         }
     }
+
+    @media only screen and (max-width: 520px) {
+
+
+    }
 </style>
+
+<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/cart.css">
+
 </html>

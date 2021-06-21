@@ -15,7 +15,7 @@ fake.add_provider(address)
 products_id_collection = [i + 1 for i in range(PRODUCT_LIMIT)]
 customers_id_collection = [i + 1 for i in range(CUSTOMER_LIMIT)]
 size_options = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXL']
-status_options = ['created', 'pending', 'cancelled', 'confirmed', 'delivered']
+status_options = ['pending', 'cancelled', 'confirmed', 'delivered']
 payment_options = ['paypal', 'bank']
 
 
