@@ -1,0 +1,109 @@
+.home-back {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1110px) {
+    .icon-success {
+        width: 11%;
+    }
+
+    .icon-success img {
+        max-width: 72%;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .extra, .icon-success {
+        display: none
+    }
+
+    .transaction_page_container {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .success-message {
+        width: auto;
+        padding: 20px 0 0 0;
+        margin-bottom: 70px;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .success-message {
+        width: auto;
+        padding: 20px 0 0 0;
+        margin-bottom: 70px;
+    }
+
+    .success-message h2 {
+        font-size: 44px;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .menu_wrap {
+        display: none;
+    }
+
+    .success-message {
+        width: auto;
+        padding: 20px 0 0 0;
+        margin-bottom: 40px;
+    }
+
+    .success-message h2 {
+        font-size: 35px;
+    }
+
+    .home-back a {
+        font-size: 14px;
+        padding: 4px 14px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .success-message {
+        width: auto;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .success-message > h2 {
+        font-size: 28px;
+    }
+
+    .transaction_page_container {
+        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .success-message > h2 {
+        font-size: 30px;
+    }
+
+    .transaction_title_area {
+        display: none;
+    }
+
+    .transaction_page_container {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .success-message > h2 {
+        font-size: 26px;
+    }
+
+    .success-message {
+        margin-bottom: 30px;
+    }
+
+    .transaction_page_area {
+        margin-bottom: 40px;
+    }
+}

@@ -31,6 +31,10 @@
     .men, .women {
         display: flex;
     }
+
+    .log_out {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 630px) {

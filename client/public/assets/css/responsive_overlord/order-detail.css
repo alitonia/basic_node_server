@@ -1,0 +1,39 @@
+@media only screen and (max-width: 635px) {
+    .billing_details, .your_order {
+        width: auto;
+    }
+
+    .radio_value {
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .transaction_page_area {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .transaction_title_area {
+        margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="password"], input[type="radio"], input[type="checkbox"], input[type="file"], textarea, select {
+        font-size: 14px;
+    }
+
+    .list_nav {
+        display: none;
+    }
+
+    th, td {
+        font-size: 15px;
+    }
+
+    .aboutus {
+        display: none;
+    }
+
+    .custom-radio p {
+        padding-left: 6%;
+    }
+}

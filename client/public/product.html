@@ -127,7 +127,6 @@
                     </div>
                 `)
             }
-            handleChangeWith(document.documentElement.clientWidth)
         }
 
         const handleColorClick = (x) => {
@@ -434,178 +433,21 @@
 </script>
 
 
-<script>
+</body>
 
-    const changeVisibility = (classNames, value, all = false) => {
-        if (all === false) {
-            classNames.forEach(className => {
-                console.log(className)
-                document.querySelector(`.${className}`).style.display = value ? 'initial' : 'none'
-            })
-        } else {
-            classNames.forEach(className => {
-                document.querySelectorAll(`.${className}`).forEach(e => {
-                    e.style.display = value ? 'initial' : 'none'
-                })
-            })
-        }
-    }
-
-    const handleChangeWith = (width) => {
-        console.log(width)
-        if (width <= 500) {
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'flex-start'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'block'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '16px'
-            })
-            document.querySelectorAll('.product_item_list').forEach(e => {
-                e.style['width'] = 'auto'
-            })
-            changeVisibility(['women', 'men'], false)
-
-            changeVisibility(['service'], false)
-        } else if (width <= 760) {
-            document.querySelectorAll('.header_navbar').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.menu_list').forEach(e => {
-                e.style.overflow = 'scroll'
-                e.style.justifyContent = 'space-around'
-            })
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['line-height'] = '80px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px';
-            })
-
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.footer_btm_area').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.footer_copyright, .footer_payment_icon').forEach(e => {
-                e.style['margin-top'] = '0px'
-            })
-
-            changeVisibility(['service'], true)
-            changeVisibility(['women', 'men'], false)
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '0px'
-                document.querySelector('.sign_up').style['margin-right'] = '10px'
-            }
-            document.querySelector('.col_left').style['padding-left'] = '10px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '0px'
-            })
-
-            document.querySelectorAll('.product_details').forEach(e => {
-                e.style['width'] = '100%'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = 'auto'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 10px';
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'none'
-            })
-
-            document.querySelectorAll('.p_image').forEach(e => {
-                e.style.width = '300px'
-                e.style.height = 'auto'
-            })
-
-            document.querySelectorAll('.product_details_info').forEach(e => {
-                e.style['margin-left'] = '30px'
-            })
-
-        } else {
-            document.querySelectorAll('.product_details_info').forEach(e => {
-                e.style['margin-left'] = '70px'
-            })
-            document.querySelectorAll('.p_image').forEach(e => {
-                e.style.width = 'auto'
-                e.style.height = '100%'
-            })
-            document.querySelectorAll('.product_details').forEach(e => {
-                e.style['width'] = '80%'
-            })
-
-            changeVisibility(['women', 'men'], true)
-            //sign in-up
-            if (document.querySelector('.sign_up')) {
-                document.querySelector('.sign_up').style['margin-left'] = '50px'
-                document.querySelector('.sign_up').style['margin-right'] = '20px'
-            }
-
-            document.querySelector('.col_left').style['padding-left'] = '0px'
-
-            document.querySelectorAll('.menu_item').forEach(e => {
-                e.style['margin'] = '1px'
-            })
-
-            document.querySelectorAll('.menu_item > a').forEach(e => {
-                e.style['margin'] = '0px 20px'
-            })
-
-            document.querySelectorAll('.box_content').forEach(e => {
-                e.style.display = 'flex'
-            })
-            document.querySelectorAll('.pic>img').forEach(e => {
-                e.style['height'] = '382px'
-            })
-        }
-    }
-
-    window.addEventListener('resize', (window) => {
-        const {clientWidth: width} = document.documentElement
-        handleChangeWith(width)
-    })
-
-    console.log(document.documentElement.clientWidth)
-    handleChangeWith(document.documentElement.clientWidth)
-
-</script>
+<link rel="stylesheet" href="assets/css/responsive_overlord/order-history.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/cart.css">
 
 <style>
     @media only screen and (max-width: 500px) {
-
-        .sign_in_up {
-            float: none;
-            padding-left: 53px;
-        }
-
-        .sign_in a h3, .sign_up a h3, .log_out a h3 {
-            margin-top: 0;
-        }
-
         .col_right {
             display: none
         }
@@ -644,10 +486,6 @@
             height: auto;
         }
 
-        .home, .men, .women {
-            display: block !important;
-        }
-
         .product_img {
             margin: 0 auto !important;
         }
@@ -665,5 +503,4 @@
         }
     }
 </style>
-</body>
 </html>
