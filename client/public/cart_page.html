@@ -182,7 +182,7 @@
     }
 
     const handleRemove = (product_id, receipt_id, color, size) => {
-        console.log(product_id, receipt_id, color, size)
+        // console.log(product_id, receipt_id, color, size)
 
         return fetch('/order', {
             method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
@@ -207,7 +207,7 @@
                 alert('Your session has ended. Please login to continue.')
                 document.location.href = '/login.html'
             } else {
-                console.log(res)
+                // console.log(res)
                 return res.json()
             }
         }).then(x => {

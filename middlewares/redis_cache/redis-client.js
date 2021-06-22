@@ -12,5 +12,7 @@ module.exports = {
     _client: client,
     getAsync: promisify(client.get).bind(client),
     setAsync: promisify(client.set).bind(client),
-    keysAsync: promisify(client.keys).bind(client)
+    keysAsync: promisify(client.keys).bind(client),
+    flushAllAsync: promisify(client.flushall).bind(client),
+    deleteAsync: promisify(client.del).bind(client),
 };

@@ -137,7 +137,7 @@ module.exports.updateCategory = async (req, res) => {
                     res.status(501)
                     return res.send({error: "Can't upload your file"})
                 }
-                console.log(pendingName)
+                // console.log(pendingName)
 
                 const base64Data = body['image_link'].replace(/^data:image\/(png|jpe?g);base64,/, "");
                 await wfile(path.join(saveImageRoute, pendingName), base64Data, 'base64');
@@ -152,7 +152,7 @@ module.exports.updateCategory = async (req, res) => {
 
         const modifyingQuery = updateCategoryQuery(id, reqOb)
 
-        console.log(modifyingQuery)
+        // console.log(modifyingQuery)
 
         try {
             await pool.query(modifyingQuery)
@@ -176,7 +176,7 @@ module.exports.updateCategory = async (req, res) => {
             && isUploadedPath(currentImagePath)
             && fs.existsSync(oldImagePath)
         ) {
-            console.log('uploaded image: ', oldImagePath)
+            // console.log('uploaded image: ', oldImagePath)
             await dfile(oldImagePath)
         }
 

@@ -301,7 +301,7 @@
             products = []
         } = o
 
-        console.log(o)
+        // console.log(o)
 
 
         document.querySelector('.first_name').value = first_name
@@ -404,7 +404,7 @@
         const id = current_url.searchParams.get('receipt_id')
         const receipt = await getOrderDetails(id)
 
-        console.log(receipt)
+        // console.log(receipt)
         if (!receipt) {
             return
         }

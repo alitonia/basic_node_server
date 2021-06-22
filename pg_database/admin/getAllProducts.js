@@ -10,7 +10,7 @@ const sql_select_all = (query) => {
         + ` ORDER BY ${sortby} ${order} `
         + `LIMIT ${limit} OFFSET ${offset}`
         + ' ;'
-    console.log(q)
+    // console.log(q)
     return q
 }
 

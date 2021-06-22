@@ -70,7 +70,7 @@ module.exports.getAllCategories = async (req, res) => {
             is_short = false
         } = query ?? {}
 
-        console.log(order, sortby)
+        // console.log(order, sortby)
         if (
             (order && !allowedOrder.includes(order))
             || (sortby && !allowedSortby.includes(sortby))
@@ -79,7 +79,7 @@ module.exports.getAllCategories = async (req, res) => {
         }
 
         const sql = sql_select_all(query)
-        console.log(sql)
+        // console.log(sql)
 
         const result = await pool.query(sql)
         res.send(result.rows)

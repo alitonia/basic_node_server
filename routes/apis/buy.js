@@ -16,6 +16,7 @@ route.post('/buy',
     body('city').isString(),
     body('note').isString().optional({nullable: true}),
     body('hidden_payment').isString(),
-    purchase);
+    purchase
+);
 
 module.exports = route;

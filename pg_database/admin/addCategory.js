@@ -108,7 +108,7 @@ module.exports.addACategory = async (req, res) => {
                 res.status(501)
                 return res.send({error: "Can't upload your file"})
             }
-            console.log(pendingName)
+            // console.log(pendingName)
 
             const base64Data = body['image_link'].replace(/^data:image\/(png|jpe?g);base64,/, "");
             await wfile(path.join(saveImageRoute, pendingName), base64Data, 'base64');
@@ -120,16 +120,16 @@ module.exports.addACategory = async (req, res) => {
             return res.send({error: "Internal error"})
         }
 
-        console.log(reqOb)
+        // console.log(reqOb)
 
         const modifyingQuery = addNewCategory(reqOb)
 
-        console.log(modifyingQuery)
+        // console.log(modifyingQuery)
 
 
         try {
             const result = await pool.query(modifyingQuery)
-            console.log(result)
+            // console.log(result)
         } catch (e) {
             console.log(e)
 

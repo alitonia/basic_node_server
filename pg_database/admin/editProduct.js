@@ -26,7 +26,7 @@ module.exports.getAllCategories = async (req, res) => {
         return res.status(400).json({errors: errors.array()});
     }
     try {
-        console.log(req.body)
+        // console.log(req.body)
         // const query = req.query
         // const {is_short = false} = query || {}
         // const result = await pool.query(sql_select_all(query))

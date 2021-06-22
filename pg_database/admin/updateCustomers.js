@@ -51,7 +51,7 @@ module.exports.updateCustomer = async (req, res) => {
 
         const modifyingQuery = updateProductQuery(id, reqOb)
 
-        console.log(modifyingQuery)
+        // console.log(modifyingQuery)
 
         try {
             await pool.query(modifyingQuery)

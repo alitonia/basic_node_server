@@ -74,7 +74,7 @@
 <script>
     const info = parseJwt(structuredCookie['admin_token'])
     const name = info.user.name
-    console.log(info, name)
+    // console.log(info, name)
 
     document.querySelectorAll('.welcome').forEach(e => {
         e.innerText = `Welcome ${name}` || 'Welcome admin'

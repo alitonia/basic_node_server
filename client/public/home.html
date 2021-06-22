@@ -336,7 +336,7 @@
                 if (x.error) {
                     return undefined
                 }
-                console.log('p', x)
+                // console.log('p', x)
                 return x
             }).catch(err => {
                 return null
@@ -421,7 +421,7 @@
     }
 
     const handleSeeMore = () => {
-        console.log(currentPromo)
+        // console.log(currentPromo)
         window.location.href = `/products.html?title=${currentPromo}&sortby=${currentPromo.toLowerCase()}`
     }
 

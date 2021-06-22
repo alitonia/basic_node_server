@@ -42,3 +42,11 @@ On Window:
 
 ### TODO:
 
+* Caching
+* CSP
+* Secure parameter
+* Helmet
+* Network docker compose
+* Change port node
+* Refactor
+

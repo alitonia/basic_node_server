@@ -3,10 +3,6 @@ const route = express.Router();
 const passport = require('passport')
 const {generateAccessToken} = require("../../utils/generateToken");
 
-route.get('/admin/login', function (req, res, next) {
-        res.send('hello')
-    }
-)
 
 route.post('/admin/login', function (req, res, next) {
     passport.authenticate('local_admin', function (err, user, info) {

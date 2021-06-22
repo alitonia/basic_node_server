@@ -26,7 +26,7 @@ route.post('/signup',
                 res.status(401)
                 return res.send("Email has been used.")
             } else {
-                console.log(req.body)
+                // console.log(req.body)
                 createUser({
                     name: name,
                     email: username,
@@ -35,7 +35,7 @@ route.post('/signup',
                     if (err) {
                         console.log(err)
                         res.status(401)
-                        return res.send("Invalid request 1")
+                        return res.send("Invalid request")
                     } else {
                         return res.send('ok')
                     }

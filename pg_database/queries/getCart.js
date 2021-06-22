@@ -30,7 +30,7 @@ const get_existing_cart = (id) => {
 
 module.exports.getCart = (req, res) => {
     const user_id = req.user.id
-    console.log(req.user)
+    // console.log(req.user)
 
     pool.query(get_existing_cart(user_id),
         (err, response) => {

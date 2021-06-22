@@ -5,6 +5,10 @@ const {findCategory} = require('../../pg_database/queries/category');
 const {body, validationResult, query, param} = require('express-validator');
 
 
-route.get('/category/:id', param('id').isNumeric(), findCategory);
+route.get(
+    '/category/:id',
+    param('id').isNumeric(),
+    findCategory
+);
 
 module.exports = route;

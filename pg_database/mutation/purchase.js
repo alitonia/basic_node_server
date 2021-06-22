@@ -75,7 +75,7 @@ exports.purchase = async (req, res) => {
     const body = req.body || {};
 
     try {
-        const user = await pool.query(checkUserActive)
+        const user = await pool.query(checkUserActive(user_id))
         if (user.rowCount === 0) {
             throw new Error('Invalid request')
         }
@@ -83,7 +83,7 @@ exports.purchase = async (req, res) => {
         const existing_orders = await pool.query(check_existing_orders(user_id))
 
         if (existing_orders.rowCount === 0) {
-            console.log('No product in cart')
+            // console.log('No product in cart')
             throw new Error('No products in cart')
         }
         const notHaveDeleted = existing_orders.rows.reduce((acc, cur) => acc && cur.available, true)
@@ -103,7 +103,7 @@ exports.purchase = async (req, res) => {
         const hasEnoughVar = Object.values(totalCountObject).reduce((acc, cur) => acc && cur.count <= cur.max, true)
 
         if (!notHaveDeleted || !hasEnoughVar) {
-            console.log('Have deleted product')
+            // console.log('Have deleted product')
             throw new Error('Your cart have out of stock products')
         }
 

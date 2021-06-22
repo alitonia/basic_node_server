@@ -299,7 +299,7 @@
             products = []
         } = o
 
-        console.log(o)
+        // console.log(o)
 
 
         document.querySelector('.first_name').value = first_name
@@ -333,7 +333,7 @@
             return acc
         }, {})
 
-        console.log('cart p', close_cart)
+        // console.log('cart p', close_cart)
 
         p.innerHTML = (`
             ${Object.values(close_cart).reduce((acc, item) => {
@@ -395,7 +395,7 @@
 
         const receipt = await getOrderDetails(id)
 
-        console.log(receipt)
+        // console.log(receipt)
         if (!receipt) {
             return
         }

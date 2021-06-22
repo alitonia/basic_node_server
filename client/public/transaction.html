@@ -358,7 +358,7 @@
                 if (x && x.error) {
                     throw new Error(x.error)
                 } else {
-                    console.log('No error')
+                    // console.log('No error')
                 }
                 document.location.href = '/order_success.html'
             }).catch(err => {
@@ -412,7 +412,7 @@
         if (!cart) {
             return
         }
-        console.log(cart)
+        // console.log(cart)
         cartData = cart
 
         const p = document.querySelector('.table-order > tbody')

@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 8080;
 const public_asset_path = 'client/public'
 const app = express();
 
+app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
 // app.use(helmet());
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -34,8 +36,7 @@ app.use(bodyParser.json());
 // configSession(app)
 passportConfig(app)
 
-// app.use(require('./middlewares/redis_cache/redis_get_middleware'))
-// app.use(require('./middlewares/rate_limiter/rate_limiter_middleware'))
+app.use(require('./middlewares/redis_cache/redis_get_middleware'))
 
 // api
 app.use(require('./routes/apis/product.js'))

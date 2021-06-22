@@ -234,7 +234,7 @@
 
         const products = await getProducts(sortby, order, page, searchby)
 
-        console.log(products)
+        // console.log(products)
         if (!products || products.length === 0) {
             return;
         }
@@ -361,7 +361,7 @@
 
 
     function processForm(e) {
-        console.log('here')
+        // console.log('here')
         if (e.preventDefault) {
             e.preventDefault();
         }

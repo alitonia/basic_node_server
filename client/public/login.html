@@ -48,7 +48,7 @@
         const maybeUsername = current_url.searchParams.get('username')
 
         if (maybeUsername) {
-            console.log(maybeUsername)
+            // console.log(maybeUsername)
             document.getElementById('email').value = maybeUsername
         }
     }
@@ -91,7 +91,7 @@
                     throw new Error(data.statusText)
                 }
                 data.json().then(x => {
-                    console.log(x.token)
+                    // console.log(x.token)
                 })
                 window.location.href = "home.html"
             }).catch(err => {

@@ -91,7 +91,6 @@ VALUES
                 chosen_index = randint(0, len(product_image_paths) - 1)
                 image_links += f"'{product_image_paths[chosen_index]}'"
 
-                product_image_paths.pop(chosen_index)
                 if j != number_of_images - 1 and len(product_image_paths) > 0:
                     image_links += ','
                 image_links += '\n'

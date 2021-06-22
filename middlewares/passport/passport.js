@@ -41,7 +41,7 @@ exports.passportConfig = (app) => {
             },
             async (token, done) => {
                 try {
-                    console.log(token)
+                    // console.log(token)
                     if (token.user && token.user.admin_id) {
                         return done(null, token.user);
                     }

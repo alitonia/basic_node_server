@@ -78,7 +78,7 @@
                 return;
             }
             productData = product
-            console.log(product)
+            // console.log(product)
             // document.querySelector('.product_page_name').innerText = product.name
             document.querySelector('.product_img').innerHTML = (`
                             <img class="p_image" src="${product.big_image_link}" alt="">
@@ -136,7 +136,7 @@
             }
             document.querySelector('.color_value').value = x
             document.querySelector(`.pd_color.color_${x.slice(1,)}`).style.border = '2px solid #33d286'
-            console.log(x)
+            // console.log(x)
         }
 
         const handleSizeClick = (x) => {
@@ -149,7 +149,7 @@
             document.querySelector('.size_value').value = x
             document.querySelector(`.pd_size.size_${x}`).style.border = '2px solid #33d286'
             document.querySelector(`.pd_size.size_${x} > span`).style.color = '#33d286'
-            console.log(x)
+            // console.log(x)
         }
 
 

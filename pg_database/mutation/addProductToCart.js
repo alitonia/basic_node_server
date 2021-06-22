@@ -26,18 +26,6 @@ const create_cart = (user_id) => {
     )
 }
 
-const buy_product = (id, quantity) => {
-    return (
-        `
-            UPDATE products
-            set quantity = quantity - ${quantity}
-            where id = ${id};
-
-        `
-    )
-}
-
-
 const check_existing_orders = (receipt_id, product_id, color, size) => {
     return (
         `SELECT *
@@ -119,7 +107,7 @@ module.exports.addToCart = (req, res) => {
 
                         pool.query(check_existing_cart(user_id), (err, response) => {
                             if (err || response.rows.length === 0) {
-                                console.log('k', err, response)
+                                // console.log('k', err, response)
                                 res.status(403)
                                 return res.send({error: 'Error create new cart 1'})
                             } else {

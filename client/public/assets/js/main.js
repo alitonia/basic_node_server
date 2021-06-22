@@ -43,7 +43,7 @@ function addEventClickDot() {
 
 function addEventClickNextSlide() {
     nextSlide.addEventListener("click", () => {
-        console.log(slideIndex);
+        // console.log(slideIndex);
         currentSlide(slideIndex);
     })
 }

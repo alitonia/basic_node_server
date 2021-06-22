@@ -673,7 +673,7 @@
             // button.style.background = s
 
             button.onclick = () => {
-                console.log(s)
+                // console.log(s)
             }
             button.appendChild(deleteSelfIcon)
 
@@ -725,7 +725,7 @@
             button.style.background = c
 
             button.onclick = () => {
-                console.log(c)
+                // console.log(c)
             }
             button.appendChild(deleteSelfIcon)
 
@@ -785,7 +785,7 @@
 
 
     function processForm(e) {
-        console.log('here')
+        // console.log('here')
         if (e.preventDefault) {
             e.preventDefault();
         }
@@ -855,7 +855,7 @@
             const para = document.createElement('p');
             if (validFileType(file)) {
                 const sizeInKB = returnFileSizeInKB(file.size)
-                console.log(sizeInKB)
+                // console.log(sizeInKB)
                 const isTooBig = sizeInKB > maxUploadSize
                 if (isTooBig) {
                     para.classList.add('danger-file-size')
@@ -894,7 +894,7 @@
                 }
 
                 const newValue = JSON.stringify(pOb.concat(value))
-                console.log(newValue)
+                // console.log(newValue)
                 oldColorsInput.value = newValue
 
                 const button = document.createElement('button')
@@ -927,7 +927,7 @@
                 button.style.background = value
 
                 button.onclick = () => {
-                    console.log(value)
+                    // console.log(value)
                 }
                 button.appendChild(deleteSelfIcon)
 
@@ -936,7 +936,7 @@
                 }
 
                 button.onmouseleave = () => {
-                    console.log(value)
+                    // console.log(value)
                     button.style.background = value
                 }
 
@@ -963,7 +963,7 @@
             }
 
             const newValue = JSON.stringify(pOb.concat(value))
-            console.log(newValue)
+            // console.log(newValue)
             oldSizesInput.value = newValue
 
             const button = document.createElement('button')
@@ -996,7 +996,7 @@
             // button.style.background = s
 
             button.onclick = () => {
-                console.log(value)
+                // console.log(value)
             }
             button.appendChild(deleteSelfIcon)
 
@@ -1096,7 +1096,7 @@
         const formData = new FormData(e.target)
 
         const submit_type = formData.get('submit_type')
-        console.log(submit_type)
+        // console.log(submit_type)
 
         const isEdit = submit_type === 'edit'
         const isAdd = !isEdit
@@ -1134,7 +1134,7 @@
 
         const uploadedFile = formData.get('big_image_link')
         const fileSize = returnFileSizeInKB(uploadedFile.size)
-        console.log(fileSize)
+        // console.log(fileSize)
 
         if (fileSize > maxUploadSize) {
             alert(`Your image is too large. Max upload file size is ${maxUploadSize}KB`)
@@ -1151,7 +1151,7 @@
         const type = reqBody['big_image_link'].type
         const allowedType = /^image\/(png|jpe?g)$/
 
-        console.log(type)
+        // console.log(type)
 
         const isImageNotChange = reqBody['big_image_link'] && reqBody['big_image_link'].size === 0
 

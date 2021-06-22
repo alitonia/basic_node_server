@@ -305,7 +305,7 @@
             `)
         } else {
             injectSpace.innerHTML = (`
-            ${orders.reduce((acc, cur) => {
+            ${orders.sort((a, b) => b.id - a.id).reduce((acc, cur) => {
                 const {id = null, order_date = '', status,} = cur
                 const highlight = status === 'pending'
                 const lowlight = status === 'cancelled'
