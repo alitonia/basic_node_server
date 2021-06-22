@@ -3,6 +3,7 @@ const route = express.Router();
 const redis = require('./redis-client')
 
 redis.flushAllAsync()
+// redis.setAsync('/assets/css/base.css', 'Hello')
 
 const updatedTimeline = {
     '/products': 100
@@ -83,11 +84,15 @@ const invalidatePaths = (pathOrigin) => {
     related.forEach(p => setPathUpdated(p))
 }
 
+const regCSS = /^.*\.css/
+
 route.get('/*', ((req, res, next) => {
     const key = req.url
     const oldSend = res.send
     const oldSendFile = res.sendFile
     const params = req.params
+
+    console.log(key)
 
     const k = extractPathName(key)
 
