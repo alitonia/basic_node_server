@@ -42,9 +42,8 @@ On Window:
 
 ### TODO:
 
-* Change port node
-* Secure parameter
 * Network docker compose
+* Secure parameter
 * CSP
 * Helmet
 * Refactor

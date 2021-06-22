@@ -25,8 +25,7 @@ services:
   postgres:
     image: postgres:10.4
     container_name: db
-    ports:
-      - "5432:5432"
+
     volumes:
       - ./docker_data/db-docker:/var/lib/postgresql/data
     environment:
@@ -38,5 +37,4 @@ services:
     image: library/redis:6.2.1-alpine
     container_name: cache
     command: redis-server --requirepass admin123456
-    ports:
-      - "6379:6379"
+

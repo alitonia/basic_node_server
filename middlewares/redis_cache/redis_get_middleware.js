@@ -84,7 +84,6 @@ const invalidatePaths = (pathOrigin) => {
     related.forEach(p => setPathUpdated(p))
 }
 
-const regCSS = /^.*\.css/
 
 route.get('/*', ((req, res, next) => {
     const key = req.url
@@ -99,9 +98,6 @@ route.get('/*', ((req, res, next) => {
     if (noCache[k]) {
         return next()
     }
-
-    // console.log(req.method)
-    // console.log(req.url)
 
     redis.getAsync(key)
         .then((data) => {

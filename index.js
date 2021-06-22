@@ -36,6 +36,8 @@ app.use(bodyParser.json());
 // configSession(app)
 passportConfig(app)
 
+app.use(require('./middlewares/cacheControl/cacheControl.js'))
+
 app.use(require('./middlewares/redis_cache/redis_get_middleware'))
 
 // api
@@ -98,9 +100,9 @@ app.get('/doc', (req, res) => {
 
 
 app.use(express.static(path.join(__dirname, public_asset_path), {
-    // maxAge: 1000 * 60 * 60 * 24 * 265,
-    // etag: false,
-    // immutable: true
+    maxAge: 1000 * 60 * 60 * 24 * 265,
+    etag: false,
+    immutable: true
 }));
 
 app.get('/*', (req, res) => {
