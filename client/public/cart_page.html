@@ -247,6 +247,7 @@
             }
         }).then(x => {
             if (x && x.error) {
+                document.querySelector('.message_status').style.display = 'none'
                 throw new Error(x.error)
             }
             return x

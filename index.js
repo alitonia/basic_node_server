@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const {passportConfig} = require('./middlewares/passport/passport.js')
 const {configSession} = require('./middlewares/session/express_session')
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 80;
 const public_asset_path = 'client/public'
 const app = express();
 
