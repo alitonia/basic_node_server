@@ -14,7 +14,6 @@ const getCategory = async () => {
     if (category_id) {
         return fetch(`/category/${category_id}`, {
             mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json'
@@ -40,9 +39,9 @@ const getCategory = async () => {
 const get_products = async (id) => {
     const page_number = url.searchParams.get('page') || 0
     const offset = page_number * 20;
+
     return fetch(`/products?category_id=${id}&offset=${offset}`, {
         mode: 'same-origin', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
             'Content-Type': 'application/json'

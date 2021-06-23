@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
     <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+    <script src="./assets/js/visitor.js"></script>
 
     <title>Order Detail</title>
 
@@ -359,7 +360,6 @@
         return fetch(`/order/${id}`, {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'same-origin', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',

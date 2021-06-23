@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="./assets/css/home/footer.css">
     <link rel="stylesheet" href="./assets/css/about_us/about_us.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="./assets/js/visitor.js"></script>
 
     <title>Home</title>
 
@@ -301,8 +302,7 @@
 
 <script>
 
-    const limit = document.documentElement.clientWidth > 360 ? 12 : 6;
-
+    const limit = document.documentElement.clientWidth > 360  ? (isRecentlyVisited ? 12 : 4) : 6;
 
     const parseCookie = str => {
         if (str === '') {
