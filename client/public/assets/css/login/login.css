@@ -1,6 +1,6 @@
 body {
     /* background-image: url("https://cdn.dribbble.com/users/230268/screenshots/6444217/hopp.png"); */
-    background-image: url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");
+    background-image: url("/assets/images/login/p.webp");
     /* background-size: 50%; */
     background-size: cover;
     background-repeat: no-repeat;
@@ -10,12 +10,12 @@ body {
     padding: 20px;
 }
 
-.btn-home{
+.btn-home {
     width: 10%;
     height: 40px;
     background-color: #0b6338;
     margin-top: 30px;
-    float:left;
+    float: left;
     position: absolute;
     border-radius: 10px;
     text-align: center;
@@ -26,7 +26,8 @@ body {
     font-size: 20;
     font-weight: bold;
 }
-.btn-home:hover{
+
+.btn-home:hover {
     cursor: pointer;
     background-color: rgb(110, 15, 44);
     outline: none;

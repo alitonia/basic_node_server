@@ -9,8 +9,18 @@
     <link rel="stylesheet" href="./assets/css/contact/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
-    <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
 
+    <link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/contact-us.css">
+    <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src *; style-src 'self' https://cdnjs.cloudflare.com; script-src 'self'">
     <title>Contact</title>
 </head>
 <body>
@@ -81,29 +91,27 @@
     <div class="contact_page_container">
         <div class="contact_input">
             <h3>Get in Touch</h3>
-            <form class="form_area" action="/contact.html?submitted=true">
+            <form class="form_area feedback_form" action="./contact.html?submitted=1">
                 <div class="form_row">
                     <div class="form_name">
                         <input class="form_control input_area" type="text" placeholder="Name*" required>
                     </div>
                     <div class="form_email">
-                        <input class="form_control input_area" type="text" placeholder="Email*" required>
+                        <input class="form_control input_area" type="email" placeholder="Email*" required>
                     </div>
                 </div>
                 <div class="form_subject">
-                    <input class="form_control_subject input_area" type="text" placeholder="Subject">
+                    <input class="form_control_subject input_area" type="text" placeholder="Subject" required>
                 </div>
                 <div class="form_message">
                         <textarea class="form_control_message input_area" placeholder="Message" rows="10"
-                                  cols="68"></textarea>
+                                  cols="68" required></textarea>
                 </div>
                 <div class="message_area">
 
                 </div>
                 <div class="submit_area">
-                    <button class="btn" onclick="(()=>{window.location.href='./contact.html?submitted=1'})()">Send
-                        Message
-                    </button>
+                    <button class="btn submit_button_msg" type="submit">Send Message</button>
                 </div>
             </form>
         </div>
@@ -201,103 +209,9 @@
         </div>
     </div>
 </footer>
-</div>
+
+<script src="assets/js/generic_f/1.js"></script>
+<script src="assets/js/contact/2.js"></script>
+
 </body>
-<script>
-    const parseCookie = str => {
-        if (str === '') {
-            return {}
-        }
-        return str
-            .split(';')
-            .map(v => v.split('='))
-            .reduce((acc, v) => {
-                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-                return acc;
-            }, {});
-    }
-
-    const structuredCookie = parseCookie(document.cookie)
-
-    function parseJwt(token) {
-        try {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
-            return JSON.parse(jsonPayload);
-        } catch (e) {
-            return null
-        }
-    }
-
-    const checkLogin = (type = 'customer') => {
-        if (!structuredCookie || !structuredCookie.token) {
-            return false
-        }
-
-        const neededField = (type === 'customer') ? 'id' : 'admin_id'
-        const token = structuredCookie['token']
-        const tokens = token instanceof Array ? token : [token]
-
-        return tokens.reduce((acc, cur) => {
-            const parsedJWT = parseJwt(cur)
-            return acc || (parsedJWT && parsedJWT.user && parsedJWT.user[neededField])
-        }, false)
-    }
-
-    const isLogin = checkLogin()
-
-    function deleteCookie(path) {
-        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
-    }
-
-    function handleLogout() {
-        deleteCookie()
-        document.location.replace(window.location.href)
-    }
-
-    function loginUpperBar() {
-        document.querySelector('.sign_in_up').innerHTML = `
-        <div class="log_out">
-            <a onclick="handleLogout()">
-                <h3>Log out</h3>
-            </a>
-        </div>
-        `
-    }
-
-    if (isLogin) {
-        loginUpperBar()
-        document.querySelector('.cart_button').style.display = 'initial'
-    } else {
-        document.querySelector('.cart_button').style.display = 'none'
-    }
-
-</script>
-
-<script>
-    const success_msg = `
-    <h3 style="margin: 5px 5px 8px 0;font-size: 13px;color: #33d286;">
-        Submitted successfully
-    </h3>
-    `
-    const current_url = new URL(window.location.href)
-    const maybeSuccess = current_url.searchParams.get('submitted')
-    if (maybeSuccess) {
-        document.querySelector('.message_area').innerHTML = success_msg
-    }
-</script>
-
-<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/contact-us.css">
-
 </html>

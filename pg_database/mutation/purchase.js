@@ -1,4 +1,5 @@
 const pool = require('../connect_database.js');
+const {validationResult} = require("express-validator");
 
 const purchaseCurrentCart = (id, body, totalCountObject) => {
     const {
@@ -71,6 +72,11 @@ const checkUserActive = (customer_id) => {
 
 
 exports.purchase = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({error: 'Invalid request'});
+    }
+
     const user_id = req.user.id
     const body = req.body || {};
 

@@ -51,12 +51,18 @@
                         password: pwd
                     })
                 }).then(data => {
-                    if (data.status === 200) {
+                    if (data.status < 400) {
                         //server redirect
                         window.location = `/login.html?username=${email}`;
                     }
-                }).catch(err => {
-                    alert('Something went wrong');
+                    return data.json()
+                })
+                    .then(x => {
+                        if (x && x.error) {
+                            throw new Error(x.error)
+                        }
+                    }).catch(err => {
+                    alert(err.message);
                 })
             }
         }

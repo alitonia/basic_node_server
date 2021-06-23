@@ -11,7 +11,8 @@ route.delete(
     body('product_id').isNumeric(),
     body('receipt_id').isNumeric(),
     body('color').isHexColor(),
-    body('size').isString(),
-    removeOrder);
+    body('size').notEmpty().isString().escape(),
+    removeOrder
+);
 
 module.exports = route;

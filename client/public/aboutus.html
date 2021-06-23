@@ -6,13 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
 
-    <title>About us</title>
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/home/main.css">
     <link rel="stylesheet" href="./assets/css/contact/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/home/footer.css">
     <link rel="stylesheet" href="./assets/css/about_us/about_us.css">
+    <link rel="stylesheet" href="./assets/css/extra-base.css">
+
+
+    <link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+    <link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
+
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; style-src 'self' https://cdnjs.cloudflare.com; script-src 'self'; font-src https://cdnjs.cloudflare.com">
+
+    <title>About us</title>
+
 </head>
 <body>
 
@@ -89,7 +105,7 @@
                 <img src="assets/images/aboutus/baby_powder.jpg">
             </div>
             <div class="content_area">
-                <h2 style="line-height: 23px;">WHO WE ARE</h2>
+                <h2 class="clear-water">WHO WE ARE</h2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -207,60 +223,8 @@
         </div>
     </div>
 </footer>
-<script>
-
-    const parseCookie = str => {
-        if (str === '') {
-            return {}
-        }
-        return str
-            .split(';')
-            .map(v => v.split('='))
-            .reduce((acc, v) => {
-                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
-                return acc;
-            }, {});
-    }
-
-    const structuredCookie = parseCookie(document.cookie)
-
-    const isLogin = !!structuredCookie['token']
-
-    function deleteCookie(path) {
-        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
-    }
-
-    function handleLogout() {
-        deleteCookie()
-        document.location.replace(window.location.href)
-    }
-
-    function loginUpperBar() {
-        document.querySelector('.sign_in_up').innerHTML = `
-        <div class="log_out">
-            <a onclick="handleLogout()">
-                <h3>Log out</h3>
-            </a>
-        </div>
-        `
-    }
-
-    if (isLogin) {
-        loginUpperBar()
-        document.querySelector('.cart_button').style.display = 'initial'
-    } else {
-        document.querySelector('.cart_button').style.display = 'none'
-    }
+<script src="assets/js/generic_f/1.js">
 </script>
 </body>
-
-<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
 
 </html>

@@ -10,8 +10,8 @@ route.get(
     query('offset').isNumeric().optional({nullable: true}),
     query('category_id').isNumeric().optional({nullable: true}),
     query('limit').isNumeric().optional({nullable: true}),
-    query('sortby').isString().optional({nullable: true}),
-    query('search').isString().optional({nullable: true}),
+    query('sortby').isString().optional({nullable: true}).escape(),
+    query('search').isString().optional({nullable: true}).escape(),
     findAll
 );
 //localhost/products

@@ -132,3 +132,47 @@ root {
 .sign_up > a, .sign_in > a {
     white-space: nowrap;
 }
+
+.click-able {
+    cursor: pointer;
+}
+
+.ugly-text {
+    text-decoration: none;
+}
+
+.no-wrap, .nowrap {
+    white-space: nowrap;
+}
+
+.bif-text {
+    font-size: 20px;
+}
+
+.white-wish {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.biffer-text {
+    line-height: 23px
+}
+
+.little-pad {
+    padding: 5px;
+}
+
+.big-top-gap {
+    margin-top: 30px;
+}
+
+.big-boy {
+    font-size: 2ch;
+}
+
+.defer-text {
+    color: rgb(57, 167, 62);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 2.5ch;
+}

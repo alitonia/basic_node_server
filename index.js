@@ -101,8 +101,8 @@ app.get('/doc', (req, res) => {
 
 app.use(express.static(path.join(__dirname, public_asset_path), {
     maxAge: 1000 * 60 * 60 * 24 * 265,
-    etag: false,
-    immutable: true
+    // etag: false,
+    // immutable: true
 }));
 
 app.get('/*', (req, res) => {

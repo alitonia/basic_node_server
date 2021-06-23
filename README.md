@@ -42,9 +42,8 @@ On Window:
 
 ### TODO:
 
-* Network docker compose
+* type, size check file upload
 * Secure parameter
-* CSP
-* Helmet
-* Refactor
-
+* refactoring
+* better bootstrap
+* remove secret out of dockerfile

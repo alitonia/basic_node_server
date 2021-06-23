@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/login.css"/>
-    <title>Sign In Page</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/extra-base.css"/>
     <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
 
     <link rel="stylesheet" href="./assets/css/login/login.css">
+    <link rel="stylesheet" href="./assets/css/responsive_overlord/login.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive_overlord/login.css"/>
+
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; style-src 'self' https://cdnjs.cloudflare.com; script-src 'self'; font-src https://cdnjs.cloudflare.com; img-src 'self';">
+
+    <title>Sign In Page</title>
+
 </head>
 <body>
-<div class="btn-home" style="cursor:pointer" onclick="(()=>window.location.href='/home.html')()">
-    <a href="./home.html" style="text-decoration: none;color: #ffffff;">Home Page</a>
+<div class="btn-home click-able wanna-go-home">
+    <a href="./home.html" class="white-wish">Home Page</a>
 </div>
 <!-- <center> -->
 <!-- Begin div main -->
@@ -26,15 +33,14 @@
     <div class="login">
         <input type="text" placeholder="Email address" id="email" class="tb email_f"/><br class="extra-line">
         <input type="password" placeholder="Password" id="password" class="tb password_f"/>
-        <input type="submit" value="SIGN IN" onclick="login()" class="btn submit-btn" style="margin-top:30px;"/><br>
+        <input type="submit" value="SIGN IN" class="btn submit-btn big-top-gap login-button-true"/><br>
         <!-- End of login box -->
     </div>
     <br class="extra-line">
     <div class="footer-content">
-        <span style="font-size: 2ch;" class="dont-have">Don't have account?</span>
+        <span class="dont-have big-boy">Don't have account?</span>
         <p><b><a href="signup.html"
-                 style="color: rgb(57, 167, 62);text-decoration: none; font-weight: 500;font-size: 2.5ch;"
-                 class="sign-up-red">SIGN UP
+                 class="sign-up-red defer-text">SIGN UP
             NOW</a></b></p>
     </div>
 
@@ -42,67 +48,7 @@
 </div>
 <!-- </center> -->
 
-<script>
-    function injectCallbackUsername() {
-        const current_url = new URL(window.location.href)
-        const maybeUsername = current_url.searchParams.get('username')
-
-        if (maybeUsername) {
-            // console.log(maybeUsername)
-            document.getElementById('email').value = maybeUsername
-        }
-    }
-
-    injectCallbackUsername();
-
-    function login() {
-        const email = document.getElementById("email").value;
-        const pwd = document.getElementById("password").value;
-        const filter = /^([a-zA-Z0-9_.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-        if (email === '') {
-            alert("please enter user name.");
-        } else if (pwd === '') {
-            alert("enter the password");
-        } else if (!filter.test(email)) {
-            alert("Enter valid email id.");
-        } else if (pwd.length < 6) {
-            alert("Password min is 6.");
-        } else {
-            // post
-            const target_route = '/login';
-
-            fetch(target_route, {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'same-origin', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify({
-                    email: email,
-                    password: pwd
-                })
-            }).then(data => {
-                if (data.status >= 400) {
-                    throw new Error(data.statusText)
-                }
-                data.json().then(x => {
-                    // console.log(x.token)
-                })
-                window.location.href = "home.html"
-            }).catch(err => {
-                alert('Invalid username or password');
-            })
-
-        }
-    }
-</script>
+<script src="assets/js/login/login.js"></script>
+<script src="assets/js/404/gohome.js"></script>
 </body>
-
-<link rel="stylesheet" href="./assets/css/responsive_overlord/login.css">
-
 </html>

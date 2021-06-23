@@ -1,15 +1,18 @@
 const express = require('express');
 const route = express.Router();
 const redis = require('./redis-client')
+const {randRange} = require("../../utils/randRange");
 
 redis.flushAllAsync()
-// redis.setAsync('/assets/css/base.css', 'Hello')
 
 const updatedTimeline = {
     '/products': 100
 }
 
-const _noCache = ['/meme']
+const _noCache = [
+    // '/meme'
+]
+
 
 const noCache = _noCache.reduce((acc, cur) => {
     acc[cur] = 1
@@ -18,7 +21,8 @@ const noCache = _noCache.reduce((acc, cur) => {
 
 
 const groups = [
-    ['/admin/products', '/products', '/product', '/buy', '/get_cart_id',],
+    ['/admin/products', '/product', '/buy', '/get_cart_id',],
+    ['/admin/products', '/products', '/product', '/get_cart_id',],
     ['/admin/categories', '/categories', '/category/:id',],
     ['/admin/orders', '/orders', '/buy', '/get_cart_id', '/order', '/add_to_cart'],
     ['/admin/customers', '/get_cart_id', '/signup'],
@@ -56,15 +60,27 @@ const extractPathName = (path) => {
     }
 }
 
+const MAX_STALE = 1000 * 60 * 5
+
 const isValid = (path, time) => {
-    return path && (!updatedTimeline[path] || updatedTimeline [path] <= time)
+    if (!path) {
+        // console.log('+++++++++++++++++++++')
+        return false
+    }
+    if (!updatedTimeline[path]) {
+        return true
+    }
+    return (updatedTimeline[path] <= time)
+        && updatedTimeline[path] <= Date.now() + MAX_STALE;
+
 }
 
-const setPathUpdated = (path) => {
+const setPathUpdated = (path, exactTime) => {
     const k = extractPathName(path)
     if (k) {
-        console.log('******', k)
-        updatedTimeline[k] = Date.now()
+        const time = exactTime || Date.now()
+        // console.log('******', k, time)
+        updatedTimeline[k] = time
     }
 }
 
@@ -80,18 +96,17 @@ const invalidatePaths = (pathOrigin) => {
     setPathUpdated(barePath)
 
     const related = getRelated(barePath)
-    console.log(related)
+    // console.log(`////`, related)
     related.forEach(p => setPathUpdated(p))
 }
 
+const getDeviatedTime = () => {
+    return Date.now() + randRange(1000 * 60 * 2)
+}
 
 route.get('/*', ((req, res, next) => {
     const key = req.url
     const oldSend = res.send
-    const oldSendFile = res.sendFile
-    const params = req.params
-
-    console.log(key)
 
     const k = extractPathName(key)
 
@@ -104,24 +119,28 @@ route.get('/*', ((req, res, next) => {
             let sendData = null
             if (data !== null && data !== undefined) {
                 const {data: returnData, savedTime} = JSON.parse(data)
+
                 if (isValid(k, savedTime)) {
                     sendData = returnData
                 } else {
+                    // console.log('bad key ' + key)
                     redis.deleteAsync(key)
                 }
             }
 
             if (sendData !== null && sendData !== undefined) {
-                console.log('cached', key)
+                // console.log('cached', key)
                 return res.status(200).send(sendData);
             } else {
                 res.send = function (chunk) {
+                    // console.log(`setting ${key}`)
                     if (chunk !== undefined) {
+                        const savingTime = getDeviatedTime()
                         redis.setAsync(
                             key,
                             JSON.stringify({
                                 data: chunk,
-                                savedTime: Date.now()
+                                savedTime: savingTime
                             })
                         )
                             .catch((err) => {
@@ -142,7 +161,7 @@ route.get('/*', ((req, res, next) => {
 
 route.post('/*', ((req, res, next) => {
     const key = req.url
-    console.log('post', key)
+    // console.log('post', key)
     invalidatePaths(key)
     return next()
 }))
@@ -150,7 +169,7 @@ route.post('/*', ((req, res, next) => {
 
 route.put('/*', ((req, res, next) => {
     const key = req.url
-    console.log('put', key)
+    // console.log('put', key)
     invalidatePaths(key)
     return next()
 }))

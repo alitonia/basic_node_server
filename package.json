@@ -24,6 +24,7 @@
     "express-validator": "^6.11.1",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-jwt": "^4.0.0",

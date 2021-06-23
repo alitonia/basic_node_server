@@ -6,16 +6,16 @@ const {body, validationResult, query, param} = require('express-validator');
 
 route.post('/buy',
     passport.authenticate('jwt', {session: false}),
-    body('first_name').isString(),
-    body('last_name').isString(),
-    body('company_name').isString(),
-    body('phone_number').isNumeric(),
-    body('country').isString(),
-    body('address').isString(),
-    body('postcode').isString(),
-    body('city').isString(),
-    body('note').isString().optional({nullable: true}),
-    body('hidden_payment').isString(),
+    body('first_name').trim().notEmpty().isString().escape(),
+    body('last_name').trim().notEmpty().isString().escape(),
+    body('company_name').trim().notEmpty().isString().escape(),
+    body('phone_number').trim().notEmpty().isString().escape(),
+    body('country').trim().notEmpty().isString().escape(),
+    body('address').trim().notEmpty().isString().escape(),
+    body('postcode').trim().notEmpty().isString().escape(),
+    body('city').trim().notEmpty().isString().escape(),
+    body('note').trim().isString().escape().optional({nullable: true}),
+    body('hidden_payment').trim().notEmpty().isString().escape(),
     purchase
 );
 

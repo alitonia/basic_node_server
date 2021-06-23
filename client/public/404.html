@@ -11,7 +11,20 @@
     <link rel="stylesheet" href="/assets/css/transaction/transaction.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/assets/css/home/footer.css">
+    <link rel="stylesheet" href="/assets/css/extra-base.css">
 
+
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/general.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/header.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/slider.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/category_bundle.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/product-bundle.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/footer.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/list-of-products.css">
+    <link rel="stylesheet" href="/assets/css/responsive_overlord/404.css">
+
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; style-src 'self' https://cdnjs.cloudflare.com; script-src 'self'; font-src https://cdnjs.cloudflare.com">
     <title>404 Error</title>
 </head>
 <body>
@@ -19,8 +32,7 @@
     <header class="header">
         <div class="grid">
             <div class="header_navbar">
-                <div class="logo" style="cursor:pointer"
-                     onclick="(()=>{window.location.href='/home.html'})()">
+                <div class="logo click-able wanna-go-home">
                     <img src="/assets/images/logo/logo.png" alt="logo">
                 </div>
                 <div class="menu_wrap">
@@ -68,9 +80,8 @@
             <div class="failed-message">
                 <h2>404 NOT FOUND <span class="extra">!!!</span></h2>
             </div>
-            <div class="home-back" style="cursor:pointer"
-                 onclick="(()=>{window.location.href='/home.html'})()">
-                <a href="/home.html" style="text-decoration: none;">Back to Home</a>
+            <div class="home-back click-able wanna-go-home">
+                <a href="/home.html" class="ugly-text">Back to Home</a>
             </div>
         </div>
 
@@ -136,14 +147,6 @@
     </footer>
 </div>
 
+<script src="/assets/js/404/gohome.js"></script>
 </body>
-
-<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
-<link rel="stylesheet" href="assets/css/responsive_overlord/404.css">
 </html>

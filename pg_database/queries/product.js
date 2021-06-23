@@ -10,9 +10,8 @@ const sql_select_all = (query) => {
 
 module.exports.find = (req, res) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({error: 'Invalid request'});
     }
 
     pool.query(sql_select_all(req.params),

@@ -35,7 +35,7 @@ const remove = (target_id, product_id, quantity, color, size) => {
 module.exports.removeOrder = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({error: errors.array()});
+        return res.status(400).json({error: 'Invalid request'});
     }
 
     pool.query(get(req.body), (err, response) => {

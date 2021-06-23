@@ -8,9 +8,9 @@ route.post(
     '/add_to_cart',
     passport.authenticate('jwt', {session: false}),
     body('product_id').isNumeric(),
-    body('quantity').isNumeric(),
+    body('quantity').isInt({min: 1, max: 99}),
     body('color').isHexColor(),
-    body('size').isString(),
+    body('size').notEmpty().trim().isString().escape(),
     addToCart
 );
 

@@ -32,8 +32,9 @@ const get_receipts_by_userID = (customer_id, receipt_id) => {
 module.exports.getReceipt = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({error: 'Invalid request'});
     }
+
     const user_id = req.user.id
     const receipt_id = req.params.id
 

@@ -1,4 +1,5 @@
 const pool = require('../connect_database.js');
+const {validationResult} = require("express-validator");
 
 const get_receipts_by_userID = (id) => {
     return (
@@ -11,6 +12,11 @@ const get_receipts_by_userID = (id) => {
 }
 
 module.exports.getReceipts = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({error: 'Invalid request'});
+    }
+
     const user_id = req.user.id
 
     pool.query(get_receipts_by_userID(user_id),
