@@ -20,7 +20,7 @@ const isIMG = (url) => {
 
 const liveSave = {}
 
-const cooldownTime = 1000 * 5
+const cooldownTime = 1000 * 10
 const limitTry = 4
 
 const incrementLiveSave = (ip) => {
