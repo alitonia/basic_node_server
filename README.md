@@ -42,6 +42,7 @@ On Window:
 
 ### TODO:
 
+* remove unused fields n db and fake gen
 * type, size check file upload
 * Secure parameter
 * refactoring

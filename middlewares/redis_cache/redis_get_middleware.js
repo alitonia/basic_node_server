@@ -11,6 +11,7 @@ const updatedTimeline = {
 
 const _noCache = [
     // '/meme'
+    '/get_cart_id'
 ]
 
 
